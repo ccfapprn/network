@@ -2,15 +2,23 @@
 
 .list-group
   %a.list-group-item{href: content_path(page: "about_partners"), class: "#{"active" if @page == "about_partners"}"}
-    About Partners
+    About CCFA Partners
   -# %a.list-group-item{href: content_path(page: "about_kids_and_teens"), class: "#{"active" if @page == "about_kids_and_teens"}"}
   -#   About Kids and Teens
+  -#%a.list-group-item{href: content_path(page: "research_team"), class: "#{"active" if @page == "research_team"}"}
+  -#  Research Team
+  %a.list-group-item{href: content_path(page: "leadership_team"), class: "#{"active" if @page == "leadership_team"}"}
+    Governance and Leadership
+  %a.list-group-item{href: content_path(page: "scientific_team"), class: "#{"active" if @page == "scientific_team"}"}
+    Scientific Team
+  %a.list-group-item{href: content_path(page: "technical_team"), class: "#{"active" if @page == "technical_team"}"}
+    Technical Team
+  %a.list-group-item{href: content_path(page: "patient_governance"), class: "#{"active" if @page == "patient_governance"}"}
+    Patient Governance Committee
+  -# %a.list-group-item{href: content_path(page: "results"), class: "#{"active" if @page == "results"}"}
+  -#   Results
   %a.list-group-item{href: content_path(page: "about_ccfa"), class: "#{"active" if @page == "about_ccfa"}"}
     About CCFA
-  %a.list-group-item{href: content_path(page: "research_team"), class: "#{"active" if @page == "research_team"}"}
-    Research Team
-  %a.list-group-item{href: content_path(page: "results"), class: "#{"active" if @page == "results"}"}
-    Results
   %a.list-group-item{href: content_path(page: "faq"), class: "#{"active" if @page == "faq"}"}
     FAQ
 
