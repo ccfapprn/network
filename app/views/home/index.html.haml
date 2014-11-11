@@ -50,7 +50,15 @@
     = render partial: "shared/team_carousel", locals: { users: User.with_role(:tech_team).limit(6) }
     = render partial: "shared/blog_posts", locals: { blog_posts: @posts, new_blog_post: @new_post, short: false }
   #tutorial.tab-pane
-    Tutorial Goes Here
+    %h3 Welcome to the Blog Page! 
+    %p In this area you will be able to read blog posts with the most up-to-date network news, member perspectives on important issues, and responses to IBD questions proposed by network members. You will be able to read blog posts from the Patient Team, Technical Team, Research Team, and IBD Help Center.
+    %ul
+      %li The <strong>Patient Team</strong> includes individuals with IBD who are not only members of the network but also serve on the Patient Governance Team and are involved in all important network decisions.
+      %li The <strong>Technical Team</strong> includes software and technology experts who are responsible for the development and maintenance all of site features, including those designed to help you manage your IBD (such as the Health Tracker).
+      %li The <strong>Research Team</strong> includes IBD researchers, administrative staff, and data analysts - all of whom are responsible for the day-to-day research activities associated with CCFA Partners.   
+      %li The <strong>IBD Help Center</strong> is staffed by IBD information specialists who are here to answer any questions you have about IBD. You can post a question by clicking the “Ask” link found on the Blog page (Note: The “Ask” link is also found on the Resources page). Each month, the IBD Help Center will post a blog, <strong>“Top 5 Questions”</strong>, that answers the five questions that were most frequently asked over the past month. Even if your question is not answered in this monthly blog, you will still receive a personal email response to your question from one of CCFA’s IBD information specialists. 
+
+
 
 
 -##### HOW TO LOAD AJAXY ######
