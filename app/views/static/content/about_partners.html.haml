@@ -11,17 +11,17 @@
 
 %ol
   %li 
-    %u.h4
+    %span.h4
       %strong Patient-centered:
     We place great emphasis on making all aspects of the CCFA Partners study patient-centered. “Patient-centered research” means that patients and the IBD research community partner with each other and work as a team. We believe patient input is critical to the research process. We even have patients on our leadership and governance committees, who are responsible for making all important study-related decisions.
 
   %li
-    %u.h4
+    %span.h4
       %strong Thousands of members:
     CCFA Partners is a large study with thousands of members. Because this study is so big, we will be able to answer research questions that are difficult for smaller studies to answer. We will also be able to understand how different treatments or behaviors affect specific groups of people, which will make it possible to individualize treatment decisions in the future.
 
   %li
-    %u.h4
+    %span.h4
       %strong Long-term:
     Crohn’s disease and ulcerative colitis are lifelong conditions. The most important questions to patients relate to how their disease and treatments affect their health over a long period of time. To answer these questions, members are asked to complete surveys twice a year for many years. This will help researchers understand Crohn’s and colitis better than ever before.  Think of it as a movie - rather than a snapshot or one-time picture - of their disease. 
 
@@ -44,7 +44,7 @@
   .col-sm-1
     =image_tag "about_health_tracker.jpg"
   .col-sm-11
-    %u.h4
+    %span.h4
       %strong Health tracker:
     Easily track your health and see how different health behaviors influence your disease. For example, you could view a graph that shows how your sleep habits influence your disease activity. You could then discuss these findings with your doctor to develop a better treatment plan.
 %br/
@@ -52,7 +52,7 @@
   .col-sm-1
     =image_tag "about_research_democracy.jpg"
   .col-sm-11
-    %u.h4
+    %span.h4
       %strong Research democracy:
     Suggest and vote on research questions that you’d like answered. The most popular questions (those with the most votes) will be prioritized by  the network, and researchers will team up with interested patients to design and implement these studies.
 %br/
@@ -60,7 +60,7 @@
   .col-sm-1
     =image_tag "about_social_network.jpg"
   .col-sm-11
-    %u.h4
+    %span.h4
       %strong Social network:
     Create a social profile and find other participants who live near you. Customize your profile to tell your story and share your experience.  It is completely up to you how much information you share on your profile, if any.
 
@@ -75,4 +75,9 @@
   CCFA Partners is a research effort, not a fund-raising effort. 
   %strong We will never ask you for monetary contributions.
 
-%p We believe this project has great potential to improve the lives of individuals with IBD.  If you are a patient with IBD, join us in this movement to understand IBD better than ever before. Please don’t underestimate your contributions. You really can make a difference. 
+%p
+  We believe this project has great potential to improve the lives of individuals with IBD.  If you are a patient with IBD, join us in this movement to understand IBD better than ever before. Please don’t underestimate your contributions. You really can make a difference. 
+  - if !current_user
+    If you are ready to join, 
+    =link_to "click here.",new_user_registration_path
+    
