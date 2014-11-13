@@ -45,7 +45,10 @@
 %h3.question What is Patient-Centered Outcomes Research?
 
 .answer
-  %p “Patient-Centered Outcomes Research” is a term used by PCORI (see definition above) to describe research focused on answering the questions that are most important to patients. It involves patients, caregivers, and clinicians, along with researchers, throughout the research process.  The CCFA Partners study proudly participates in Patient-Centered Outcomes Research. 
+  %p
+    “Patient-Centered Outcomes Research” is a term used by
+    =link_to "PCORI", "http://pcori.org/about-us"
+    to describe research focused on answering the questions that are most important to patients. It involves patients, caregivers, and clinicians, along with researchers, throughout the research process.  The CCFA Partners study proudly participates in Patient-Centered Outcomes Research. 
 
 %h3.question How much does it cost?
 
@@ -83,21 +86,23 @@
 %h3.question Is my information safe?
 
 .answer
-  %p We will work hard to protect the information you provide to CCFA Partners. Here are a few things we’ll do to protect your information. 1) Your information will always be stored in a very secure computer server at the University of North Carolina. 2) We will not give your contact information to anyone without your permission. 3) Identifiers, such as your name and address, will not be used in research and will be kept securely. 4) Reports about the survey will not identify you or any other participant --- we will just provide summary data.
+  %p We will work hard to protect the information you provide to CCFA Partners. Your information will always be stored in a very secure computer server at the University of North Carolina. We will not give your contact information to anyone without your permission. Identifiers, such as your name and address, will not be used in research and will be kept securely. Reports about the survey will not identify you or any other participant --- we will just provide summary data.
 
   %p 
     For more information about how we protect your information, please see our 
-    =link_to "Privacy Policy and Data Security Measures."
+    =link_to "Privacy Policy and Data Security Measures.", privacy_policy_document_path 
 
 %h3.question How will my information be used?
 
 .answer
-  %p The information you provide through surveys and by connecting your mobile health applications (such as FitBit, JawBone, etc.) will be studied by CCFA researchers. Researchers will use this information to learn more about treatment effects, health behaviors, and quality of life for individuals with IBD. Researchers hope to improve treatment outcomes and prevent complications. The information you contribute ultimately will help in reaching the goal of more rapid research progress, better treatments, and the cures we need.
+  %p The information you provide through surveys and by connecting your mobile health applications (such as FitBit, JawBone, etc.) will be studied by CCFA researchers. Researchers will use this information to learn more about treatment effects, health behaviors, and quality of life for individuals with IBD. The information you contribute ultimately will help in reaching the goal of more rapid research progress, better treatments, and the cures we need.
 
 %h3.answer What are the risks?
 
 .answer
-  %p The only possible risk in participating in CCFA Partners is loss of privacy. However, the information you give CCFA Partners is stored in a safe and secure location at the University of North Carolina. There are safeguards and passwords in place to prevent loss of privacy. For more information, please see our Privacy Policy and Data Security Measures.
+  %p
+    The only possible risk in participating in CCFA Partners is loss of privacy. However, the information you give CCFA Partners is stored in a safe and secure location at the University of North Carolina. There are safeguards and passwords in place to prevent loss of privacy. For more information, please see our 
+    =link_to "Privacy Policy and Data Security Measures.", privacy_policy_document_path 
 
 %h3.question What do I get for participating?
 
@@ -107,12 +112,9 @@
 %h3.question How do I join CCFA Partners?
 
 .answer
-  %p It’s easy to join. You will need to provide your name, email address, age, and disease type to register. We will send you an email confirmation to login. After you login, you will be asked to read and sign an electronic consent form and complete your initial survey, which should take about 20 minutes. After you’ve completed the survey, you will be able to use all of the other website features, such as the Health Tracker. Please follow this link to JOIN.
-
-%h3.question Can I set my own password?
-
-.answer
-  %p Our system generates a unique password for you automatically. These are embedded in the links included in our emails to you. However, you may set your own password by clicking on “My Settings” (top right corner of screen) after you login.
+  %p
+    It’s easy to join. You will need to provide your name, email address, age, and disease type to register. We will send you an email confirmation to login. After you login, you will be asked to read and sign an electronic consent form and complete your initial survey, which should take about 20 minutes. After you’ve completed the survey, you will be able to use all of the other website features, such as the Health Tracker. Please follow this link to
+    =link_to "JOIN.", new_user_registration_path
 
 %h3.question Do I need my password to take Partners surveys?
 
@@ -123,8 +125,11 @@
 
 .answer
   %p 
-    You can always complete your survey by using the email and password you have registered with us to log into CCFAPartners.org. We would also be happy to send you the email link again. To request that the email be sent again, please enter the email address you have registered with us
-    =link_to "here."
+    You can always complete your available surveys by visiting
+    =link_to "CCFAPartners.org", "http://ccfapartners.org"
+    \.  We would also be happy to send you another email with a link to your survey, if that's more convenient.  To request that your survey link be sent again, please contact us at
+    =mail_to "info@ccfapartners.org"
+    \.  Please include the email address you have registered with CCFA Partners in your request.
 
 %h3.question What if I have more than one email address?
 
@@ -134,14 +139,17 @@
 %h3.question I received more than one email to join CCFA Partners. Why?
 
 .answer
-  %p Each email address on file with CCFA received an invitation, so if you had more than one email address with CCFA, you received multiple invitations. To prevent this, please provide Partners with your alternate email addresses so we will know you are the same person. Contact us at CCFAPartners.org.
+  %p
+    Each email address on file with CCFA received an invitation, so if you had more than one email address with CCFA, you received multiple invitations. To prevent this, please provide Partners with your alternate email addresses so we will know you are the same person. Contact us at
+    =mail_to "info@ccfapartners.org"
+    \.
 
 %h3.question What should I do if I have a technical problem?
 
 .answer
   %p 
     If you have technical problems, please
-    =link_to "click here."
+    =link_to "click here.","https://cgibd.med.unc.edu/ccfapartners/help/techhelp.php"
 
 %h3.question What if I have more questions?
 
