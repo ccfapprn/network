@@ -15,7 +15,8 @@
 
       -# COMMUNITY CONTRIBUTIONS PANEL
       - if content_for(:community_contributions)
-        = yield :community_contributions
+        .community-scoreboard
+          = yield :community_contributions
         <br/><br/>
       - else
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -40,7 +41,7 @@
 
           .panel.panel-primary
             .panel-heading
-              Your Contributions
+              Badges You've Earned
             = yield :your_contributions
 
 
