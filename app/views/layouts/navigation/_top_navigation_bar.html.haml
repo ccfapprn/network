@@ -21,7 +21,7 @@
         %li
           %a{:href => main_app.content_path(page: "about_partners")} About
         %li
-          %a{:href => main_app.resources_path} Resources
+          %a{:href => main_app.resources_path(page: "resources_info")} Resources
         %li
           = mail_to Figaro.env.support_email, "Help"
 

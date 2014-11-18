@@ -3,8 +3,7 @@ source 'https://rubygems.org'
 # Required in Rails 4 for logs to work in production
 gem 'rails_12factor', group: :production
 
-#gem 'thin'
-gem 'puma'
+gem 'thin'
 gem 'airbrake'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

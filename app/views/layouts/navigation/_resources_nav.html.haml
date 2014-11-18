@@ -1,0 +1,15 @@
+
+
+.list-group
+  %a.list-group-item{href: resources_path(page: "resources_info"), class: "#{"active" if @page == "resources_info"}"}
+    Information About IBD
+  %a.list-group-item{href: resources_path(page: "resources_management"), class: "#{"active" if @page == "resources_management"}"}
+    Disease Management
+  %a.list-group-item{href: resources_path(page: "resources_support"), class: "#{"active" if @page == "resources_support"}"}
+    Support
+  %a.list-group-item{href: resources_path(page: "resources_advocacy"), class: "#{"active" if @page == "resources_advocacy"}"}
+    Advocacy
+
+%br/
+
+= render partial: "shared/promotion_to_join" if !current_user
