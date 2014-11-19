@@ -9,7 +9,9 @@
     Support
   %a.list-group-item{href: resources_path(page: "resources_advocacy"), class: "#{"active" if @page == "resources_advocacy"}"}
     Advocacy
-
-%br/
-
+-#
+-#%p.text-center
+-#  = mail_to Figaro.env.pprn_support_email, "<i class='fa-envelope-o fa'></i> Ask a Question About IBD".html_safe, {subject: "Ask your question to the IBD Help Center here.", class: "btn btn-success"}
+-#
+= render partial: "shared/ibd_help_center"
 = render partial: "shared/promotion_to_join" if !current_user
