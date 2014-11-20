@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get 'privacy_policy_document' => 'static#content', :page => "privacy_policy"
   get 'terms_of_service' => 'static#content', :page => "terms_of_service"
+  get 'contact' => 'static#content', :page => "contact"
 
 
 
