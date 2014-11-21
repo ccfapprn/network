@@ -16,4 +16,8 @@ class StaticController < ApplicationController
     render layout: "community"
   end
 
+  def splash
+    @page = params[:page]
+    render "/static/splash", :layout => "splash_layout"
+  end
 end
