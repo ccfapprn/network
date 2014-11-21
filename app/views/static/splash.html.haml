@@ -7,14 +7,14 @@
 .row
   -#  .col-md-8.col-md-offset-2
   .col-sm-12
-    .text-center
+    .text-center.ccfa-blue
       %h2 IBD Patients and Researchers:  A Revolutionary Partnership
     %br/
 .row
   .col-md-6
     %p
       %big
-        %strong
+        %strong.ccfa-blue
           CCFA Partners is an innovative network where patients and researchers work together
         to find better treatments for inflammatory bowel diseases (IBD) by looking beyond the doctor’s office.
     %p
@@ -30,6 +30,9 @@
       %p
         Already a Member?
         = link_to "Sign in", new_user_session_path
+        %br/
+        Under age 18?  Join
+        = link_to "CCFA Partners Kids & Teens", "https://cgibd.med.unc.edu/ccfapeds/"
 
   .col-md-6
     .embed-responsive.embed-responsive-16by9
@@ -40,7 +43,7 @@
 %br/
 .row
   .col-md-4
-    %h3.text-center A Patient-Centered Network
+    %h3.text-center.ccfa-blue A Patient-Centered Network
     .row
       .col-sm-4{:style => "padding-right: 0px"}
         =image_tag "people/nick_uzl.jpg", :class => "img-responsive img-thumbnail"
@@ -50,7 +53,7 @@
             “This new research model really is a game changer. For the first time, patients are involved at every step of the way; from overseeing the research process, to being participants in studies. By being involved in this new research paradigm, I am empowered, and really believe I am helping shape the future of IBD.” -Nick, patient
 
   .col-md-4
-    %h3.text-center Tools to Manage Your IBD
+    %h3.text-center.ccfa-blue Tools to Manage Your IBD
     .row
       .col-sm-4{:style => "padding-right: 0px"}
         =image_tag "people/jessica_burris.jpg", :class => "img-responsive img-thumbnail"
@@ -60,7 +63,7 @@
             “By tracking my health with Partners PPRN, I have better control over my Crohn’s Disease than ever before. Plus, I feel great about supporting innovative research that really listens to patients and looks for new ways to find a cure for IBD.” -Jessica, patient
 
   .col-md-4
-    %h3.text-center Your Questions Answered
+    %h3.text-center.ccfa-blue Your Questions Answered
     .row
       .col-sm-4{:style => "padding-right: 0px"}
         =image_tag "people/robert_sandler.jpg", :class => "img-responsive img-thumbnail"
