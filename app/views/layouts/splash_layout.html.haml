@@ -1,0 +1,33 @@
+!!!
+
+%html{lang: "en"}
+  %head
+
+    %title= yield(:title) + " " +Figaro.env.pprn_title
+    = render "layouts/before_scripts"
+
+
+  %body{screen_capture_injected: "true"}
+    .wide-blue.hidden-sm.hidden-xs
+    .wide-photo.hidden-sm.hidden-xs
+    .wide-green.hidden-sm.hidden-xs
+    .container{role: "main"}
+
+      = render "layouts/navigation/top_navigation_bar"
+      = render "layouts/flash_messages"
+
+      .wide-pad.hidden-sm.hidden-xs
+
+      - if content_for(:sublayout)
+        = yield :sublayout # the sublayouts must make their own call to yield
+      - else
+        = yield
+
+
+      = render "layouts/footer"
+      = render "layouts/after_scripts"
+
+
+
+
+

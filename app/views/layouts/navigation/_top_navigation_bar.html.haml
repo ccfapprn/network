@@ -8,7 +8,7 @@
 
     -#### Title
     %a{href: root_path, style: "color: #222"}
-      %h1.pull-left= Figaro.env.pprn_title
+      %span.pull-left=image_tag "ccfa_logo_120.gif", width: "400", class: "img-responsive"
 
 
     -##############
@@ -21,9 +21,9 @@
         %li
           %a{:href => main_app.content_path(page: "about_partners")} About
         %li
-          %a{:href => main_app.resources_path} Resources
+          %a{:href => main_app.resources_path(page: "resources_info")} Resources
         %li
-          = mail_to Figaro.env.support_email, "Help"
+          =link_to "Help", contact_path
 
 
         -##### User Account Stuff / Sign Out

@@ -8,9 +8,19 @@ gem 'airbrake'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7' #'4.2.0.beta4'
-# Use postgresql as the database for Active Record
-gem 'pg'
-# Use HAML for views
+
+group :pg do
+  # Use postgresql as the database for Active Record
+  gem 'pg'
+end
+
+group :oracle do
+  # Use oracle...
+  gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+  gem 'ruby-oci8', '~> 2.1.0'
+end
+
+# User HAML for views
 gem 'haml'
 
 # Debugging
@@ -28,6 +38,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.1.2' #'~> 4.0.0.beta2'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

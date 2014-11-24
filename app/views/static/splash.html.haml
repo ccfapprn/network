@@ -4,70 +4,73 @@
   .col-md-12
     = render partial: "/shared/avatar_mosaic"
 
-
-
-
-
 .row
-  .col-md-8.col-md-offset-2
-    .text-center
-      %h3 Join a Movement to Solve #{Figaro.env.pprn_condition} Together
+  -#  .col-md-8.col-md-offset-2
+  .col-sm-12
+    .text-center.ccfa-blue
+      %h2 IBD Patients and Researchers:  A Revolutionary Partnership
     %br/
-    %p Fusce erat velit, luctus at tempor non, hendrerit sit amet ligula. Praesent quis eleifend magna. Proin nec nibh ut mi elementum tristique sit amet non est. Etiam vitae molestie lectus. Mauris ut nisl augue. Donec sollicitudin ut erat eget vestibulum. Nunc condimentum dolor eget erat varius, sit amet vulputate ipsum feugiat. Duis porttitor dolor a tortor dignissim, vel fringilla elit interdum. Vestibulum vitae bibendum massa. Integer ultricies eleifend laoreet. In ut nisl purus.
-    %br/
-
-    <iframe src="//player.vimeo.com/video/110910837" width="620" height="350" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/110910837">CCFA PPRN Test Video</a> from <a href="http://vimeo.com/crohnology">Crohnology</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-
-
-%br/
-%br/
-%br/
-%br/
-
 .row
-  .col-md-4.col-md-offset-4.text-center
-    %a{:href => new_user_registration_path}
-      .btn.btn-lg.btn-primary.btn-block Join
-    %br/
+  .col-md-6
     %p
-      Already a Member?
-      = link_to "Sign in", new_user_session_path
+      %big
+        %strong.ccfa-blue
+          CCFA Partners is an innovative network where patients and researchers work together
+        to find better treatments for inflammatory bowel diseases (IBD) by looking beyond the doctor’s office.
+    %p
+      %big
+        If you’re a patient with Crohn’s disease or ulcerative colitis, managing your condition can affect the way you live your life, from the food you eat to where and when you socialize with friends.  With easy-to-use tracking tools, you’ll gain better control over your own health while shaping and supporting groundbreaking research that uses new ways to look for a cure.  Help us learn how IBD affects your life in order to make it better. 
 
+    .text-center
+      %a{:href => new_user_registration_path}
+        .btn.btn-lg.btn-primary
+          %span{:style => "padding: 0 20px 0 20px;"}
+            &nbsp; &nbsp; Get Started &nbsp; &nbsp;   
 
+      %p
+        Already a Member?
+        = link_to "Sign in", new_user_session_path
+        %br/
+        Under age 18?  Join
+        = link_to "CCFA Partners Kids & Teens", "https://cgibd.med.unc.edu/ccfapeds/"
+
+  .col-md-6
+    .embed-responsive.embed-responsive-16by9
+      %iframe.embed-responsive-item{"src" => "//player.vimeo.com/video/110910837"}
 
 %br/
 %br/
-
-
+%br/
 .row
-  - 3.times do
-    .col-md-4
-      .text-center
-        %i.fa.fa-square-o{:style => "font-size: 200px;"}
+  .col-md-4
+    %h3.text-center.ccfa-blue A Patient-Centered Network
+    .row
+      .col-sm-4{:style => "padding-right: 0px"}
+        =image_tag "people/nick_uzl.jpg", :class => "img-responsive img-thumbnail"
+      .col-sm-8
+        %p
+          %em
+            “This new research model really is a game changer. For the first time, patients are involved at every step of the way; from overseeing the research process, to being participants in studies. By being involved in this new research paradigm, I am empowered, and really believe I am helping shape the future of IBD.” -Nick, patient
 
-      %h4 Describe a Feature of the Network
+  .col-md-4
+    %h3.text-center.ccfa-blue Tools to Manage Your IBD
+    .row
+      .col-sm-4{:style => "padding-right: 0px"}
+        =image_tag "people/jessica_burris.jpg", :class => "img-responsive img-thumbnail"
+      .col-sm-8
+        %p
+          %em
+            “By tracking my health with Partners PPRN, I have better control over my Crohn’s Disease than ever before. Plus, I feel great about supporting innovative research that really listens to patients and looks for new ways to find a cure for IBD.” -Jessica, patient
 
-      %p Fusce erat velit, luctus at tempor non, hendrerit sit amet ligula. Praesent quis eleifend magna. Proin nec nibh ut mi elementum tristique sit amet non est. Etiam vitae molestie lectus. Mauris ut nisl augue. Donec sollicitudin ut erat eget vestibulum.
-
-
-
-%hr/
-
+  .col-md-4
+    %h3.text-center.ccfa-blue Your Questions Answered
+    .row
+      .col-sm-4{:style => "padding-right: 0px"}
+        =image_tag "people/robert_sandler.jpg", :class => "img-responsive img-thumbnail"
+      .col-sm-8
+        %p
+          %em
+            “I am very excited to be involved with CCFA Partners because it is completely focused on patient reported outcomes. For the first time, we have a study that is exclusively asking the questions that people with IBD care about – diet, sleep, fatigue, quality of life. The answers to these questions will allow us to provide better care.” - Dr. Robert Sandler, researcher
 
 
 %br/
-%br/
-
-
-.row
-  .col-md-4.col-md-offset-4.small
-    %form.form-horizontal{:role => "form"}
-      .form-group
-        %label.control-label.col-md-6{for: "inputPassword3"}
-          %i.fa.fa-globe &nbsp; Language:
-        .col-md-6
-          %select.form-control.small
-            %option
-              %i.fa.fa-globe
-              English
-            %option Spanish

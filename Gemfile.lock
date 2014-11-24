@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/openpprn/forem.git
-  revision: f0e7af7a5aa067e519d78244bc1280f3468df9ad
+  revision: 38460fd370d3222ad77c5a72e5ca3597a2d5345e
   branch: rails-4.2
   specs:
     forem (1.0.0.beta1)
@@ -37,6 +37,7 @@ GEM
       activemodel (= 4.1.7)
       activesupport (= 4.1.7)
       arel (~> 5.0.0)
+    activerecord-oracle_enhanced-adapter (1.5.5)
     activesupport (4.1.7)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -57,7 +58,7 @@ GEM
     authority (3.0.0)
       activesupport (>= 3.0.0)
       rake (>= 0.8.7)
-    autoprefixer-rails (3.1.2.20141016)
+    autoprefixer-rails (4.0.0.1)
       execjs
     bcrypt (3.1.9)
     better_errors (2.0.0)
@@ -68,7 +69,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-generators (3.2.0)
       railties (>= 3.1.0)
-    bootstrap-sass (3.3.0.1)
+    bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     builder (3.2.2)
     byebug (3.5.1)
@@ -128,7 +129,7 @@ GEM
       tilt
     hike (1.2.3)
     i18n (0.6.11)
-    jbuilder (2.2.4)
+    jbuilder (2.2.5)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)
@@ -147,10 +148,9 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     mime-types (2.4.3)
-    mini_magick (3.8.1)
-      subexec (~> 0.2.1)
+    mini_magick (4.0.0)
     mini_portile (0.6.1)
-    minitest (5.4.2)
+    minitest (5.4.3)
     minitest-capybara (0.7.1)
       capybara (~> 2.2)
       minitest (~> 5.0)
@@ -208,6 +208,7 @@ GEM
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rolify (3.4.1)
+    ruby-oci8 (2.1.7)
     ruby-progressbar (1.7.0)
     rubyzip (1.1.6)
     sanitize (2.0.6)
@@ -247,7 +248,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    subexec (0.2.3)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -273,6 +273,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-oracle_enhanced-adapter (~> 1.5.0)
   acts-as-dag
   acts-as-taggable-on
   airbrake
@@ -305,6 +306,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet (~> 3.2.0)
   rolify
+  ruby-oci8 (~> 2.1.0)
   sass-rails (~> 4.0.4)
   sdoc (~> 0.4.0)
   selenium-webdriver
