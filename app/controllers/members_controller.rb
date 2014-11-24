@@ -17,7 +17,21 @@ class MembersController < ApplicationController
     else
       render :profile
     end
+    # Hack for Badge_Rules.rb to work correctly
+    @member = @social_profile
   end
+
+
+  # def update_profile
+  #   @social_profile = current_user.social_profile
+
+  #   if @social_profile.update(social_profile_params)
+  #     flash[:notice] = "Updated Successfully!"
+  #     redirect_to social_profile_path
+  #   else
+  #     render :profile
+  #   end
+  # end
 
 
   def locations

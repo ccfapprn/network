@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_merit
+
   rolify role_join_table_name: 'roles_users'
 
 
@@ -6,8 +8,8 @@ class User < ActiveRecord::Base
   include Authority::Abilities
 
   # Enable User Connection to External API Accounts
-  include ExternalUsers
-
+  include ExternalAccounts
+  has_one :external_account
 
   self.authorizer_name = "UserAuthorizer"
 
@@ -30,6 +32,16 @@ class User < ActiveRecord::Base
 
   # Named Scopes
   scope :search_by_email, ->(terms) { where("LOWER(#{self.table_name}.email) LIKE ?", terms.to_s.downcase.gsub(/^| |$/, '%')) }
+
+
+  # STUBS # TODO # TO IMPLEMENT
+  scope :social, -> { where("1=1") } #TODO MUST DEFINE SOCIAL USERS
+  def self.unique_cities_count
+    self.count #FIXME #TODO #STUB
+  end
+  def self.health_data_streams_count
+    340142 #FIXME #TODO #STUB
+  end
 
   def name
     return "Anonymous" unless first_name && last_name
@@ -73,7 +85,7 @@ class User < ActiveRecord::Base
     # Local Consent Storage
     # self.accepted_consent_at.present?
     # OODT Consent Storage
-    self.oodt_status
+    oodt_baseline_survey_complete
   end
 
   def forem_admin?
