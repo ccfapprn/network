@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/openpprn/forem.git
-  revision: af1ef26d6640a8f56a4ab0fa96f2da6047821d34
+  revision: f0e7af7a5aa067e519d78244bc1280f3468df9ad
   branch: rails-4.2
   specs:
     forem (1.0.0.beta1)
