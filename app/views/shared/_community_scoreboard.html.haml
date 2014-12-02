@@ -1,7 +1,7 @@
 .panel.panel-primary
   .panel-heading
     Community Contributions
-  .panel-body.text-right
+  .panel-body.text-center
     .row
       - if scores.count <= 3
         - scores.each do |label, value|
@@ -11,7 +11,7 @@
             %span.h0= pprn_number_to_human(value)
       - elsif scores.count >= 4
         - scores.each do |label, value|
-          .col-sm-3.col-xs-6
+          .col-sm-3.col-xs-6{:title => "something"}
             = label
             %br/
             %span.h0= pprn_number_to_human(value)

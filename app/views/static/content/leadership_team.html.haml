@@ -53,6 +53,30 @@
   .panel.panel-default
     .panel-heading
       %h3.panel-title
+        %a{"data-toggle" => "collapse", "data-parent" => "accordion", :href => "#collapse7"}
+          Technical Team
+    .panel-collapse.collapse#collapse7
+      .panel-body
+        %p
+          Role: Responsible for day-to-day study activities. The Research Team develops and implements surveys, provides advice about associated studies, analyzes data, prepares manuscripts for publications, and presents research at scientific meetings.  
+
+        %ul
+          %li
+            =link_to "Sean Ahrens", content_path(page: "bio/sean_ahrens")
+          %li
+            =link_to "Kristen Anton", content_path(page: "bio/kristen_anton")
+          %li
+            =link_to "Wenli Chen", content_path(page: "bio/wenli_chen")
+          %li Arlene Chung
+          %li Marshall Clark
+          %li Sean Kelly
+          %li Kelly Myers
+          %li
+            =link_to "Tom Caruso", content_path(page: "bio/tom_caruso")
+            
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
         %a{"data-toggle" => "collapse", "data-parent" => "accordion", :href => "#collapse2"}
           Oversight Committee
     .panel-collapse.collapse#collapse2
