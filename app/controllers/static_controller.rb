@@ -18,6 +18,6 @@ class StaticController < ApplicationController
 
   def splash
     @page = params[:page]
-    render "/static/splash", :layout => "splash_layout"
+    render "/static/splash", :layout => "splash"
   end
 end

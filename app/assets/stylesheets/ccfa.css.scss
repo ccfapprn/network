@@ -1,5 +1,11 @@
+body {
+  font-size: 15px;
+}
 a {
 	color: #0091c3
+}
+.nav a {
+  color: #273996
 }
 .btn-primary {
 	background-color: #0091c3
@@ -16,7 +22,7 @@ a {
   background-image:url('photo_banner.png');
   background-size:cover;
   position: absolute;
-  top: 134px;
+  top: 139px;
 }
 .wide-blue {
   width:100%;
@@ -24,7 +30,7 @@ a {
   background-color: #273996;
   /*background-color: #0091c3;*/
   position: absolute;
-  top: 125px;
+  top: 130px;
 }
 .wide-green {
   width:100%;
@@ -32,7 +38,7 @@ a {
   background-color: #b2d234;
   /*background-color: #273996;*/
   position: absolute;
-  top: 219px;
+  top: 224px;
 }
 
 .wide-pad {

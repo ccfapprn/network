@@ -1,0 +1,122 @@
+-##############
+-### COMMUNITY CONTRIBUTIONS
+-##############
+- scores = { "Members" => User.get_oodt_user_count, "Research Ideas" => ResearchTopic.count, "Surveys Completed" => AnswerSession.count, "Health Data Streams" => User.health_data_streams_count }
+- content_for :community_contributions, render(:partial => "/shared/community_scoreboard", locals: { scores: scores })
+
+
+-##############
+-### YOUR CONTRIBUTIONS
+-##############
+- content_for :your_contributions do
+  = render partial: "shared/badge_list"
+
+
+
+
+
+-# REFACTOR ME
+- @patient_team = User.with_role(:patient_team).shuffle.first(6)
+- @patient_posts = Post.blog_posts.where("user_id IN (?)", @patient_team.collect(&:id))
+- @research_team = User.with_role(:research_team).shuffle.first(6)
+- @research_posts = Post.blog_posts.where("user_id IN (?)", @research_team.collect(&:id))
+- @tech_team = User.with_role(:tech_team).shuffle.first(6)
+- @tech_posts = Post.blog_posts.where("user_id IN (?)", @tech_team.collect(&:id))
+- @all_team = (@patient_team+@research_team+@tech_team).shuffle.first(6)
+- @all_posts = Post.blog_posts.where("user_id IN (?)", @all_team.collect(&:id))
+- @help_center_team = User.with_role(:help_center).shuffle.first(6)
+- @help_center_posts = Post.blog_posts.where("user_id IN (?)", @help_center_team.collect(&:id))
+
+
+
+
+-####################
+-#HOME/INDEX.HAML (AKA DASHBOARD)
+- if Figaro.env.oodt_enabled && current_user
+  .alert.alert-info
+    -if !current_user.oodt_baseline_survey_complete
+      %strong You need to complete your baseline survey!
+      = link_to "Click here to do it.", current_user.oodt_baseline_survey_url
+    -else
+      Great, you've completed your baseline survey!
+
+
+
+
+
+-##############
+-### MAIN CONTENT SECTION
+-##############
+%h3 Blog Posts
+
+%ul.nav.nav-tabs{role: "tablist"}
+  %li.active
+    %a{"data-toggle" => "tab", href: "#all-blogs", role: "tab"} All Team Members
+  %li
+    %a{"data-toggle" => "tab", href: "#patient-blogs", role: "tab"} Patient Team
+  %li
+    %a{"data-toggle" => "tab", href: "#research-blogs", role: "tab"} Research Team
+  %li
+    %a{"data-toggle" => "tab", href: "#tech-blogs", role: "tab"} Tech Team
+  %li
+    %a{"data-toggle" => "tab", href: "#help-center-blogs", role: "tab"} CCFA
+  %li.pull-right
+    %a{"data-toggle" => "tab", href: "#tutorial", role: "tab"}
+      %i.fa.fa-info-circle
+
+%br/
+
+/ Tab panes
+.tab-content
+  #all-blogs.tab-pane.active
+    = render partial: "shared/team_carousel", locals: { users: @all_team }
+    = render partial: "shared/blog_posts", locals: { blog_posts: @all_posts, new_blog_post: nil, short: false }
+  #patient-blogs.tab-pane
+    = render partial: "shared/team_carousel", locals: { users: @patient_team }
+    = render partial: "shared/blog_posts", locals: { blog_posts: @patient_posts, new_blog_post: nil, short: false }
+  #research-blogs.tab-pane
+    = render partial: "shared/team_carousel", locals: { users: @research_team }
+    = render partial: "shared/blog_posts", locals: { blog_posts: @research_posts, new_blog_post: nil, short: false }
+  #tech-blogs.tab-pane
+    = render partial: "shared/team_carousel", locals: { users: @tech_team }
+    = render partial: "shared/blog_posts", locals: { blog_posts: @tech_posts, new_blog_post: nil, short: false }
+  #help-center-blogs.tab-pane
+    = render partial: "shared/team_carousel", locals: { users: @help_center_team }
+    = render partial: "shared/blog_posts", locals: { blog_posts: @help_center_posts, new_blog_post: nil, short: false }
+
+    = mail_to Figaro.env.pprn_info_email, "<i class='fa-envelope-o fa'></i> Ask a Question of the IBD Help Center".html_safe, {subject: "Ask your question to the IBD Help Center here.", class: "btn btn-success"}
+
+  #tutorial.tab-pane
+    %h3 Welcome to CCFA Partners Blog Page!
+
+    %p In this area you will be able to read blog posts with the most up-to-date network news, member perspectives on important issues, and responses to IBD questions proposed by network members. You will be able to read blog posts from the Patient Team, Research Team, Technical Team, and CCFA’s IBD Help Center.
+
+    %ul
+      %li
+        The
+        %strong Patient Team
+        includes individuals with IBD who are not only members of the network but also serve on the
+        =link_to "Patient Governance Committee", content_path(page: "patient_governance")
+        and are involved in all important network decisions.
+      %li
+        The
+        %strong Research Team
+        includes IBD researchers, administrative staff, and data analysts - all of whom are responsible for the day-to-day research activities associated with CCFA Partners.
+      %li
+        The
+        %strong Technical Team
+        includes software and technology experts who are responsible for development and maintenance of all of site features, including those designed to help you manage your IBD (such as the Health Tracker).
+      %li
+        The
+        %strong CCFA’s IBD Help Center
+        is staffed by IBD information specialists who are here to answer any questions you have about IBD. You can post a question by clicking the “Ask a Question of CCFA’s IBD Help Center” link found on the Blog page under the CCFA tab (Note: The “Ask” link is also found on the Resources page). Each month, CCFA’s IBD Help Center will post a blog that answers one or more submitted questions. Even if your question is not answered in the monthly blog, you will still receive a personal email response with an answer to your question from one of CCFA’s IBD information specialists.
+
+
+
+
+-##### HOW TO LOAD AJAXY ######
+-# %a{"data-toggle" => "tab", href: "#newest", role: "tab", "data-target-path" => research_topics_ajax_path} Published Research
+-# %a{"data-toggle" => "tab", href: "#newest", role: "tab", "data-target-path" => research_topics_ajax_path} Newest
+-# .tab-content
+-#   #popular.tab-pane.active= render partial: "research_topics/research_topics", locals: {research_topics: ResearchTopic.popular(current_user), disabled: false}
+

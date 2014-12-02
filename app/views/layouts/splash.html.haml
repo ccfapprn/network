@@ -16,8 +16,6 @@
       = render "layouts/navigation/top_navigation_bar"
       .wide-pad.hidden-sm.hidden-xs
       = render "layouts/flash_messages"
-      
-
 
       - if content_for(:sublayout)
         = yield :sublayout # the sublayouts must make their own call to yield
