@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   rolify role_join_table_name: 'roles_users'
 
+  include Rails.application.routes.url_helpers
 
   include Authority::UserAbilities
   include Authority::Abilities
@@ -164,4 +165,39 @@ class User < ActiveRecord::Base
 
     (todays_votes.length < vote_quota) or (rating < 1)
   end
+
+  # use to set alt email (used for legacy partners) and send confirm (verification) email
+  # returns false if alt_email already exists as primary or alt email
+  # use alt_email_confirmed boolean to test that alt email is confirmed
+  def set_alt_email(alt_email)
+    # check email is already in use, primary or alt
+    if User.find_by_email(alt_email) || User.where(["alt_email = ? and id <> ?",alt_email,self.id])
+      return false
+    end
+
+    self.alt_email = alt_email
+    self.alt_email_confirmed = false
+    token =  Digest::MD5.hexdigest rand.to_s
+    self.alt_confirmation_token = token
+    confirm_link = mailer_confirm_alt_email_url(:token => token)
+  
+    self.touch(:alt_confirmation_sent_at)
+    self.save
+
+    UserMail.confirm_alt_email(self,confirm_link).deliver
+    return true
+  end
+
+
+  # check confirmation token recieved from email OK
+  def confirm_alt_email(confirmation_token)
+    if self.alt_confirmation_token == confirmation_token
+      self.touch(:alt_confirmed_at)
+      self.alt_email_confirmed = true
+      self.save
+      return true
+    end
+    return false
+  end
+
 end

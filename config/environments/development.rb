@@ -18,6 +18,8 @@ Rails.application.configure do
   #config.action_mailer.default_url_options = { host: 'localhost', port: 10002 }
   config.action_mailer.default_url_options = { host: 'ccfa-dev.med.unc.edu' }
 
+  Rails.application.routes.default_url_options[:host] = 'ccfa-dev.med.unc.edu'
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
