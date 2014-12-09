@@ -153,11 +153,7 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     mime-types (2.4.3)
-<<<<<<< HEAD
-    mini_magick (4.0.0)
-=======
     mini_magick (4.0.1)
->>>>>>> b18aeefc7803b3ab530db14a244786456b6b59ae
     mini_portile (0.6.1)
     minitest (5.4.3)
     minitest-capybara (0.7.1)
