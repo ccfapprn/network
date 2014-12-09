@@ -65,13 +65,14 @@ gem 'kaminari', '~> 0.16.1'
 
 # Blogs and Notifications
 gem 'acts-as-taggable-on'
+gem "koala", "~> 1.10.0rc"
 
 # User Profile
 gem 'geocoder'
 gem 'carrierwave'
 gem 'mini_magick'
 
-
+# Merit, Karma Points and Badges
 gem 'merit'
 
 # For Third-Party API Connections
