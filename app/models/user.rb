@@ -88,7 +88,11 @@ class User < ActiveRecord::Base
     # Local Consent Storage
     # self.accepted_consent_at.present?
     # OODT Consent Storage
-    oodt_baseline_survey_complete
+    if OODT_ENABLED
+      self.oodt_baseline_survey_complete
+    else
+      self.accepted_consent_at.present?
+    end
   end
 
   def forem_admin?
@@ -166,6 +170,18 @@ class User < ActiveRecord::Base
     (todays_votes.length < vote_quota) or (rating < 1)
   end
 
+  def votes_remaining_count
+     vote_quota - todays_votes.length
+  end
+
+  def topics_in_top_percentile(minimum_percentage)
+    all = ResearchTopic.top_research_topics(minimum_percentage)
+    my_rt_ids = research_topics.map{|rt| rt.id.to_s}
+    mine = all.select{|result| my_rt_ids.include?(result["research_topic_id"])}
+
+    mine
+  end
+
   # use to set alt email (used for legacy partners) and send confirm (verification) email
   # returns false if alt_email already exists as primary or alt email
   # use alt_email_confirmed boolean to test that alt email is confirmed
@@ -188,7 +204,6 @@ class User < ActiveRecord::Base
     return true
   end
 
-
   # check confirmation token recieved from email OK
   def confirm_alt_email(confirmation_token)
     if self.alt_confirmation_token == confirmation_token
@@ -199,5 +214,5 @@ class User < ActiveRecord::Base
     end
     return false
   end
-
+  
 end
