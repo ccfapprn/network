@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   get 'terms_of_service' => 'static#content', :page => "terms_of_service"
   get 'contact' => 'static#content', :page => "contact"
 
-  get 'mailer/confirm_alt_email/:token' => 'mailer#confirm_alt_email', as: 'mailer_confirm_alt_email'
+  devise_scope :user do
+    get 'registrations/confirm/:token' => 'registrations#confirm_alt_email', as: 'registrations_confirm_alt_email'
+  end
 
   # Research Topics
   #match 'research_topic/:id', to: "research_topics#show", as: :research_topic, via: :get

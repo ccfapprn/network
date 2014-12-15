@@ -1,0 +1,11 @@
+%h1 Email Confirmation
+-if @confirmed
+  %p Thank you for confirming your alternative email address.
+  -if current_user
+    %a.btn.btn-primary{href: home_path} Continue
+  -else
+    =link_to "Log In", main_app.new_user_session_path
+    to continue
+-else
+  %p We were not able to confirm your alternative email address.
+

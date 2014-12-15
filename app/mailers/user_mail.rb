@@ -4,7 +4,7 @@ class UserMail < ActionMailer::Base
   def confirm_alt_email(user,link)
     @user = user
     @link = link
-    mail(to: @user.alt_email, subject: 'confirm test message')
+    mail(to: @user.alt_email, subject: 'CCFA Partners confirm your email')
   end
 
 end

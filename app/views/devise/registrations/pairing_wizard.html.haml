@@ -1,9 +1,5 @@
 -### pairing wizard
 
-
-%h2 Pairing Wizard
-
-
 -# Pair with Legacy CCFA Partners
 - if !current_user.paired_with_lcp
 
@@ -18,12 +14,10 @@
       .form-group
         .input-group
           %label.sr-only{:for => "email"} Email address
-          =text_field_tag(:email, nil, class: "form-control", :placeholder => "Alternative Email Address", :type => "email")
+          =text_field_tag(:alt_email, nil, class: "form-control", :placeholder => "Alternative Email Address", :type => "email")
       .form-group
         .input-group
           =submit_tag "Try Matching Account", class: "btn btn-success"
-
-
 
 -# Pair with Crohnology
 -#- if !current_user.paired_with_crohnology?
@@ -39,3 +33,4 @@
 - else
   If you are pretty sure you have no existing CCFA Partners account, you can just set up a new account.
   %a.btn.btn-primary{href: redirect_to_lcp_reg_path} Set up New Account
+  

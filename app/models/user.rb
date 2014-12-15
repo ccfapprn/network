@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
   # use alt_email_confirmed boolean to test that alt email is confirmed
   def set_alt_email(alt_email)
     # check email is already in use, primary or alt
-    if User.find_by_email(alt_email) || User.where(["alt_email = ? and id <> ?",alt_email,self.id])
+    if User.find_by_email(alt_email) || User.where(["alt_email = ? and id <> ?",alt_email,self.id]).count > 0
       return false
     end
 
@@ -195,7 +195,7 @@ class User < ActiveRecord::Base
     self.alt_email_confirmed = false
     token =  Digest::MD5.hexdigest rand.to_s
     self.alt_confirmation_token = token
-    confirm_link = mailer_confirm_alt_email_url(:token => token)
+    confirm_link = registrations_confirm_alt_email_url(:token => token)
   
     self.touch(:alt_confirmation_sent_at)
     self.save
@@ -205,14 +205,25 @@ class User < ActiveRecord::Base
   end
 
   # check confirmation token recieved from email OK
-  def confirm_alt_email(confirmation_token)
-    if self.alt_confirmation_token == confirmation_token
-      self.touch(:alt_confirmed_at)
-      self.alt_email_confirmed = true
-      self.save
+  def self.confirm_alt_email(confirmation_token)
+
+    #if self.alt_confirmation_token == confirmation_token
+    #  self.touch(:alt_confirmed_at)
+    #  self.alt_email_confirmed = true
+    #  self.save
+    #  return true
+    #end
+    #return false
+
+    u = self.find_by_alt_confirmation_token(confirmation_token)
+    if u
+      u.touch(:alt_confirmed_at)
+      u.alt_email_confirmed = true
+      u.save
       return true
+    else
+      return false
     end
-    return false
   end
   
 end
