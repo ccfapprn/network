@@ -29,14 +29,15 @@
         %i.fa.fa-info-circle
   %br/
 
+  .tab-content
+    #tutorial.tab-pane
+      = render partial: "/research/tutorial"
+
   = yield
-
--#      #tutorial.tab-pane
--#        = render partial: "tutorial"
-
-
 
 
 
 
 = render template: "layouts/community"
+
+

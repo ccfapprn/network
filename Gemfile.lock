@@ -49,6 +49,10 @@ GEM
       activerecord (~> 4.0, >= 4.0.0)
     acts-as-taggable-on (3.4.2)
       activerecord (>= 3.2, < 5)
+    acts_as_commentable_with_threading (2.0.0)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
+      awesome_nested_set (>= 3.0)
     addressable (2.3.6)
     airbrake (4.1.0)
       builder
@@ -59,8 +63,10 @@ GEM
     authority (3.0.0)
       activesupport (>= 3.0.0)
       rake (>= 0.8.7)
-    autoprefixer-rails (4.0.1.1)
+    autoprefixer-rails (4.0.2.1)
       execjs
+    awesome_nested_set (3.0.1)
+      activerecord (>= 4.0.0, < 5)
     bcrypt (3.1.9)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
@@ -100,7 +106,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    columnize (0.8.9)
+    columnize (0.9.0)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -122,6 +128,8 @@ GEM
     ffi (1.9.6)
     figaro (1.0.0)
       thor (~> 0.14)
+    font-awesome-rails (4.2.0.0)
+      railties (>= 3.2, < 5.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
     gemoji (2.1.0)
@@ -130,7 +138,7 @@ GEM
       tilt
     hike (1.2.3)
     i18n (0.6.11)
-    jbuilder (2.2.5)
+    jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)
@@ -146,7 +154,7 @@ GEM
       multi_json
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    merit (2.2.0)
+    merit (2.3.0)
       ambry (~> 0.3.0)
     meta_request (0.3.4)
       callsite (~> 0.0, >= 0.0.11)
@@ -155,7 +163,7 @@ GEM
     mime-types (2.4.3)
     mini_magick (4.0.1)
     mini_portile (0.6.1)
-    minitest (5.4.3)
+    minitest (5.5.0)
     minitest-capybara (0.7.1)
       capybara (~> 2.2)
       minitest (~> 5.0)
@@ -207,9 +215,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
-    rdoc (4.1.2)
+    rdoc (4.2.0)
       json (~> 1.4)
-    redcarpet (3.2.1)
+    redcarpet (3.2.2)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rolify (3.4.1)
@@ -260,11 +268,11 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
-    turbolinks (2.5.2)
+    turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.5.3)
+    uglifier (2.6.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     warden (1.2.3)
@@ -281,6 +289,7 @@ DEPENDENCIES
   activerecord-oracle_enhanced-adapter (~> 1.5.0)
   acts-as-dag
   acts-as-taggable-on
+  acts_as_commentable_with_threading
   airbrake
   authority
   autoprefixer-rails
@@ -294,13 +303,14 @@ DEPENDENCIES
   devise
   faraday
   figaro
+  font-awesome-rails
   forem!
   geocoder
   haml
   jbuilder (~> 2.0)
   jquery-rails (~> 3.1.2)
   kaminari (~> 0.16.1)
-  koala (~> 1.10.0rc)
+  koala
   merit
   meta_request
   mini_magick

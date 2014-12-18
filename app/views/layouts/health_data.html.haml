@@ -1,0 +1,42 @@
+-##############
+-### COMMUNITY CONTRIBUTIONS
+-##############
+- scores = { "Proposed Questions" => ResearchTopic.count, "Votes Cast" => Vote.count, "Being Researched" => ResearchTopic.under_study.count}
+- content_for :community_contributions do
+  = render partial: "health_check_in"
+
+-##############
+-### YOUR CONTRIBUTIONS
+-##############
+- content_for :your_contributions do
+  = render partial: "shared/badge_list" if current_user
+
+
+
+- content_for :research_content do
+  %ul.nav.nav-tabs{role: "tablist"}
+    %li{class: "#{'active' if @active_sub_nav == :my_trends}"}
+      %a{href: my_trends_path} My Trends
+    %li{class: "#{'active' if @active_sub_nav == :my_health_measures}"}
+      %a{href: my_health_measures_path} My Health Measures
+    %li{class: "#{'active' if @active_sub_nav == :my_dashboard}"}
+      %a{href: my_dashboard_path} My Dashboard
+    %li{class: "#{'active' if @active_sub_nav == :my_connections}"}
+      %a{href: my_connections_path} My Connections
+    %li.pull-right
+      %a{"data-toggle" => "tab", :href => "#tutorial"}
+        %i.fa.fa-info-circle
+  %br/
+  .tab-content
+    #tutorial.tab-pane
+      = render partial: "tutorial"
+
+
+  = yield
+
+
+
+
+
+
+= render template: "layouts/community"

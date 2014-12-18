@@ -49,10 +49,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring', group: :development
 
-# Bootstrap
+# Bootstrap and Styles
 gem 'sass-rails', '~> 4.0.4' #'~> 5.0.0.beta1'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
+gem 'font-awesome-rails'
 
 # Authentication
 gem 'devise'
@@ -70,13 +71,16 @@ gem 'acts-as-dag'
 gem 'rolify'
 gem 'authority'
 
+# Facebook
+gem 'koala'
+
 # Forum
 gem 'forem', :github => "openpprn/forem", :branch => "rails-4.2"
 gem 'kaminari', '~> 0.16.1'
 
 # Blogs and Notifications
 gem 'acts-as-taggable-on'
-gem "koala", "~> 1.10.0rc"
+gem 'acts_as_commentable_with_threading'
 
 # User Profile
 gem 'geocoder'

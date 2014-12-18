@@ -2,17 +2,22 @@
 .row
   .col-md-12
     .row
-      .col-md-1
+      .col-md-2
         %h2
           %i.fa.fa-check-square-o
-          =@research_topic.rating
-      .col-md-11
-        = link_to research_topics_path, class: "btn btn-primary btn-xs pull-right" do
+          3 Votes
+        .btn.btn-primary Cast Vote
+        %em or
+        .btn.btn-default Uncast Vote
+      .col-md-10
+        = link_to research_prioritization_path, class: "btn btn-primary btn-xs pull-right" do
           .fa.fa-arrow-left
           Back to Research Questions
-        %h2
+
+
+
+        %h3
           = @research_topic.text
-          .small= render partial: "research_topics/state", locals: {research_topic: @research_topic }
 
         %p= @research_topic.description
       %br/
@@ -23,17 +28,57 @@
       .panel-heading
         %h3.panel-title Proposed By...
       .panel-body
-      - if !@research_topic.user
-        %em
-          The user who created this research topic is no longer with us.
-      - elsif @research_topic.user.share_research_topics? && @research_topic.user.social_profile.present?
-        .media
-          %a.pull-left
-            = image_tag @research_topic.user.photo_url, :class => "img-responsive img-thumbnail"
-          .media-body.small
-            %strong
-              = @research_topic.user.social_profile.name
-            %p
-              = @research_topic.user.social_profile.location
-          .clearfix
+        - if !@research_topic.user
+          %em
+            The user who created this research topic is no longer with us.
+        - elsif @research_topic.user.share_research_topics? && @research_topic.user.social_profile.present?
+          .media
+            %a.pull-left
+              = image_tag @research_topic.user.photo_url, :class => "img-responsive img-thumbnail"
+            .media-body.small
+              %strong
+                = @research_topic.user.social_profile.name
+              %p
+                = @research_topic.user.social_profile.location
+            .clearfix
+        - else
+          Anonymous
+
+
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Comments
+      .panel-body
+        - @research_topic.comment_threads.each do |comment|
+          .media
+            .pull-left
+              = image_tag comment.user.photo_url
+            .media-body
+              %h4.media-heading= comment.user.forem_name
+              = comment.body
+              %br/
+              %small= comment.created_at
+
+
+
+
+        %hr/
+
+
+        %form{action: comment_on_research_topic_path, role: "form", method: "post"}
+          = hidden_field_tag :authenticity_token, form_authenticity_token
+          = hidden_field_tag :research_topic_id, @research_topic.id
+          .form-group
+            = text_area_tag :body, "", placeholder: "Add a comment...", rows: 3, class: 'form-control input-lg'
+          = submit_tag(nil, class: "btn btn-success btn-block")
+
+
+        -#= form_for Comment.new do |f|
+        -#  .form-group
+        -#    = f.label :body, class: 'sr-only'
+        -#    = f.text_area :body, class: 'form-control input-lg', placeholder: "Enter your research question here...", autocomplete: :off
+        -#  = f.submit("Submit", class: "btn btn-success pull-right")
+        -#  .clearfix
+
+    = render partial: "research_topics/state", locals: {research_topic: @research_topic }
 
