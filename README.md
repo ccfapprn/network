@@ -26,6 +26,9 @@ git clone https://github.com/openpprn/opn.git
 cd opn
 
 bundle install
+
+figaro install
+
 ```
 
 Install default configuration files for database connection, email server connection, server url, and application name.
@@ -33,42 +36,27 @@ Install default configuration files for database connection, email server connec
 ```
 ruby lib/initial_setup.rb
 
+
+It will generate /config/application.yml and pprn.rb. You can open and modify them accordingly. Add the appropriate keys you've gotten from the third party developers. For any service you aren't using, you can leave the lines out. 
+
+```
+Secret Keys
+Application.yml will contain your production secret key and key base, make sure the following line is in secrets.yml
+
+production:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+
+AND PUT NO SECRET KEYS IN SECRETS.YML! IT IS CHECKED INTO SOURCE CONTROL.
+
+
+
 bundle exec rake db:migrate RAILS_ENV=production
 
 bundle exec rake assets:precompile RAILS_ENV=production
+
+bundle exec rake surveys:create #to get the surveys up and running
 ```
 
-To set up your secret keys, run
-
-```
-figaro install
-```
-
-Add the following lines to the /config/application.yml file it generates and modify them accordingly. Add the appropriate keys you've gotten from the third party developers. For any service you aren't using, you can leave the lines out:
-
-```
-pprn: "ccfa"
-pprn_title: "CCFA Partners"
-pprn_condition: "Crohn's & Ulcerative Colitis"
-pprn_conditions: "Crohn's, Ulcerative Colitis"
-pprn_support_email: "support@ccfapartners.org"
-
-oodt_enabled: "true"
-validic_enabled: "true"
-
-uservoice_api_key: 
-google_analytics_web_property_id:
-
-validic_access_token: 
-validic_organization_id: 
-
-oodt_username: 
-oodt_password: 
-```
-
-Open PPRN.rb to 
-- Configure the basic information about your PPRN
-- Enable or Disable Validic and OODT (If you are using OODT or Validic, you must specify valid username and password here)
 
 Run Rails Server (or use Apache or nginx)
 
