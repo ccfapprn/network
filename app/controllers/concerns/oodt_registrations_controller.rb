@@ -19,7 +19,7 @@ module OODTRegistrationsController
       try_pairing(params[:email])
     else
       current_user.sync_oodt_status(return_url: pairing_wizard_url)  # make sure we are checking that they've completed their baseline survey if they are paired and came back
-
+    end
     # Then render pairing page
   end
 
