@@ -15,7 +15,7 @@ module OODT
     # API CONNECTION SETUP
     ####################
     def oodt
-      prefix = Figaro.env.oodt_server
+      prefix = "api/pcori/sandbox/v1/" #or "api/pcori/ops/v1/"
       conn = Faraday.new(url: "https://whiterivercomputing.com/#{prefix}")
       conn.basic_auth(Figaro.env.oodt_username, Figaro.env.oodt_password)
       conn
