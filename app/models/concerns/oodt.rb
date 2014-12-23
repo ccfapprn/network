@@ -228,8 +228,8 @@ module OODT
   ###############
 
   #### MEDICATIONS ####
-  def get_med_update_url #18
-    response = oodt.post "users/@@medicationUpdateURL", user_hash
+  def get_med_update_url(options = {}) #18
+    response = oodt.post "users/@@medicationUpdateURL", user_hash.merge(return_url: options[:return_url])
     body = parse_body(response)
 
     if response.success?

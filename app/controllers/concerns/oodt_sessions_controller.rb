@@ -11,7 +11,7 @@ module OODTSessionsController
   private
 
   def sync_oodt_status
-    current_user.sync_oodt_status(return_url: root_url) if current_user
+    current_user.sync_oodt_status(return_url: pairing_wizard_url) if current_user
   end
 
 
