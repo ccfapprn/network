@@ -1,19 +1,32 @@
 class HealthDataController < ApplicationController
   before_action :authenticate_user!, :only => [:data_explore, :data_reports, :medications]
   before_action :set_active_top_nav_link_to_health_data
-  before_action :validate_oodt_module, :only => [:explore, :reports]
-  before_action :validate_validic_module, :only => []
   before_action :check_in_setup
 
   layout "health_data"
 
-  def validate_oodt_module
-    raise "OODT must be enabled for this feature." if !OODT_ENABLED
+  def initialize
+    include_plugins
+    super
   end
 
-  def validate_validic_module
-    raise "Validic must be enabled for this feature." if !Figaro.env.validic_enabled
+
+  def index
+    @disease_activity_scores = {}
+    @disease_activity_result = {}
+
+    if (current_user && OODT_ENABLED)
+      @disease_activity_result = current_user.get_disease_activity_scores
+      if @disease_activity_result #API call was successful
+        if @disease_activity_result['numScores'] > 0
+          @disease_activity_scores = result['scores']
+        end
+      end
+    end
+
+    #@disease_activity_score = (current_user && OODT_ENABLED) ? current_user.get_disease_activity_score : {}
   end
+
 
   def my_dashboard
     @med_list = (current_user and OODT_ENABLED) ? current_user.get_med_list : {}
@@ -51,6 +64,11 @@ class HealthDataController < ApplicationController
       end
     end
 
+  end
+
+
+  def include_plugins
+    self.class.send(:include, OODTHealthDataController) if OODT_ENABLED
   end
 
 
