@@ -14,11 +14,12 @@ group :pg do
   gem 'pg'
 end
 
-group :oracle do
-  # Use oracle...
-  gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
-  gem 'ruby-oci8', '~> 2.1.0'
-end
+# MARSHALL UNCOMMENT FOR DEPLOY ON UNC
+# group :oracle do
+#   # Use oracle...
+#   gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+#   gem 'ruby-oci8', '~> 2.1.0'
+# end
 
 # User HAML for views
 gem 'haml'
