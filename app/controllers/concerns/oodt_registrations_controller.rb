@@ -13,8 +13,12 @@ module OODTRegistrationsController
 
 
   def pairing_wizard #(optional param: email)
+
     #Try pairing to make sure everytime we run pairing_wizard we are working with the latest data\
-    try_pairing(params[:email]) if !current_user.paired_with_lcp
+    if !current_user.paired_with_lcp
+      try_pairing(params[:email])
+    else
+      current_user.sync_oodt_status(return_url: pairing_wizard_url)  # make sure we are checking that they've completed their baseline survey if they are paired and came back
 
     # Then render pairing page
   end

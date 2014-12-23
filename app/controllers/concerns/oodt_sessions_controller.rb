@@ -14,5 +14,4 @@ module OODTSessionsController
     current_user.sync_oodt_status(return_url: pairing_wizard_url) if current_user
   end
 
-
 end
