@@ -41,8 +41,7 @@ Rails.application.configure do
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # MARSHALL this is neccessary only for heroku deploy
-  config.force_ssl = false #true
+  config.force_ssl = true
 
   # Set to :info to decrease the log volume.
   config.log_level = :info

@@ -17,7 +17,7 @@ Rails.application.configure do
   # DO CARE if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
-  #MARSHALL THIS IS UNC SPECIFIC
+  # UNC
   #config.action_mailer.default_url_options = { host: 'localhost', port: 10002 }
   config.action_mailer.default_url_options = { host: 'ccfa-dev.med.unc.edu' }
   Rails.application.routes.default_url_options[:host] = 'ccfa-dev.med.unc.edu'

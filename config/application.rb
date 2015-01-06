@@ -21,7 +21,7 @@ module OpenPprn
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    # MARSHALL this line is disabled for Rails < 4.2 (ie. Rails 4.1.7)
+    # This line is disabled for Rails < 4.2 (ie. Rails 4.1.7) #UNC #MARSHALL
     # config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]

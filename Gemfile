@@ -1,3 +1,7 @@
+#NOTES
+# Deploys to heroku/pg should do: heroku config:set BUNDLE_WITHOUT="oracle"
+# Deploys to oracle servers should do: heroku config:set BUNDLE_WITHOUT="pg"
+
 source 'https://rubygems.org'
 
 # Required in Rails 4 for logs to work in production
@@ -9,17 +13,17 @@ gem 'airbrake'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7' #'4.2.0.beta4'
 
+
 group :pg do
   # Use postgresql as the database for Active Record
   gem 'pg'
 end
 
-# MARSHALL UNCOMMENT FOR DEPLOY ON UNC
-# group :oracle do
-#   # Use oracle...
-#   gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
-#   gem 'ruby-oci8', '~> 2.1.0'
-# end
+group :oracle do
+  # Use oracle...
+  gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+  gem 'ruby-oci8', '~> 2.1.0'
+end
 
 # User HAML for views
 gem 'haml'
