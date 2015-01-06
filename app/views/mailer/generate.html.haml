@@ -1,0 +1,9 @@
+%h1 Mailer#generate
+%p Find me in app/views/mailer/generate.html.haml
+%p
+  =@key
+%p
+  sending email with this link: 
+  =link_to mailer_confirm_url(:token => @token),mailer_confirm_url(:token => @token)
+%p
+  =current_user.email

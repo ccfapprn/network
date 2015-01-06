@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   rolify role_join_table_name: 'roles_users'
 
+  include Rails.application.routes.url_helpers
 
   include Authority::UserAbilities
   include Authority::Abilities
@@ -14,8 +15,11 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise_params = [ :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable ]
+  if Figaro.env.devise_confirmable
+    devise_params << :confirmable
+  end
+  devise *devise_params
 
   # Model Validation
   #validates_presence_of :first_name, :last_name, :zip_code, :year_of_birth
@@ -177,4 +181,49 @@ class User < ActiveRecord::Base
 
     mine
   end
+
+  # use to set alt email (used for legacy partners) and send confirm (verification) email
+  # returns false if alt_email already exists as primary or alt email
+  # use alt_email_confirmed boolean to test that alt email is confirmed
+  def set_alt_email(alt_email)
+    # check email is already in use, primary or alt
+    if User.find_by_email(alt_email) || User.where(["alt_email = ? and id <> ?",alt_email,self.id]).count > 0
+      return false
+    end
+
+    self.alt_email = alt_email
+    self.alt_email_confirmed = false
+    token =  Digest::MD5.hexdigest rand.to_s
+    self.alt_confirmation_token = token
+    confirm_link = registrations_confirm_alt_email_url(:token => token)
+  
+    self.touch(:alt_confirmation_sent_at)
+    self.save
+
+    UserMail.confirm_alt_email(self,confirm_link).deliver
+    return true
+  end
+
+  # check confirmation token recieved from email OK
+  def self.confirm_alt_email(confirmation_token)
+
+    #if self.alt_confirmation_token == confirmation_token
+    #  self.touch(:alt_confirmed_at)
+    #  self.alt_email_confirmed = true
+    #  self.save
+    #  return true
+    #end
+    #return false
+
+    u = self.find_by_alt_confirmation_token(confirmation_token)
+    if u
+      u.touch(:alt_confirmed_at)
+      u.alt_email_confirmed = true
+      u.save
+      return true
+    else
+      return false
+    end
+  end
+  
 end

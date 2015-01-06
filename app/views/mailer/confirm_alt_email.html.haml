@@ -1,0 +1,16 @@
+%h1 Mailer#confirm_alt_email
+%p Find me in app/views/mailer/confirm_alt_email.html.haml
+%h2 MESSAGE IF FAILED, OTHERWISE RE-DIRECT TO ?
+%p
+  primary email:
+  =@user.email
+%p
+  Alt email:
+  =@user.alt_email
+%p
+  confirm token:
+  =@token
+%h2
+  Was email confirmed? 
+  =@success ? "Yes" : "No"
+
