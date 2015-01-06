@@ -40,8 +40,10 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
+
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = true unless Figaro.env.turn_off_ssl.present? && Figaro.env.turn_off_ssl == "true"
+
 
   # Set to :info to decrease the log volume.
   config.log_level = :info
