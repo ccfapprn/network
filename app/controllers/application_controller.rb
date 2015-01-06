@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
 
   # Add theme folder to view path
-  self.view_paths.unshift(*Rails.root.join('app', 'views', PPRN_THEME_NAME))
+  self.view_paths.unshift(*Rails.root.join('app', 'views', ENV['website_code_name'])) if ENV['website_code_name']
 
   def initialize
-    include_plugins
+    include_application_plugins
     super
   end
 
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   # Send 'em back where they came from with a slap on the wrist
   def authority_forbidden(error)
     Authority.logger.warn(error.message)
-    redirect_to request.referrer.presence || root_path, :alert => "Sorry! You attempted to visit a page you do not have access to. If you believe this message to be unjustified, please contact us at <#{Figaro.env.pprn_support_email}>."
+    redirect_to request.referrer.presence || root_path, :alert => "Sorry! You attempted to visit a page you do not have access to. If you believe this message to be unjustified, please contact us at <#{Figaro.env.website_support_email}>."
   end
 
 
@@ -55,9 +55,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-
-  def include_plugins
-    self.class.send(:include, OODTApplicationController) if Figaro.env.oodt_enabled?
+  def include_application_plugins
+    self.class.send(:include, OODTApplicationController) if OODT_ENABLED
   end
 
 

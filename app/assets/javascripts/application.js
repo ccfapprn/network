@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
+//= require jquery.pjax
 //= require bootstrap-sprockets
 //= require chosen.jquery
 //= require forem
@@ -20,6 +22,8 @@
 //= require d3.min
 //= require bootbox.min
 //= require typeahead
+//= require uservoice
+//= require google_analytics
 //= require bloodhound
 //= require bootstrap-tagsinput
 //= require placeholders.jquery.min
@@ -28,5 +32,6 @@
 //= require admin
 //= require votes
 //= require surveys
-
+//= require health_data
+//= require forem/topics
 

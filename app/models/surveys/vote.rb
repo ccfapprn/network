@@ -8,6 +8,8 @@ class Vote < ActiveRecord::Base
   belongs_to :post
   belongs_to :research_topic
 
+  after_save :update_research_topic_rating
+
 
   def self.popular_research_questions
     res = Vote.select("questions.id as question_id, sum(votes.rating) as rating").where("groups.name = 'Research Questions'").joins("full outer join questions on votes.question_id = questions.id").joins("full outer join groups on questions.group_id = groups.id").group("questions.id")
@@ -25,6 +27,9 @@ class Vote < ActiveRecord::Base
     res.map {|question| {question: Question.find(question.question_id), created_at: question.created_at, rating: question.rating || 0}}.sort {|q1, q2| q1[:created_at] <=> q2[:created_at]}
   end
 
+  def self.cast_vote()
+
+  end
 
   # This helps with app/models/merit/point_rules.rb
   def research_topic_author
@@ -35,6 +40,12 @@ class Vote < ActiveRecord::Base
     end
   end
 
+
+  def update_research_topic_rating
+    if research_topic
+      research_topic.update_rating
+    end
+  end
 
   private
 

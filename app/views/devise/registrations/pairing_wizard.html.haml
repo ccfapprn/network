@@ -29,8 +29,14 @@
 -# User allowed to pass?
 
 - if current_user.paired_with_lcp
-  %a.btn.btn-primary{href: home_path} Continue
+  - if current_user.oodt_baseline_survey_complete
+    %h3 Congrats! You're all ready to get into the site!
+    %a.btn.btn-primary{href: home_path} Continue
+  - else
+    .alert.alert-info
+      %strong You need to complete your baseline survey!
+      = link_to "Click here to do it.", current_user.oodt_baseline_survey_url
+
 - else
   If you are pretty sure you have no existing CCFA Partners account, you can just set up a new account.
-  %a.btn.btn-primary{href: redirect_to_lcp_reg_path} Set up New Account
-  
+  %a.btn.btn-primary{href: redirect_to_lcp_reg_path, target: "_blank"} Set up New Account

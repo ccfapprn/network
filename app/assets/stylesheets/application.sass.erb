@@ -1,0 +1,8 @@
+/* This file controls whether base styles or theme styles are used, based on config*/
+
+/* The manifest files in the base directory or the theme directory control what gets included */
+<% if CUSTOM_THEMED %>
+@import <%= "#{Figaro.env.website_code_name}/manifest" %>
+<% else %>
+@import "manifest"
+<% end %>

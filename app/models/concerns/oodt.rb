@@ -15,7 +15,7 @@ module OODT
     # API CONNECTION SETUP
     ####################
     def oodt
-      prefix = "api/pcori/sandbox/v1/"
+      prefix = "api/pcori/sandbox/v1/" #or "api/pcori/ops/v1/"
       conn = Faraday.new(url: "https://whiterivercomputing.com/#{prefix}")
       conn.basic_auth(Figaro.env.oodt_username, Figaro.env.oodt_password)
       conn
@@ -228,8 +228,8 @@ module OODT
   ###############
 
   #### MEDICATIONS ####
-  def get_med_update_url #18
-    response = oodt.post "users/@@medicationUpdateURL", user_hash
+  def get_med_update_url(options = {}) #18
+    response = oodt.post "users/@@medicationUpdateURL", user_hash.merge(return_url: options[:return_url])
     body = parse_body(response)
 
     if response.success?
@@ -296,7 +296,67 @@ module OODT
 
 
 
-  #### ATTRIBUTES ####
+  #### HEALTH ####
+
+  # POST PREFIX/users/@@surveyResponses (takes no parameters); Request header "Content-type: application/json"; Request payload is a JSON dict with two keys: ① "userID", value is a string containing the OODT user ID as a UUID URN ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
+  def send_check_in_data_to_oodt(answer_session)
+    # FIXME DO NOTHING FOR NOW
+    # THE API CALL IS NOT WRITTEN TO PUSH. ONLY TO READ?
+
+
+    # response = oodt.post "users/@@surveyResponses", user_hash # answer_session data formatted per specification
+    # body = parse_body(response)
+
+    # if response.success?
+    #   return body['url']
+    # else
+    #   logger.error "API Call to send check in data of User ##{self.id} failed for Answer Session ##{answer_session.id}. OODT returned the following response:\n#{response.body}"
+    #   return body['errorMessage'] || body
+    # end
+  end
+
+
+  def get_disease_activity_score
+    # CURRENTLY BLOWING UP (OODT API FAILING UNGRACEFULLY) WHEN NO SCORES
+
+    response = oodt.post "users/@@diseaseActivityScore", user_hash
+    body = parse_body(response)
+
+    if response.success?
+      # ... if body['scoreType'] == "No scores found"
+      # • scoreType, whose value is a string indicating the type of score (currently SCDAI or PRUSCI) or the special string "No scores found" indicating that no scores were found for the participant. When this string is given, no other keys will be present in the JSON dict.
+      # • min, whose value is an integer indicating the minimum value permissible by the score type.
+      # • max, whose value is an integer indicating the maximum value permissible by the score type.
+      # • timestamp, whose value is a string indicating when the latest score was computed, in ISO-8601 format in UTC.
+      # • value, whose value is an integer indicating the latest score.
+      return body
+    else
+      logger.error "API Call to get_disease_activity_score of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return false # body['errorMessage'] || body
+    end
+  end
+
+
+  def get_disease_activity_scores
+    response = oodt.post "users/@@diseaseActivityScores", user_hash
+    body = parse_body(response)
+
+    if response.success?
+      # • scores, whose value is a sequence of JSON dicts with two keys: "timestamp", whose value is a string in ISO-8601 format in UTC telling when the score was computed, and "value", whose value is an integer that tells the score.
+
+      # • numScores, whose value is an integer indicating the number of scores in the time-series. This value may be zero if no scores are available, and if so, no other keys are present in the JSON dict.
+      # • scoreType, whose value is a string indicating the type of score (currently either SCDAI or PRUSCI).
+      # • min, whose value is an integer indicating the minimum value permissible by the score type.
+      # • max, whose value is an integer indicating the maximum value permissible by the score type.
+      return body
+    else
+      logger.error "API Call to get_disease_activity_scores of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return false #body['errorMessage'] || body
+    end
+  end
+
+
+
   def health_attributes
     data = [ "My Disease Activity", "My Quality of Life", "My Anxiety Symptoms"]
   end
@@ -314,6 +374,32 @@ module OODT
              {element: 3, title: "My Anxiety Symptoms", value: 100, zones: [{startValue: 1, endValue: 100, title: "Low"}, {startValue: 700, endValue: 999, title: "High"}], markers: [{value: 1, title: "Perfect"}, {value: 2, title: "See a Doctor"}] }
            ]
   end
+
+
+
+
+
+  def get_chart_urls #19
+    # HTTP 200, Content-type: application/json, response body is a mapping of image type to URL to currently retrieve that image (with rotating token code). Current keys include:
+    # • cdaActivityChart
+    # • myAnxietySymptoms
+    # • myDepressionSymptoms
+    # • myFatigueSymptoms
+    # • myPainSymptoms
+    # • myQoL
+    # • mySleepDisturbance
+    # • mySocialRelations
+    response = oodt.post "users/@@images", user_hash #.merge({visit: "99"}) #optional visit number
+    body = parse_body(response) # ,success proc
+
+    if response.success?
+      return body
+    else
+      logger.error "API Call to fetch researcher access log for user ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return body['errorMessage'] || body
+    end
+  end
+
 
 
 

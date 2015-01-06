@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module OpenpprnBackend
+module OpenPprn
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -21,9 +21,15 @@ module OpenpprnBackend
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    # Rails 4.2 uncomment - #FIXME #TODO # config.active_record.raise_in_transactional_callbacks = true
+    # MARSHALL this line is disabled for Rails < 4.2 (ie. Rails 4.1.7)
+    # config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]
+
+    if ENV['website_code_name']
+      config.autoload_paths += Dir[Rails.root.join('app', 'views', ENV['website_code_name'], '{**/}')]
+    end
+
   end
 
 end

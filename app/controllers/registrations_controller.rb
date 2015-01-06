@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def initialize
-    include_plugins
+    include_registration_plugins
     super
   end
 
@@ -33,8 +33,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def include_plugins
-    self.class.send(:include, OODTRegistrationsController) if Figaro.env.oodt_enabled?
+  def include_registration_plugins
+    self.class.send(:include, OODTRegistrationsController) if OODT_ENABLED
   end
 
 end

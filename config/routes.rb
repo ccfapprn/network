@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   get 'resources' => 'static#resources'
 
   get 'external_link_warning' => 'static#external_link_warning'
-
   #Content Pages
   get 'content/:page' => 'static#content'
   get 'content/' => 'static#content'
@@ -30,6 +29,7 @@ Rails.application.routes.draw do
   #match 'research_questions/new', to: 'research_topics#new', via: :get, as: :new_research_topic
   match 'research_topics_tab', to: "research_topics#research_topics", via: :get, as: :research_topics_ajax
   get 'vote_counter' => 'research_topics#vote_counter'
+  match 'comment_on_research_topic', to: "research_topics#comment", via: [:post], as: :comment_on_research_topic
   resources :research_topics
 
   # Research Section
@@ -57,11 +57,21 @@ Rails.application.routes.draw do
 
   # Health Data Section
   get 'health_data' => 'health_data#index'
+  get 'health_data/my_trends' => 'health_data#index', as: :my_trends
+  get 'health_data/my_health_measures' => 'health_data#my_health_measures', as: :my_health_measures
+  get 'health_data/my_dashboard' =>  'health_data#my_dashboard', as: :my_dashboard
+  get 'health_data/my_connections' =>  'health_data#my_connections', as: :my_connections
+
+
+
+
+
+
+
   get 'data_reports' => 'health_data#reports'
   get 'data_medications' => 'health_data#medications'
   get 'data_intro' => 'health_data#intro'
-
-
+  match 'check_in', to: "health_data#check_in", via: :post, as: :check_in
 
 
   # members Section
@@ -107,6 +117,7 @@ Rails.application.routes.draw do
   # Voting on Questions
   resources :questions
   match 'vote', to: 'votes#vote', via: :post, as: :vote
+  match 'vote', to: 'research_topics#index', via: :get, as: :vote_fake
 
   # Blog and Notification Posts
   resources :posts, except: [:show, :index]

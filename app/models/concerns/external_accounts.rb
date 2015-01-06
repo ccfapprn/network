@@ -6,8 +6,8 @@ module ExternalAccounts
     #after_create :provision_external_accounts
 
     # Configure your application to use OODT and/or Validic in config/initalizers/pprn.rb
-    include OODT if Figaro.env.oodt_enabled
-    include ValidicAdapter if Figaro.env.validic_enabled
+    include OODT if OODT_ENABLED
+    include ValidicAdapter if VALIDIC_ENABLED
 
     has_one :external_account, dependent: :destroy, autosave: true;
     delegate :oodt_id, :oodt_id=, :oodt_baseline_survey_complete, :oodt_baseline_survey_complete=, :oodt_baseline_survey_url, :oodt_baseline_survey_url=, :validic_id, :validic_id=, :validic_access_token, :validic_access_token=, to: :external_account, allow_nil: true
@@ -29,7 +29,7 @@ module ExternalAccounts
 
 
   def oodt_user?
-    Figaro.env.oodt_enabled && oodt_user_provisioned?
+    OODT_ENABLED && oodt_user_provisioned?
   end
 
   def validic_user?
@@ -39,12 +39,12 @@ module ExternalAccounts
 
 
   # def provision_external_accounts
-  #   create_oodt if Figaro.env.oodt_enabled
+  #   create_oodt if OODT_ENABLED
   #   provision_validic_user if Figaro.env.validic_enabled
   # end
 
   # def delete_external_accounts
-  #   delete_oodt_user if Figaro.env.oodt_enabled
+  #   delete_oodt_user if OODT_ENABLED
   #   delete_validic_user if Figaro.env.validic_enabled
   # end
 

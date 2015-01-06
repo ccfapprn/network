@@ -13,12 +13,15 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
+
+  # DO CARE if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
+
+  #MARSHALL THIS IS UNC SPECIFIC
   #config.action_mailer.default_url_options = { host: 'localhost', port: 10002 }
   config.action_mailer.default_url_options = { host: 'ccfa-dev.med.unc.edu' }
-
   Rails.application.routes.default_url_options[:host] = 'ccfa-dev.med.unc.edu'
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -33,7 +36,7 @@ Rails.application.configure do
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  config.assets.digest = false
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
