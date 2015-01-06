@@ -3,8 +3,8 @@ require "test_helper"
 class ResearchTopicTest < ActiveSupport::TestCase
 
   test "self.popular" do
-    research_topics = [research_topics(:proposed), research_topics(:rt3), research_topics(:rt6), research_topics(:rt1), research_topics(:rt5), research_topics(:rt4), research_topics(:rt2)]
-    assert_equal research_topics.reverse, ResearchTopic.proposed.popular.to_a
+    research_topics = [research_topics(:rt1), research_topics(:rt3), research_topics(:rt4), research_topics(:rt2), research_topics(:rt5), research_topics(:rt6)]
+    assert_equal research_topics, ResearchTopic.popular.to_a
   end
 
 
@@ -16,8 +16,6 @@ class ResearchTopicTest < ActiveSupport::TestCase
   test "self.voted_by" do
     research_topics = [research_topics(:rt3)]
     assert_equal research_topics, ResearchTopic.voted_by(users(:user_9)).to_a
-
-
   end
 
   test "self.created_by" do

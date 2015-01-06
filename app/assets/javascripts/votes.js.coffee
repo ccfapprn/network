@@ -34,7 +34,8 @@ $(document).on "click", ".research_topics a.vote, #vote-counter a.vote, .researc
   link = $(this)
   link_text = ""
   badge = $(this).closest(".research-topic").find(".rating")
-  console.log badge.html()
+  console.log badge.html() #FIXME - should we be logging all this stuff?
+
   submit_path = $(this).data("submit-path")
   research_topic_path = $(this).data("research-topic-path")
   vote_counter = $(".vote_counter")
@@ -72,8 +73,9 @@ $(document).on "click", ".research_topics a.vote, #vote-counter a.vote, .researc
           vote_counter.html(data)
         )
     else
-      console.log data
+      console.log data  #FIXME - should we be logging all this stuff?
       bootbox.alert("Sorry! You have used all your votes. If you want to vote for this topic, first retract a vote from another.")
+
 
 
   )

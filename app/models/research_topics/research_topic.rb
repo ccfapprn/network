@@ -62,6 +62,7 @@ class ResearchTopic < ActiveRecord::Base
 
 
 
+
   # STATE GETTERS
   def proposed?
     state == 'proposed'
@@ -92,6 +93,7 @@ class ResearchTopic < ActiveRecord::Base
         from research_topics rt, (select count(*) total from votes where research_topic_id is not null) vc, votes v
         where v.research_topic_id = rt.id
         where rt.state != 'rejected'
+
         and v.rating > 0
         group by rt.id
         having count(v.id)/(1.00 * max(vc.total)) > #{minimum_percentage};
@@ -109,6 +111,7 @@ class ResearchTopic < ActiveRecord::Base
         from research_topics rt
         left join votes v on v.research_topic_id = rt.id
         where rt.state != 'rejected'
+
         and v.rating > 0
         group by rt.id
         order by topic_votes desc, research_topic_created_at desc;
@@ -118,6 +121,7 @@ class ResearchTopic < ActiveRecord::Base
   end
 
   # alias as per Sean's specs
+
   # def votes_count
   #   rating
   # end

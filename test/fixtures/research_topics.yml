@@ -40,12 +40,10 @@ rt6:
   user: user_2
   votes_count: 2
   created_at: <%= Time.zone.now - 9.hour %>
-
-
 rejected:
   text: Why am I so tired?
   description: 2nd cup of coffee and I'm still exhausted
-  state: rejected
+  state: removed
   user: social
   created_at: <%= Time.zone.now - 1.hour %>
 

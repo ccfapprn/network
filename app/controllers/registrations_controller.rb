@@ -33,6 +33,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
+
   def include_registration_plugins
     self.class.send(:include, OODTRegistrationsController) if OODT_ENABLED
   end

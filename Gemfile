@@ -57,7 +57,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring', group: :development
 
 # Bootstrap and Styles
-gem 'sass-rails', '~> 5.0.0.beta1'
+gem 'sass-rails', '~> 4.0.4' #'~> 5.0.0.beta1' #MARSHALL
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'font-awesome-rails'
