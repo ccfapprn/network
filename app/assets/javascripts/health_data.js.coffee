@@ -42,5 +42,3 @@ $(document).on "click", "form#check-in .prev-question", (event) ->
   $("#completion_message").addClass("hidden")
   $("form#check-in .question").addClass("hidden")
   $("form#check-in .question[data-question-id='" + prev_question_id + "'").removeClass('hidden')
-
-
