@@ -2,7 +2,7 @@ module OODTApplicationController
   extend ActiveSupport::Concern
 
   included do
-    before_action :redirect_to_pairing_if_user_not_paired, except: [:pairing_wizard]
+    before_action :redirect_to_pairing_if_user_not_paired, except: [:pairing_wizard, :redirect_to_lcp_reg]
   end
 
   module ClassMethods

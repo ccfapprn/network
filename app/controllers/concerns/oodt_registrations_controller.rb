@@ -62,10 +62,10 @@ module OODTRegistrationsController
   end
 
 
-  # def redirect_to_lcp_reg
-  #   redirect_to current_user.get_lcp_reg_url(return_url: pairing_wizard_url)
-  #   return
-  # end
+  def redirect_to_lcp_reg
+    redirect_to current_user.get_lcp_reg_url(return_url: pairing_wizard_url)
+    return
+  end
 
 
 end
