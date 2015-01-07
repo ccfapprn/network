@@ -12,7 +12,7 @@
     %br/
     =link_to "Contact Us", contact_path
   .col-sm-4.small.text-center
-    %strong Connect: 
+    %strong Connect:
     =link_to "http://www.facebook.com/ccfafb" do
       =image_tag "facebook.png", size: "32"
     =link_to "http://www.twitter.com/ccfa" do
@@ -22,10 +22,13 @@
     =link_to "http://www.pinterest.com/ccfa" do
       =image_tag "pinterest.png", size: "32"
 
-  .col-sm-4.small
-    %span.pull-right
-      =link_to main_app.content_path(page: "about_partners") do
-        =image_tag "group-logo.png", width: "300"
-
+  .col-sm-4.text-right
+    =link_to "http://www.med.unc.edu" do
+      =image_tag "logos/unc_logo.png", target: "_blank", width: 150
+    =link_to "http://ccfa.org" do
+      =image_tag "logos/ccfa_logo.png", target: "_blank", width: 150
+    %br/
+    =link_to "http://pcori.org" do
+      =image_tag "logos/pcori_logo.png", target: "_blank", width: 300
 %hr/
 %br/
