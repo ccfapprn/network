@@ -21,22 +21,97 @@ module Merit
     include Merit::BadgeRulesMethods
 
     def initialize
-      # If it creates user, grant badge
+
+      # survey_responder_attr.merge({level: 1, description: 'You\'ve completed your baseline survey'}),
+      # survey_responder_attr.merge({level: 2, description: 'You\'ve completed your second biannual survey'}),
+      # survey_responder_attr.merge({level: 3, description: 'You\'ve completed your third biannual survey'}),
+      # survey_responder_attr.merge({level: 4, description: 'You\'ve completed your fourth biannual survey'}),
+      # survey_responder_attr.merge({level: 5, description: 'You\'ve completed your fifth biannual survey'}),
+      # survey_responder_attr.merge({level: 6, description: 'You\'ve completed 5+ biannual surveys'}),
+
+      #grant_on 'registrations#create', badge: 'just-registered', model_name: 'User'
+
+      WRITE ME
+
+
+      ### RESEARCH ###
+
+      # Research Design
+      # inquisitor_attr.merge({level: 1, description: "You've asked one research question"}), # asked one
+      # inquisitor_attr.merge({level: 2, description: "People like your research question!"}), # got one vote
+      # inquisitor_attr.merge({level: 3, description: "Your research question has a following!"}), # got 5 votes
+      # inquisitor_attr.merge({level: 4, description: "You have a research question in the top 50% of questions!"}), # one of your research questions ranks well
+      # inquisitor_attr.merge({level: 5, description: "You have a research question in the top 25%!"}),
+      # inquisitor_attr.merge({level: 6, description: "You have a research question in the top 10%!"}),
+      # inquisitor_attr.merge({level: 7, description: "You have two research questions in the top 10%!"}),
+
+      WRITE ME
+
+
+
+      # Discussion
+      # sparker_attr.merge({level: 1, description: "You have commented on a research topic"}),
+      # sparker_attr.merge({level: 2, description: "You have asked a research question that has generated discussion"}),
+      # sparker_attr.merge({level: 3, description: "Your research question is heavily commented on"}),
+      grant_on 'comments#create', badge: 'sparker', level: 1, to: :user
+      grant_on 'comments#create', badge: 'sparker', level: 2, to: :commentable_user do |comment|
+        comment.commentable.non_author_comments.any?
+      end
+      grant_on 'comments#create', badge: 'sparker', level: 3, to: :commentable_user do |comment|
+        comment.commentable.non_author_comments.count > 5
+      end
+
+      # Voting
+      # voter_attr.merge({level: 1, description: "You cast a vote!"}),
+      # voter_attr.merge({level: 2, description: "You've cast all your votes!"}),
+      grant_voter_badge_on(1,1..1)
+      grant_voter_badge_on(2,2..9999)
+
+
+      ### HEALTH DATA ###
+
+      # Health Data
+      # checkin_attr.merge({level: 1, description: 'You\'ve done one health check in!'}),
+      # checkin_attr.merge({level: 2, description: 'You\'ve done three health check ins!'}),
+      # checkin_attr.merge({level: 3, description: 'You\'ve done five health check ins!'}),
+      # checkin_attr.merge({level: 4, description: 'You\'ve done 10 health check ins!'}),
+      # checkin_attr.merge({level: 5, description: 'You\'ve done 20 health check ins!'}),
+      # checkin_attr.merge({level: 6, description: 'You\'ve done 30+ health check ins!'}),
+      grant_checkin_badge_on(1,1..1)
+      grant_checkin_badge_on(2,3..3)
+      grant_checkin_badge_on(3,5..5)
+      grant_checkin_badge_on(4,10..10)
+      grant_checkin_badge_on(5,20..20)
+      grant_checkin_badge_on(6,30..30)
+
+
+
+      # Members
+      # {name: 'community-face', description: 'You have created a social profile that other community members can see', custom_fields: { title: 'Community Face', icon: 'fa-group', category: 'members' }},
+      # {name: 'public-face', description: 'You have allowed your profile photo and location to be shown on the logged-out website. This helps newcomers and visitors learn about the power of this network.', custom_fields: { title: 'Public Face', icon: 'fa-slideshare', category: 'members' }}
+
+      WRITE ME
+
+
+
+
+       # If it creates user, grant badge
       # Should be "current_user" after registration for badge to be granted.
-      grant_on 'registrations#create', badge: 'just-registered', model_name: 'User'
+
+      # grant_on 'registrations#create', badge: 'just-registered', model_name: 'User'
 
 
       ##########################
       #### Research Topics #####
       ##########################
       # Inquisitor Badges
-      grant_inquisitor_badge_on(1,1..1)
-      grant_inquisitor_badge_on(2,2..4)
-      grant_inquisitor_badge_on(3,5..9999)
-      # Vote Badges
-      grant_voter_badge_on(1,1..1)
-      grant_voter_badge_on(2,2..4)
-      grant_voter_badge_on(3,5..5)
+      # grant_inquisitor_badge_on(1,1..1)
+      # grant_inquisitor_badge_on(2,2..4)
+      # grant_inquisitor_badge_on(3,5..9999)
+      # # Vote Badges
+      # grant_voter_badge_on(1,1..1)
+      # grant_voter_badge_on(2,2..4)
+      # grant_voter_badge_on(3,5..5)
 
 
       # FOR COMMENT BADGE, NEED COMMENTS IMPLEMENTED {name: 'discusser', description: 'You commented on 3 topics', custom_fields: { title: 'Discusser', icon: 'fa-comments-o', category: 'research' }},
@@ -62,23 +137,23 @@ module Merit
       ##########################
       #### Members #####
       ##########################
-      grant_on 'members#update_profile', badge: 'socialite', model_name: 'social_profile', to: :user, temporary: true do |social_profile|
-        social_profile.present? && social_profile.show_location
-      end
-      grant_on 'members#update_profile', badge: 'greeter', model_name: 'social_profile', to: :user, temporary: true do |social_profile|
-        social_profile.present? && social_profile.show_publicly?
-      end
+      # grant_on 'members#update_profile', badge: 'socialite', model_name: 'social_profile', to: :user, temporary: true do |social_profile|
+      #   social_profile.present? && social_profile.show_location
+      # end
+      # grant_on 'members#update_profile', badge: 'greeter', model_name: 'social_profile', to: :user, temporary: true do |social_profile|
+      #   social_profile.present? && social_profile.show_publicly?
+      # end
 
 
     end
 
 
     # Helper Methods
-    def grant_inquisitor_badge_on(level, range)
-      grant_on ['research_topics#create', 'research_topics#destroy'], badge: 'inquisitor', temporary: true, level: level do |research_topic|
-        range.include? research_topic.user.research_topics.count
-      end
-    end
+    # def grant_inquisitor_badge_on(level, range)
+    #   grant_on ['research_topics#create', 'research_topics#destroy'], badge: 'inquisitor', temporary: true, level: level do |research_topic|
+    #     range.include? research_topic.user.research_topics.count
+    #   end
+    # end
 
     def grant_voter_badge_on(level, range)
       grant_on 'votes#vote', badge: 'voter', temporary: true, level: level, to: :user do |vote|
@@ -86,6 +161,12 @@ module Merit
       end
     end
 
+
+    def grant_checkin_badge_on(level, range)
+      grant_on 'health_data#check_in', badge: 'checkin', level: level, model_name: 'answer_session', to: :user do |answer_session|
+        answer_session.complete? && range.include? answer_session.user.answer_sessions.count #FIXME this will count all user sessions, not just health checkin types
+      end
+    end
 
   end
 end

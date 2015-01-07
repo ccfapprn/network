@@ -118,3 +118,5 @@ group :development, :test do
 end
 
 gem 'simplecov', :require => false, :group => :test
+
+gem 'whenever' #enables cron jobs (for removing no-longer deserved badges for example)
