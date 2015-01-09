@@ -163,7 +163,7 @@ module OODT
 
   # Implementation for API Call #6
   def store_basics_in_status_format(body)
-    self.external_account.oodt_baseline_survey_complete = body['baselineSurveyComplete'] == 'true')
+    self.external_account.oodt_baseline_survey_complete = body['baselineSurveyComplete']
     self.external_account.oodt_baseline_survey_url = body['url']
 
     self.external_account.save
