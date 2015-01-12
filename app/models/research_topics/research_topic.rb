@@ -60,6 +60,9 @@ class ResearchTopic < ActiveRecord::Base
     save
   end
 
+  def non_author_comments
+    comments.reject { |c| c.user == c.commentable.user }
+  end
 
 
 
@@ -131,7 +134,6 @@ class ResearchTopic < ActiveRecord::Base
   def rank
     1 + (self.class.ranks.index { |rank_hash| rank_hash['research_topic_id'].to_i == self.id } || 0)
   end
-
 
 
 

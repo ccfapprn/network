@@ -48,6 +48,8 @@ class HealthDataController < ApplicationController
     @answer = @answer_session.process_answer(question, params)
 
     render json: {answer: @answer, next_question_id: (@answer.next_question.id if @answer and @answer.next_question)}
+
+    award_check_in_badges if @answer_session.completed?
   end
 
 
@@ -70,6 +72,23 @@ class HealthDataController < ApplicationController
   def include_plugins
     self.class.send(:include, OODTHealthDataController) if OODT_ENABLED
   end
+
+  def award_check_in_badges
+    grant_checkin_badge_on(1,1)
+    grant_checkin_badge_on(2,3)
+    grant_checkin_badge_on(3,5)
+    grant_checkin_badge_on(4,10)
+    grant_checkin_badge_on(5,20)
+    grant_checkin_badge_on(6,30)
+  end
+
+  def grant_checkin_badge_on(level, quota)
+    if @answer_session.user.answer_sessions.select { |as| as.completed? }.count >= quota #note, this will count all user sessions, not just health checkin types
+      badge = Merit::Badge.find { |b| b.name == "checkin" && b.level == level}.first
+      current_user.add_badge(badge.id) #fixme prevent redundant badging
+    end
+  end
+
 
 
 end

@@ -1,39 +1,51 @@
 
+- current_user_badges = current_user.badges
+- @badges = Merit::Badge.all
 
 -##############
 -#### SHOW BADGES
 -##############
 
-- if current_user
-  %ul.list-group.badgers
-    - current_user.badges.each do |badge|
-      %li.list-group-item.badger.badger-earned.list-group-item-success
-        .media
-          %a.pull-left{:href => "#"}
-            %i.fa.media-object{:class => badge.custom_fields[:icon]}
-          .media-body
-            %h4.media-heading= badge.custom_fields[:title]
-            - if badge.level
-              %h4= badge.level
-            %small= badge.description
+-#- if current_user
+-#  %ul.list-group.badgers
+-#    - @badges.each do |badge|
+-#      %li.list-group-item.badger.list-group-item-success{ :class => "#{"badger-earned" if current_user_badges.include?(badge)}"}
+-#        .media
+-#          %a.pull-left{:href => "#"}
+-#            %i.fa.media-object{:class => badge.custom_fields[:icon]}
+-#          .media-body
+-#            %h4.media-heading= badge.custom_fields[:title]
+-#            - if badge.level
+-#              %h4= badge.level
+-#            %small= badge.description
 
 
 
+%ul.list-group.badgers
+  - @badges.group_by{ |b| b.name }.each do |name, badge_group|
+    - master_badge = badge_group.first
+    - earned_badges = current_user_badges.select { |badge| badge.name == name }
 
--#%ul.list-group.badgers
--#  - current_user.badges.group_by{ |b| b.name }.each do |badge_group|
--#    - badge = badge_group.second.sort_by { |b| b.level }.last
--#    %li.list-group-item.badger.badger-earned.list-group-item-success
--#      .media
--#        %a.pull-left{:href => "#"}
--#          %i.fa.media-object{:class => badge.custom_fields[:icon]}
--#        .media-body
--#          %h4.media-heading= badge.custom_fields[:title]
--#          - if badge.level
--#            %h4= badge.level
--#          %small= badge.description
+    %li.list-group-item
+      .media
+        %a.pull-left{:href => "#"}
+          %i.fa.media-object{:class => master_badge.custom_fields[:icon]}
+        .media-body
+          %h4.media-heading= master_badge.custom_fields[:title]
+          -# %small= master_badge.custom_fields[:category_description]
+
+          - badge_group.each do |badge|
+            - if earned_badges.include?(badge)
+              %strong
+                %small= "#{badge.level} #{badge.description}"
+            - else
+              %small= "#{badge.level} #{badge.description}"
+            %br/
 
 
+    -#{ :class => "#{"badger-earned list-group-item-success" if earned_badges.any?}"}
+
+    -# master_badge = badge_group.second.sort_by { |b| b.level }.first
 
 -#- if @active_top_nav_link == :home
 -#  - badges = [{title:"Frequent Check-iner",body:"You've done 40 frequent surveys", icon: "fa-clock-o", earned: true},

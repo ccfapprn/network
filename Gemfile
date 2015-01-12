@@ -87,7 +87,8 @@ gem 'kaminari', '~> 0.16.1'
 
 # Blogs and Notifications
 gem 'acts-as-taggable-on'
-gem 'acts_as_commentable_with_threading'
+gem 'acts_as_commentable'
+#gem 'acts_as_commentable_with_threading'
 
 # User Profile
 gem 'geocoder'

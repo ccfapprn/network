@@ -22,14 +22,15 @@ end
 # Create application badges (uses https://github.com/norman/ambry)
 
 # Multi-Level Badges
-survey_responder_attr = {name: 'survey-responder', custom_fields: { title: 'Survey Responder', icon: 'fa-list-ul', category: 'research' }}
+survey_responder_attr = {name: 'survey_responder', custom_fields: { title: 'Survey Responder', icon: 'fa-list-ul', category: 'research', category_description: 'Complete biannual surveys when they are available' }}
 
-inquisitor_attr = {name: 'inquisitor', custom_fields: { title: 'Research Designer', icon: 'fa-question-circle', category: 'research' } }
-sparker_attr =   {name: 'discusser', custom_fields: { title: 'Discusser', icon: 'fa-comments-o', category: 'research' }}
-voter_attr = {name: 'voter', custom_fields: { title: 'Voter', icon: 'fa-check-circle-o', category: 'research' } }
+research_designer_attr = {name: 'research_designer', custom_fields: { title: 'Research Designer', icon: 'fa-question-circle', category: 'research', category_description: 'Design research questions that people like' } }
+discusser_attr =   {name: 'discusser', custom_fields: { title: 'Discusser', icon: 'fa-comments-o', category: 'research', category_description: 'Spark discussions about research questions!' }}
+voter_attr = {name: 'voter', custom_fields: { title: 'Voter', icon: 'fa-check-circle-o', category: 'research', category_description: 'Vote for research questions you find most valuable' } }
 
-checkin_attr =  {name: 'checkin', custom_fields: { title: 'Frequent Check-iner', icon: 'fa-clock-o', category: 'health_data' }}
+checkin_attr =  {name: 'checkin', custom_fields: { title: 'Check-iner', icon: 'fa-clock-o', category: 'health_data', category_description: 'Complete health check-ins to keep us up to date!' }}
 
+face_attr =  {name: 'face', custom_fields: { title: 'Community Face', icon: 'fa-group', category: 'members', category_description: 'Create a social profile for others to see' }}
 
 badges = [
 
@@ -40,27 +41,24 @@ badges = [
   survey_responder_attr.merge({level: 2, description: 'You\'ve completed your second biannual survey'}),
   survey_responder_attr.merge({level: 3, description: 'You\'ve completed your third biannual survey'}),
   survey_responder_attr.merge({level: 4, description: 'You\'ve completed your fourth biannual survey'}),
-  survey_responder_attr.merge({level: 5, description: 'You\'ve completed your fifth biannual survey'}),
-  survey_responder_attr.merge({level: 6, description: 'You\'ve completed 5+ biannual surveys'}),
-  # {name: 'just-registered', description: 'You joined! You\'re a boss!', custom_fields: { title: 'You Joined!', icon: 'fa-user', category: 'home' }},
-
-
+  survey_responder_attr.merge({level: 5, description: 'You\'ve completed 5+ biannual surveys'}),
+  # if you add more survey_levels, make sure to update max_badge_levels = 5 to the new max_level in oodt.rb
 
   ### RESEARCH ###
 
   # Research Design
-  inquisitor_attr.merge({level: 1, description: "You've asked one research question"}), # asked one
-  inquisitor_attr.merge({level: 2, description: "People like your research question!"}), # got one vote
-  inquisitor_attr.merge({level: 3, description: "Your research question has a following!"}), # got 5 votes
-  inquisitor_attr.merge({level: 4, description: "You have a research question in the top 50% of questions!"}), # one of your research questions ranks well
-  inquisitor_attr.merge({level: 5, description: "You have a research question in the top 25%!"}),
-  inquisitor_attr.merge({level: 6, description: "You have a research question in the top 10%!"}),
-  inquisitor_attr.merge({level: 7, description: "You have two research questions in the top 10%!"}),
+  research_designer_attr.merge({level: 1, description: "You've asked one research question"}), # asked one
+  research_designer_attr.merge({level: 2, description: "People like your research question!"}), # got one vote
+  research_designer_attr.merge({level: 3, description: "Your research question has 5+ votes!"}), # got 5 votes
+  # research_designer_attr.merge({level: 4, description: "You have a research question in the top 50% of questions!"}), # one of your research questions ranks well
+  # research_designer_attr.merge({level: 5, description: "You have a research question in the top 25%!"}),
+  # research_designer_attr.merge({level: 6, description: "You have a research question in the top 10%!"}),
+  # research_designer_attr.merge({level: 7, description: "You have two research questions in the top 10%!"}),
 
   # Discussion
-  sparker_attr.merge({level: 1, description: "You have commented on a research topic"}),
-  sparker_attr.merge({level: 2, description: "You have asked a research question that has generated discussion"}),
-  sparker_attr.merge({level: 3, description: "Your research question is heavily commented on"}),
+  discusser_attr.merge({level: 1, description: "You have commented on a research topic"}),
+  discusser_attr.merge({level: 2, description: "You have asked a research question that has generated discussion"}),
+  discusser_attr.merge({level: 3, description: "Your research question has received 5+ comments"}),
   # your research topic is in the top % of discussed topics
 
   # Voting
@@ -83,9 +81,8 @@ badges = [
 
 
   # Members
-  {name: 'community-face', description: 'You have created a social profile that other community members can see', custom_fields: { title: 'Community Face', icon: 'fa-group', category: 'members' }},
-  {name: 'public-face', description: 'You have allowed your profile photo and location to be shown on the logged-out website. This helps newcomers and visitors learn about the power of this network.', custom_fields: { title: 'Public Face', icon: 'fa-slideshare', category: 'members' }}
-
+  face_attr.merge({level: 1, description: 'You have created a social profile that other community members can see'}),
+  #face_attr.merge({level: 2, description: 'You have allowed your profile photo and location to be shown on the logged-out website. This helps newcomers and visitors learn about the power of this network.'}),
 ]
 
 
