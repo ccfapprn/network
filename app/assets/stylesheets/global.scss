@@ -67,6 +67,6 @@ html.turbolinks-progress-bar::before {
   max-width: 100%;
 }
 
-.a-no-decoration:hover {
-  text-decoration: none;
+.a-no-decoration a:hover, .a-no-decoration a:visited, {
+  text-decoration: none !important;
 }
