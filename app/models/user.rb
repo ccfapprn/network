@@ -39,7 +39,18 @@ class User < ActiveRecord::Base
 
 
   # STUBS # TODO # TO IMPLEMENT
-  scope :social, -> { where("1=1") } #TODO MUST DEFINE SOCIAL USERS
+  scope :social, -> { where("1=1") } #TODO MUST DEFINE SOCIAL USERS #FIXME
+
+
+  def visible_to_community?
+    social_profile.visible_to_community?
+  end
+
+  def visible_to_public?
+    false # social_profile.visible_to_public? FIXME implemetn
+  end
+
+
   def self.unique_cities_count
     self.count #FIXME #TODO #STUB
   end

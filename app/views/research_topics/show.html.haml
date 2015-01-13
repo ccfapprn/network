@@ -62,8 +62,8 @@
           .panel-heading
             %h3.panel-title Comments
           .panel-body
-            - if @research_topic.comment_threads.any?
-              - @research_topic.comment_threads.each do |comment|
+            - if @research_topic.comments.any?
+              - @research_topic.comments.each do |comment|
                 .media
                   .pull-left
                     = image_tag comment.user.photo_url

@@ -13,13 +13,11 @@ class SocialProfile < ActiveRecord::Base
     res.map{|geo| {latitude: geo.latitude, longitude: geo.longitude} }
   end
 
-
-  def show_publicly?
-    make_public?
-  end
+  # visible_to_public?
+  # visible_to_community?
 
   def photo_url
-    if show_publicly? and photo.present?
+    if visible_to_community? and photo.present?
       photo.url
     else
       "//www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email.to_s)}?d=identicon"
@@ -27,7 +25,7 @@ class SocialProfile < ActiveRecord::Base
   end
 
   def public_location
-    if show_publicly?
+    if visible_to_community?
       location
     else
       "Anonymous Location"
@@ -35,7 +33,7 @@ class SocialProfile < ActiveRecord::Base
   end
 
   def public_nickname
-    if show_publicly? and name.present?
+    if visible_to_community? and name.present?
       name
     else
       "Anonymous User #{Digest::MD5.hexdigest(user.email.to_s)[0,5]}"
