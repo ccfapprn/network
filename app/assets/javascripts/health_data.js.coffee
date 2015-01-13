@@ -9,8 +9,10 @@ submit_check_in = (submit_path, question_id, val) ->
     else
       $("#completion_message").addClass("hidden")
       $("form#check-in .question").addClass("hidden")
+
+      $("form#check-in .question[data-question-id='" + data.next_question_id + "']").removeClass('hidden')
       #FIXME console.log "form#check-in .question[data-question-id='" + data.next_question_id + "']"
-      $("form#check-in .question[data-question-id='" + data.next_question_id + "'").removeClass('hidden')
+
   )
 
 
@@ -41,4 +43,4 @@ $(document).on "click", "form#check-in .prev-question", (event) ->
 
   $("#completion_message").addClass("hidden")
   $("form#check-in .question").addClass("hidden")
-  $("form#check-in .question[data-question-id='" + prev_question_id + "'").removeClass('hidden')
+  $("form#check-in .question[data-question-id='" + prev_question_id + "']").removeClass('hidden')
