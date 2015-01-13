@@ -15,25 +15,7 @@ html.turbolinks-progress-bar::before {
 }
 
 
-i.badger { font-size: 36px; }
 
-
-.badger {
-  i { font-size: 36px; }
-  color: #DDD;
-  .media i {
-    color: #DDD;
-  }
-}
-
-
-.badger-earned .media, .badger-earned .media i, {
-  color: green !important;
-}
-
-// .pprn-heading {
-//   background-color: #428bca;
-// }
 
 .top-nav {
   padding: 10px 0px 10px 0px;
@@ -77,13 +59,14 @@ i.badger { font-size: 36px; }
   min-height: 180px;
 }
 
-.muted {
-  color: #AAA;
+.text-strong {
+  font-weight: 500;
 }
-
-
-
 
 .footer-logos img {
   max-width: 100%;
+}
+
+.a-no-decoration:hover {
+  text-decoration: none;
 }

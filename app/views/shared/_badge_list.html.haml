@@ -21,26 +21,90 @@
 
 
 
-%ul.list-group.badgers
+
+
+
+-#%ul.list-group.badgers
+
+-#    %li.list-group-item
+-#      .media
+-#        %a.pull-left{:href => "#"}
+-#          %i.fa.media-object{:class => master_badge.custom_fields[:icon]}
+-#        .media-body
+-#          %h4.media-heading= master_badge.custom_fields[:title]
+-#          -# %small= master_badge.custom_fields[:category_description]
+
+-#          - badge_group.each do |badge|
+-#            - if earned_badges.include?(badge)
+-#              %strong
+-#                %small= "#{badge.level} #{badge.description}"
+-#            - else
+-#              %small= "#{badge.level} #{badge.description}"
+-#            %br/
+
+
+
+.panel-group#accordion
   - @badges.group_by{ |b| b.name }.each do |name, badge_group|
     - master_badge = badge_group.first
     - earned_badges = current_user_badges.select { |badge| badge.name == name }
+    - highest_level = earned_badges.first ? earned_badges.sort { |x| x.level }.first.level : 0
 
-    %li.list-group-item
-      .media
-        %a.pull-left{:href => "#"}
-          %i.fa.media-object{:class => master_badge.custom_fields[:icon]}
-        .media-body
-          %h4.media-heading= master_badge.custom_fields[:title]
-          -# %small= master_badge.custom_fields[:category_description]
+    .panel.panel-primary
+      .panel-heading
+        %h4.panel-title
+          %a.a-no-decoration{html: 'data-toggle="collapse" data-parent="#accordion"', href: "#collapseOne"}
+            %i.fa{:class => master_badge.custom_fields[:icon]}
+            = master_badge.custom_fields[:title]
 
-          - badge_group.each do |badge|
-            - if earned_badges.include?(badge)
-              %strong
-                %small= "#{badge.level} #{badge.description}"
-            - else
-              %small= "#{badge.level} #{badge.description}"
-            %br/
+          %span.badge.pull-right= highest_level
+          .clearfix
+
+      #collapseOne.panel-collapse.collapse.in
+        .panel-body.small
+          %ul{style: "padding-left: 25px;"}
+            %li.text-success.small.text-strong
+              = "Level 0: This where you start."
+            - badge_group.each do |badge|
+              %li.small{class: "#{ earned_badges.include?(badge) ? "text-success text-strong" : "text-muted"}"}
+                = "Level #{badge.level}: #{badge.description}"
+
+
+
+
+  -#.panel.panel-default
+  -#  .panel-heading
+  -#    %h4.panel-title
+  -#      %a{html: 'data-toggle="collapse" data-parent="#accordion"', href: "#collapseTwo"}
+  -#        Collapsible Group Item #2
+  -#  #collapseTwo.panel-collapse.collapse
+  -#    .panel-body
+  -#      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+
+
+
+
+-#%ul.list-group.badgers
+-#  - @badges.group_by{ |b| b.name }.each do |name, badge_group|
+-#    - master_badge = badge_group.first
+-#    - earned_badges = current_user_badges.select { |badge| badge.name == name }
+
+-#    %li.list-group-item
+-#      .media
+-#        %a.pull-left{:href => "#"}
+-#          %i.fa.media-object{:class => master_badge.custom_fields[:icon]}
+-#        .media-body
+-#          %h4.media-heading= master_badge.custom_fields[:title]
+-#          -# %small= master_badge.custom_fields[:category_description]
+
+-#          - badge_group.each do |badge|
+-#            - if earned_badges.include?(badge)
+-#              %strong
+-#                %small= "#{badge.level} #{badge.description}"
+-#            - else
+-#              %small= "#{badge.level} #{badge.description}"
+-#            %br/
 
 
     -#{ :class => "#{"badger-earned list-group-item-success" if earned_badges.any?}"}

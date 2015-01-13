@@ -24,7 +24,7 @@ end
 # Multi-Level Badges
 survey_responder_attr = {name: 'survey_responder', custom_fields: { title: 'Survey Responder', icon: 'fa-list-ul', category: 'research', category_description: 'Complete biannual surveys when they are available' }}
 
-research_designer_attr = {name: 'research_designer', custom_fields: { title: 'Research Designer', icon: 'fa-question-circle', category: 'research', category_description: 'Design research questions that people like' } }
+research_designer_attr = {name: 'research_designer', custom_fields: { title: 'Research Designer', icon: 'fa-bar-chart', category: 'research', category_description: 'Design research questions that people like' } }
 discusser_attr =   {name: 'discusser', custom_fields: { title: 'Discusser', icon: 'fa-comments-o', category: 'research', category_description: 'Spark discussions about research questions!' }}
 voter_attr = {name: 'voter', custom_fields: { title: 'Voter', icon: 'fa-check-circle-o', category: 'research', category_description: 'Vote for research questions you find most valuable' } }
 
