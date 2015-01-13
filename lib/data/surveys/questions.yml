@@ -1,3 +1,64 @@
+
+# Daily Health Data
+- id: 1001
+  text_en: How are you feeling today?
+  time_estimate: 0.1
+  answer_template_ids:
+  - 13
+- id: 1002
+  text_en: How would you describe your general well-being over the last week?
+  time_estimate: 0.1
+  answer_template_ids:
+  - 14
+
+
+
+
+
+
+- id: 1003
+  text_en: |
+    On average, over the past week, would you rate your abdominal pain as:
+  time_estimate: 0.1
+  answer_template_ids:
+  - 15
+- id: 1004
+  text_en: |
+   On average, over the past week, how many liquid or very soft stools have you had per day?
+  time_estimate: 0.1
+  answer_template_ids:
+  - 4
+
+
+
+
+
+
+
+- id: 1005
+  text_en: |
+    How much blood have you seen in your stool over the last week?
+  time_estimate: 0.1
+  answer_template_ids:
+  - 16
+
+- id: 1006
+  text_en: |
+   What has been your stool frequency over the last week?
+  time_estimate: 0.1
+  answer_template_ids:
+  - 17
+
+
+
+
+
+
+
+
+
+
+
 #- id: 489
 #  text_en: |
 #    How did you hear about MyApnea.Org?
@@ -650,27 +711,3 @@
 #    - 59
 #    - 60
 
-
-# Daily Health Data
-- id: 1001
-  text_en: How are you feeling today?
-  time_estimate: 0.1
-  answer_template_ids:
-  - 13
-- id: 1002
-  text_en: How would you describe your general well-being over the last week?
-  time_estimate: 0.1
-  answer_template_ids:
-  - 14
-- id: 1003
-  text_en: |
-    On average, over the past week, would you rate your abdominal pain as:
-  time_estimate: 0.1
-  answer_template_ids:
-  - 15
-- id: 1004
-  text_en: |
-   On average, over the past week, how many liquid or very soft stools have you had per day?
-  time_estimate: 0.1
-  answer_template_ids:
-  - 4

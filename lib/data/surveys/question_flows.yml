@@ -6,6 +6,10 @@
 #  first_question_id: 489
 #  status: show
 - id: 101
-  name_en: Daily Trends
+  name_en: Daily Trends # FIXME rename to Crohns Health when can
   status: hide
-  first_question_id: 1001
+  first_question_id: 1001 #same overall health question for everyone
+- id: 102
+  name_en: UC Health
+  status: hide
+  first_question_id: 1001 #same overall health question for everyone
