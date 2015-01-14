@@ -27,7 +27,7 @@ module OODTRegistrationsController
 
       # 1. Try to Pair them with their primary email address
       if current_user.pair_with_lcp(current_user.email)
-        flash.now[:notice] = "Success! We found that your email address, #{current_user.email}, matches an existing CCFA Partners account. Wonderful! We've connected them automatically to save you time entering data."
+        flash.now[:notice] = "Success!" 
 
       # 2. If that didn't work, have they JUST provided an alternative email to try?
       elsif params[:alt_email]
@@ -55,7 +55,7 @@ module OODTRegistrationsController
 
       # OUT OF LUCK You're out of luck bub. Your primary email address didn't match legacy partners, and you haven't provided an alternative. You need to create a new LCP account or give an alternative email address.
       else
-        flash.now[:notice] = "Your primary email address #{current_user.email} was not found in the legacy CCFA Partners system. Please try an alternative email address or set up a new account."
+        flash.now[:notice] = "Welcome!  It looks like your email address #{current_user.alt_email} is brand new to our network.  Please see instructions below to complete registration."
       end
 
     end
