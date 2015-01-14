@@ -67,5 +67,10 @@ module OODTRegistrationsController
     return
   end
 
+  def confirm_alt_email
+    @token = params[:token]
+    @confirmed = User.confirm_alt_email(@token)
+  end
+
 
 end

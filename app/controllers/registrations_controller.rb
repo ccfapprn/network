@@ -24,11 +24,6 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:first_name, :last_name, :year_of_birth, :zip_code, :email, :password, :password_confirmation, :current_password)
   end
 
-  def confirm_alt_email
-    @token = params[:token]
-    @confirmed = User.confirm_alt_email(@token)
-  end
-
 
 
   private
