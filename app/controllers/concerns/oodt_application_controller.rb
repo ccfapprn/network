@@ -1,12 +1,12 @@
 module OODTApplicationController
   extend ActiveSupport::Concern
 
-  included do
-    before_action :redirect_to_pairing_if_user_not_paired, except: [:pairing_wizard, :redirect_to_lcp_reg, :confirm_alt_email]
-  end
+  # NOTE: this had to be moved to application_controller for it to be overridable as expected
+  # included do
+  #   # before_action :redirect_to_pairing_if_user_not_paired #this gets skipped in a few controllers with skip_before_action
+  # end
 
   module ClassMethods
-
   end
 
 

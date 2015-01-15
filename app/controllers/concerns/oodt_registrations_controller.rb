@@ -6,6 +6,7 @@ module OODTRegistrationsController
     skip_before_action :redirect_to_pairing_if_user_not_paired
   end
 
+
   module ClassMethods
 
   end
@@ -27,7 +28,7 @@ module OODTRegistrationsController
 
       # 1. Try to Pair them with their primary email address
       if current_user.pair_with_lcp(current_user.email)
-        flash.now[:notice] = "Success!" 
+        flash.now[:notice] = "Success!"
 
       # 2. If that didn't work, have they JUST provided an alternative email to try?
       elsif params[:alt_email]
@@ -59,6 +60,7 @@ module OODTRegistrationsController
       end
 
     end
+
   end
 
 

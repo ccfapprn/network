@@ -1,5 +1,7 @@
 class StaticController < ApplicationController
 
+  skip_before_action :redirect_to_pairing_if_user_not_paired
+
   def content
     @page = params[:page]
     render "/static/content/#{@page}", :layout => "content"

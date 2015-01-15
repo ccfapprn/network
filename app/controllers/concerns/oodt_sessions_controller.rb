@@ -3,8 +3,8 @@ module OODTSessionsController
 
 
   included do
-    after_action :sync_oodt_status, only: [:create]
     skip_before_action :redirect_to_pairing_if_user_not_paired
+    after_action :sync_oodt_status, only: [:create]
   end
 
 

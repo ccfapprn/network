@@ -5,6 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
+
   def create
     @user = build_resource # Needed for Merit
     super

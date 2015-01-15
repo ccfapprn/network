@@ -1,35 +1,36 @@
 
-- current_user_badges = current_user.badges
-- @badges = Merit::Badge.all
+- if current_user
+  - current_user_badges = current_user.badges
+  - @badges = Merit::Badge.all
 
--##############
--#### SHOW BADGES
--##############
+  -##############
+  -#### SHOW BADGES
+  -##############
 
 
-.panel-group#accordion
-  - @badges.group_by{ |b| b.name }.each do |name, badge_group|
-    - master_badge = badge_group.first
-    - earned_badges = current_user_badges.select { |badge| badge.name == name }
-    - highest_level = earned_badges.first ? earned_badges.sort { |x| x.level }.first.level : 0
-    - collapse_id = "collapse_badge_#{master_badge.id}"
+  .panel-group#accordion
+    - @badges.group_by{ |b| b.name }.each do |name, badge_group|
+      - master_badge = badge_group.first
+      - earned_badges = current_user_badges.select { |badge| badge.name == name }
+      - highest_level = earned_badges.first ? earned_badges.sort { |x| x.level }.first.level : 0
+      - collapse_id = "collapse_badge_#{master_badge.id}"
 
-    .panel.panel-primary
-      .panel-heading
-        %h4.panel-title
-          %a.a-no-decoration{"data-toggle" => "collapse", "data-parent" => "accordion", :href => "##{collapse_id}"}
-            %i.fa{:class => master_badge.custom_fields[:icon]}
-            = master_badge.custom_fields[:title]
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title
+            %a.a-no-decoration{"data-toggle" => "collapse", "data-parent" => "accordion", :href => "##{collapse_id}"}
+              %i.fa{:class => master_badge.custom_fields[:icon]}
+              = master_badge.custom_fields[:title]
 
-          %span.badge.pull-right= highest_level
-          .clearfix
+            %span.badge.pull-right= highest_level
+            .clearfix
 
-      .panel-collapse.collapse{id: collapse_id}
-        .panel-body.small
-          %ul{style: "padding-left: 25px;"}
-            %li.text-success.text-strong
-              = "Level 0: This where you start."
-            - badge_group.each do |badge|
-              %li{class: "#{ earned_badges.include?(badge) ? "text-success text-strong" : "text-muted"}"}
-                = "Level #{badge.level}: #{badge.description}"
+        .panel-collapse.collapse{id: collapse_id}
+          .panel-body.small
+            %ul{style: "padding-left: 25px;"}
+              %li.text-success.text-strong
+                = "Level 0: This where you start."
+              - badge_group.each do |badge|
+                %li{class: "#{ earned_badges.include?(badge) ? "text-success text-strong" : "text-muted"}"}
+                  = "Level #{badge.level}: #{badge.description}"
 
