@@ -321,7 +321,52 @@ module OODT
 
   #### HEALTH ####
 
-  # POST PREFIX/users/@@surveyResponses (takes no parameters); Request header "Content-type: application/json"; Request payload is a JSON dict with two keys: ① "userID", value is a string containing the OODT user ID as a UUID URN ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
+  #   HTTP 200, Content-type: application/json, response body is a JSON array where each element is a dictionary with two keys:
+  # • timestamp, a string telling when (ISO-8601 with zulu) the participant answered the disease type question
+  # • disease, whose value is a string that gives the ICD10 code of the disease or a special string as listed below:
+
+  # "N/A": participant refused or did not answer
+  # "None:" participant is free of IBM
+  # "K50": Crohn's disease
+  # "K51": Ulcerative colitis
+  # "K52.3": Indeterminate colitis
+  # "K52.8": Other colitis
+  def get_disease_type
+    response = oodt.post "users/@@diseaseType", user_hash
+    body = parse_body(response)
+
+    if response.success?
+      latest_data = body.last
+      icd_to_human = {
+        "N/A" => "Unknown",
+        "None" => "No IBD",
+        "K50" => "Crohn's disease",
+        "K51" => "Ulcerative colitis",
+        "K52.3" => "Indeterminate colitis",
+        "K52.8" => "Other colitis"
+      }
+      return icd_to_human[latest_data['disease']]
+    else
+      logger.error "API Call to disease type of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return false # body['errorMessage'] || body
+    end
+  end
+
+
+
+
+
+
+
+
+
+  # POST PREFIX/users/@@surveyResponses (takes no URL query parameters);
+  # Request header "Content-type: application/json";
+  # Request payload is a JSON dict with two keys:
+  # ① "userID", value is a string containing the OODT user ID as a UUID URN
+  # ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
+  #   # POST PREFIX/users/@@surveyResponses (takes no parameters); Request header "Content-type: application/json"; Request payload is a JSON dict with two keys: ① "userID", value is a string containing the OODT user ID as a UUID URN ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
+
   def send_check_in_data_to_oodt(answer_session)
     # FIXME DO NOTHING FOR NOW
     # THE API CALL IS NOT WRITTEN TO PUSH. ONLY TO READ?

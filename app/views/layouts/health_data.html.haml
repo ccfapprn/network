@@ -5,6 +5,10 @@
 - content_for :community_contributions do
   = render partial: "health_check_in" if current_user
 
+  -# HEALTH DATA
+  = render partial: "med_list" if current_user
+
+
 -##############
 -### YOUR CONTRIBUTIONS
 -##############

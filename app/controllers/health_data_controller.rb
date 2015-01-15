@@ -2,6 +2,7 @@ class HealthDataController < ApplicationController
   before_action :authenticate_user!, :only => [:data_explore, :data_reports, :medications]
   before_action :set_active_top_nav_link_to_health_data
   before_action :check_in_setup
+  before_action :med_list_setup
 
   layout "health_data"
 
@@ -29,7 +30,6 @@ class HealthDataController < ApplicationController
 
 
   def my_dashboard
-    @med_list = (current_user and OODT_ENABLED) ? current_user.get_med_list : {}
   end
 
   def my_health_measures
@@ -89,6 +89,9 @@ class HealthDataController < ApplicationController
     end
   end
 
+  def med_list_setup
+    @med_list = (current_user and OODT_ENABLED) ? current_user.get_med_list : {}
+  end
 
 
 end
