@@ -160,7 +160,7 @@ class AnswerSession < ActiveRecord::Base
       answer.destroy_descendant_edges
       self[:last_answer_id] = answer.id
     end
-    
+
     self.save
     answer
   end
@@ -169,6 +169,26 @@ class AnswerSession < ActiveRecord::Base
     if first_answer
       [first_answer] + first_answer.descendants
     end
+  end
+
+  #OODT SPECIFIC
+  def to_oodt_format
+    oodt_question_key = {
+      #1001: "NOT USED"
+      1002 => "general_well_being",
+      1003 => "abdominal_pain",
+      1004 => "liquid_or_soft_stools_per_day",
+      #1004: "NOT USED"
+      1006 => "general_well_being",
+      1007 => "rectal_bleeding",
+      1008 => "stool_frequency"
+    }
+
+    result_ary = all_answers.collect do |ans|
+      [oodt_question_key[ans.question_id], ans.value.first.second.to_i]
+    end
+
+    Hash[result_ary].merge("timestamp" => updated_at.strftime("%Y-%m-%dT%H:%M:%SZ")).reject { |k,v| k.nil? }
   end
 
   def all_reportable_answers

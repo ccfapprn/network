@@ -371,23 +371,29 @@ module OODT
   # Request header "Content-type: application/json";
   # Request payload is a JSON dict with two keys:
   # ① "userID", value is a string containing the OODT user ID as a UUID URN
-  # ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
-  #   # POST PREFIX/users/@@surveyResponses (takes no parameters); Request header "Content-type: application/json"; Request payload is a JSON dict with two keys: ① "userID", value is a string containing the OODT user ID as a UUID URN ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
+  # ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing
+  # the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding,
+  #  general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
 
   def send_check_in_data_to_oodt(answer_session)
-    # FIXME DO NOTHING FOR NOW
-    # THE API CALL IS NOT WRITTEN TO PUSH. ONLY TO READ?
+    # can only send your own health data
+    return false if answer_session.user != self
 
+    response = oodt.post do |req|
+      req.url "users/@@surveyResponses"
+      req.headers['Content-Type'] = 'application/json'
+      req.body = user_hash.merge({:responses => [answer_session.to_oodt_format]}).to_json
+      # timestamp, stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain
+    end
 
-    # response = oodt.post "users/@@surveyResponses", user_hash # answer_session data formatted per specification
-    # body = parse_body(response)
+    body = parse_body(response)
 
-    # if response.success?
-    #   return body['url']
-    # else
-    #   logger.error "API Call to send check in data of User ##{self.id} failed for Answer Session ##{answer_session.id}. OODT returned the following response:\n#{response.body}"
-    #   return body['errorMessage'] || body
-    # end
+    if response.success?
+      return true
+    else
+      logger.error "API Call to send check in data of User ##{self.id} failed for Answer Session ##{answer_session.id}. OODT returned the following response:\n#{response.body}"
+      return false #body['errorMessage'] || body
+    end
   end
 
 

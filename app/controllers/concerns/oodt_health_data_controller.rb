@@ -12,7 +12,7 @@ module OODTHealthDataController
 
   def send_check_in_data_to_oodt_if_complete
     if current_user && @answer_session.completed?
-      current_user.send_check_in_data_to_oodt(@answer_session)
+      current_user.send_check_in_data_to_oodt(@answer_session) #will log failures, but not alert user
     end
   end
 

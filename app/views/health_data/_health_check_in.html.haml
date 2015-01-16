@@ -7,5 +7,5 @@
   #completion_message{class: ("hidden" unless @answer_session.completed?) }
     .alert.alert-info
       %p Thank you. You are all Checked in!
-      %p.small You can come back and complete another health report tomorrow.
-      -#%small= link_to "Update my Health Again", health_data_path(new_check_in: true)
+      -#%p.small You can come back and complete another health report tomorrow.
+      %p.small= link_to "Health changed already? Check in again.", health_data_path(new_check_in: true)
