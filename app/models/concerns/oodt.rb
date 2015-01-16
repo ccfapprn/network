@@ -153,6 +153,7 @@ module OODT
     self.external_account = ExternalAccount.new if !external_account
 
     self.oodt_id = body['userID']
+    self.legacy_ccfa_partners_id = body['legacy_ccfa_partners_id']
     self.oodt_baseline_survey_complete = true if body['status'] == "baselineSurveyComplete"
     self.oodt_baseline_survey_complete = false if body['status'] == "baselineSurveyIncomplete"
     self.oodt_baseline_survey_url = body['url']
