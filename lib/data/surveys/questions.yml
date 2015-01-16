@@ -10,12 +10,6 @@
   time_estimate: 0.1
   answer_template_ids:
   - 14
-
-
-
-
-
-
 - id: 1003
   text_en: |
     On average, over the past week, would you rate your abdominal pain as:
@@ -35,14 +29,24 @@
 
 
 
+# Daily Health Data
 - id: 1005
+  text_en: How are you feeling today?
+  time_estimate: 0.1
+  answer_template_ids:
+  - 13
+- id: 1006
+  text_en: How would you describe your general well-being over the last week?
+  time_estimate: 0.1
+  answer_template_ids:
+  - 14
+- id: 1007
   text_en: |
     How much blood have you seen in your stool over the last week?
   time_estimate: 0.1
   answer_template_ids:
   - 16
-
-- id: 1006
+- id: 1008
   text_en: |
    What has been your stool frequency over the last week?
   time_estimate: 0.1

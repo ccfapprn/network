@@ -57,7 +57,7 @@ class HealthDataController < ApplicationController
 
   def check_in_setup
     if current_user
-      @question_flow = QuestionFlow.find_by_name_en("Daily Trends")
+      @question_flow = current_user.get_checkin_flow #@question_flow = QuestionFlow.find_by_name_en("Daily Trends")
       @answer_session = AnswerSession.most_recent(@question_flow.id, current_user.id)
 
       if @answer_session.nil? or (@answer_session.completed? and (Time.zone.now - @answer_session.updated_at) >= Figaro.env.check_in_frequency.to_i * 3600) or params[:new_check_in]
@@ -65,7 +65,6 @@ class HealthDataController < ApplicationController
         @answer_session = AnswerSession.create(user_id: current_user.id, question_flow_id: @question_flow.id)
       end
     end
-
   end
 
 

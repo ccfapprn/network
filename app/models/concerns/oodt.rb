@@ -353,7 +353,14 @@ module OODT
   end
 
 
-
+  def get_checkin_flow
+    disease_type = get_disease_type
+    if disease_type && disease_type == "Crohn's disease"
+      QuestionFlow.find(101)
+    else
+      QuestionFlow.find(102)
+    end
+  end
 
 
 

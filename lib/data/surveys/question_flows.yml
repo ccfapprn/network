@@ -6,10 +6,11 @@
 #  first_question_id: 489
 #  status: show
 - id: 101
-  name_en: Daily Trends # FIXME rename to Crohns Health when can
+  name_en: Crohn's Check-in #Daily Trends
   status: hide
   first_question_id: 1001 #same overall health question for everyone
+
 - id: 102
-  name_en: UC Health
+  name_en: Ulcerative Colitis Check-in
   status: hide
-  first_question_id: 1001 #same overall health question for everyone
+  first_question_id: 1005 #same overall health question for everyone
