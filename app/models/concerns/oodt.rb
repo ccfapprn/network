@@ -322,21 +322,79 @@ module OODT
 
   #### HEALTH ####
 
-  # POST PREFIX/users/@@surveyResponses (takes no parameters); Request header "Content-type: application/json"; Request payload is a JSON dict with two keys: ① "userID", value is a string containing the OODT user ID as a UUID URN ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
+  #   HTTP 200, Content-type: application/json, response body is a JSON array where each element is a dictionary with two keys:
+  # • timestamp, a string telling when (ISO-8601 with zulu) the participant answered the disease type question
+  # • disease, whose value is a string that gives the ICD10 code of the disease or a special string as listed below:
+
+  # "N/A": participant refused or did not answer
+  # "None:" participant is free of IBM
+  # "K50": Crohn's disease
+  # "K51": Ulcerative colitis
+  # "K52.3": Indeterminate colitis
+  # "K52.8": Other colitis
+  def get_disease_type
+    response = oodt.post "users/@@diseaseType", user_hash
+    body = parse_body(response)
+
+    if response.success?
+      latest_data = body.last
+      icd_to_human = {
+        "N/A" => "Unknown",
+        "None" => "No IBD",
+        "K50" => "Crohn's disease",
+        "K51" => "Ulcerative colitis",
+        "K52.3" => "Indeterminate colitis",
+        "K52.8" => "Other colitis"
+      }
+      return icd_to_human[latest_data['disease']]
+    else
+      logger.error "API Call to disease type of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return false # body['errorMessage'] || body
+    end
+  end
+
+
+  def get_checkin_flow
+    disease_type = get_disease_type
+    if disease_type && disease_type == "Crohn's disease"
+      QuestionFlow.find(101)
+    else
+      QuestionFlow.find(102)
+    end
+  end
+
+
+
+
+
+
+  # POST PREFIX/users/@@surveyResponses (takes no URL query parameters);
+  # Request header "Content-type: application/json";
+  # Request payload is a JSON dict with two keys:
+  # ① "userID", value is a string containing the OODT user ID as a UUID URN
+  # ② "responses", value is a sequence of one or more dicts containing the a key "timestamp" whose value is a string describing
+  # the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding,
+  #  general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
+
   def send_check_in_data_to_oodt(answer_session)
-    # FIXME DO NOTHING FOR NOW
-    # THE API CALL IS NOT WRITTEN TO PUSH. ONLY TO READ?
+    # can only send your own health data
+    return false if answer_session.user != self
 
+    response = oodt.post do |req|
+      req.url "users/@@surveyResponses"
+      req.headers['Content-Type'] = 'application/json'
+      req.body = user_hash.merge({:responses => [answer_session.to_oodt_format]}).to_json
+      # timestamp, stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain
+    end
 
-    # response = oodt.post "users/@@surveyResponses", user_hash # answer_session data formatted per specification
-    # body = parse_body(response)
+    # body = parse_body(response) # this call returns no body
 
-    # if response.success?
-    #   return body['url']
-    # else
-    #   logger.error "API Call to send check in data of User ##{self.id} failed for Answer Session ##{answer_session.id}. OODT returned the following response:\n#{response.body}"
-    #   return body['errorMessage'] || body
-    # end
+    if response.success?
+      return true
+    else
+      logger.error "API Call to send check in data of User ##{self.id} failed for Answer Session ##{answer_session.id}. OODT returned the following response:\n#{response.body}"
+      return false #body['errorMessage'] || body
+    end
   end
 
 

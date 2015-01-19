@@ -1,15 +1,3 @@
-#- id: 1
-#  text_value_en: High chance of dozing
-#- id: 2
-#  text_value_en: Moderate chance of dozing
-#- id: 3
-#  text_value_en: Slight chance of dozing
-#- id: 4
-#  text_value_en: Would never doze
-#- id: 5
-#  text_value_en: Male
-#- id: 6
-#  text_value_en: Female
 
 ##
 # Daily Health Trends
@@ -48,7 +36,7 @@
 - id: 200010
   numeric_value: 10
 
-# Abdominal Pain
+# Abdominal Pain (Crohn's)
 - id: 300001
   text_value_en: None
 - id: 300002
@@ -58,3 +46,46 @@
 - id: 300004
   text_value_en: Severe
 
+# Number of Stools
+
+
+# Blood in Stool (UC)
+- id: 400001
+  text_value_en: No blood seen
+- id: 400002
+  text_value_en: Streaks of blood or blood in less than 1/2 of stools
+- id: 400003
+  text_value_en: Obvious blood or blood in greater than 1/2 of stools
+- id: 400004
+  text_value_en: Blood passes alone
+
+# Number of Stools (UC)
+- id: 500001
+  text_value_en: Normal
+- id: 500002
+  text_value_en: 1-2 more than normal
+- id: 500003
+  text_value_en: 3-4 more than normal
+- id: 500004
+  text_value_en: 5+ more than normal
+
+
+
+
+
+
+
+
+
+#- id: 1
+#  text_value_en: High chance of dozing
+#- id: 2
+#  text_value_en: Moderate chance of dozing
+#- id: 3
+#  text_value_en: Slight chance of dozing
+#- id: 4
+#  text_value_en: Would never doze
+#- id: 5
+#  text_value_en: Male
+#- id: 6
+#  text_value_en: Female

@@ -45,16 +45,22 @@
   data_type: answer_option_id
   answer_option_ids:
 
+
+
+
 # Specific answer option templates
-- name: daily_feeling_range
+
+- name: daily_feeling_range # Everyone gets this question
   id: 13
   display_type_id: 10
   data_type: numeric_value
   top_label: Amazing
   bottom_label: Horrible
-  max_value: 10
+  max_value: 100
   min_value: 0
-- name: well_being
+
+
+- name: well_being # Everyone gets this question
   id: 14
   display_type_id: 11
   data_type: answer_option_id
@@ -64,7 +70,9 @@
   - 100003
   - 100004
   - 100005
-- name: abdominal_pain
+
+
+- name: abdominal_pain # Crohn's only
   id: 15
   display_type_id: 11
   data_type: answer_option_id
@@ -73,3 +81,32 @@
   - 300002
   - 300003
   - 300004
+
+
+- name: blood_in_stool # UC only
+  id: 16
+  display_type_id: 11
+  data_type: answer_option_id
+  answer_option_ids:
+  - 400001
+  - 400002
+  - 400003
+  - 400004
+
+
+- name: uc_number_of_stools # UC only
+  id: 17
+  display_type_id: 11
+  data_type: answer_option_id
+  answer_option_ids:
+  - 500001
+  - 500002
+  - 500003
+  - 500004
+
+
+
+
+
+
+

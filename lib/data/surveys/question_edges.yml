@@ -24,6 +24,13 @@
 #  child_question_id: 509
 #  condition: 20
 
+
+
+
+
+
+
+# Crohn's Questionaire
 - question_flow_id: 101
   parent_question_id: 1001
   child_question_id: 1002
@@ -37,3 +44,18 @@
   child_question_id: 1004
   condition:
 
+
+
+# UC Questionaire
+- question_flow_id: 102
+  parent_question_id: 1005
+  child_question_id: 1006
+  condition:
+- question_flow_id: 102
+  parent_question_id: 1006
+  child_question_id: 1007
+  condition:
+- question_flow_id: 102
+  parent_question_id: 1007
+  child_question_id: 1008
+  condition:
