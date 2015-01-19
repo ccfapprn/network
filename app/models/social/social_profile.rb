@@ -28,7 +28,7 @@ class SocialProfile < ActiveRecord::Base
     if visible_to_community?
       location
     else
-      "Anonymous Location"
+      "Private Location"
     end
   end
 
