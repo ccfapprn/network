@@ -1,3 +1,9 @@
+- content_for :before_scripts do
+  = javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=#{Figaro.env.google_maps_api_key}"
+  = javascript_include_tag 'typeahead-addresspicker'
+  = javascript_include_tag 'social/places'
+
+
 
 = form_for @social_profile, html: {role: "form", class: 'form-horizontal'}, url: social_profile_path do |f|
   .panel.panel-default
@@ -28,12 +34,12 @@
 
       .form-group
         %label.col-sm-3.control-label
-          = image_tag current_user.photo_url, :class => "img-responsive img-thumbnail"
+          = image_tag current_user.private_photo_url, :class => "img-responsive img-thumbnail"
         .col-sm-9
           %h3 Change Photo
           =f.file_field :photo
       .form-group
-        %label.col-sm-3.control-label Nickname
+        %label.col-sm-3.control-label Community Name
         .col-sm-6
           =f.text_field(:name, class: 'form-control')
       .form-group
@@ -80,6 +86,3 @@
 
 
 
-= javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=#{Figaro.env.google_maps_api_key}"
-= javascript_include_tag 'typeahead-addresspicker'
-= javascript_include_tag 'social/places'
