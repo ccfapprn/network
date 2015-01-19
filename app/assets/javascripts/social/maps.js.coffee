@@ -1,4 +1,6 @@
-@mapsReady = () ->
+#@mapsReady = () ->
+
+ready = ->
   if($("#user_map").length)
 
     loc_path = $("#user_map").data("path")
@@ -37,8 +39,11 @@
       )
     )
 
-$(document).ready(mapsReady)
-$(document).on('page:load', mapsReady)
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
+# $(document).ready(mapsReady)
+# $(document).on('page:load', mapsReady)
 
 $(document).on('click', "#world-view", () ->
   document.map.setZoom(1)

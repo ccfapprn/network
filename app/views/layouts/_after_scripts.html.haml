@@ -1,9 +1,8 @@
 -# Take any Javascript included via content_for block, and inject it here
-- if content_for :js
+- if content_for(:js)
   :javascript
     function main() {
       #{yield :js}
-      #{yield :after_scripts}
     }
     $(document).ready(main);
 
@@ -11,3 +10,4 @@
 -#= javascript_include_tag 'google_analytics'
 -#-# Add User Voice Script Here
 -# javascript_include_tag 'uservoice'
+= yield :after_scripts if content_for(:after_scripts)
