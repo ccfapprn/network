@@ -31,6 +31,10 @@ module OpenPprn
       config.autoload_paths += Dir[Rails.root.join('app', 'views', ENV['website_code_name'], '{**/}')]
     end
 
+
+    config.google_maps_api_key = "AIzaSyDEc7khzfAanF5QFEn-y5DK0l2l833dHAY"
+
+
   end
 
 end

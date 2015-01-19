@@ -12,7 +12,7 @@
   = render partial: "shared/badge_list"
 
 - content_for :before_scripts do
-  = javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Figaro.env.google_maps_api_key}"
+  = javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.google_maps_api_key}"
   = javascript_include_tag 'social/maps'
 
 

@@ -17,9 +17,6 @@
       - if content_for(:community_contributions)
         .community-scoreboard
           = yield :community_contributions
-        -# <br/><br/>
-      -# else
-      -#  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
       -#################
       -# PAGE CONTENT! #
@@ -34,7 +31,7 @@
         - if content_for(:your_contributions)
 
           <br/><br/><br/><br/><br/>
-          %a{href: account_path}
+          %a{href: social_profile_path}
             .panel.panel-primary
               = render partial: "shared/bio"
 

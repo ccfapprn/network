@@ -54,7 +54,7 @@ class SocialProfile < ActiveRecord::Base
   end
 
   def self.locations_for_map(user=nil)
-    res = select(:latitude, :longitude).where(show_location: true)
+    res = select(:latitude, :longitude).where("show_location IS TRUE AND latitude IS NOT NULL AND longitude IS NOT NULL")
     res = res.where.not(id: user.social_profile.id) if user and user.social_profile
 
     res.map{|geo| {latitude: geo.latitude, longitude: geo.longitude} }
