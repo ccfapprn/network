@@ -11,7 +11,7 @@ module ExternalAccounts
 
 
     has_one :external_account, dependent: :destroy, autosave: true;
-    delegate :oodt_id, :oodt_id=, :oodt_baseline_survey_complete, :oodt_baseline_survey_complete=, :oodt_baseline_survey_url, :oodt_baseline_survey_url=, :validic_id, :validic_id=, :validic_access_token, :validic_access_token=, to: :external_account, allow_nil: true
+    delegate :oodt_id, :oodt_id=, :legacy_ccfa_partners_id, :legacy_ccfa_partners_id=, :oodt_baseline_survey_complete, :oodt_baseline_survey_complete=, :oodt_baseline_survey_url, :oodt_baseline_survey_url=, :validic_id, :validic_id=, :validic_access_token, :validic_access_token=, to: :external_account, allow_nil: true
     # FIXME would prefer there to be a delegate all option
   end
 
