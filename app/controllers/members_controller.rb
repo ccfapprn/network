@@ -5,7 +5,7 @@ class MembersController < ApplicationController
   layout "community"
 
   def profile
-    @social_profile = current_user.social_profile || current_user.create_social_profile
+    @social_profile = current_user.social_profile
   end
 
   def update_profile
@@ -41,7 +41,7 @@ class MembersController < ApplicationController
   def locations
     if params[:show_user]
       @locations = SocialProfile.locations_for_map(current_user)
-      @user_location = current_user.social_profile.location_for_map if current_user and current_user.social_profile and current_user.social_profile.show_location
+      @user_location = current_user.social_profile.location_for_map if current_user && current_user.social_profile
     else
       @locations = SocialProfile.locations_for_map
     end

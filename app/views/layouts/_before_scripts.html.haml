@@ -6,6 +6,9 @@
 -# Javascript
 = javascript_include_tag 'application', 'data-turbolinks-track' => true
 
+- if content_for :before_scripts
+  = yield :before_scripts
+
 -# Cross-Site Request Forgery Protection
 = csrf_meta_tags
 

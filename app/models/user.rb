@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   rolify role_join_table_name: 'roles_users'
 
+
   include Rails.application.routes.url_helpers
 
   include Authority::UserAbilities
@@ -12,6 +13,8 @@ class User < ActiveRecord::Base
   include ExternalAccounts
 
   self.authorizer_name = "UserAuthorizer"
+
+  before_create :build_social_profile
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -46,22 +49,19 @@ class User < ActiveRecord::Base
     social_profile.visible_to_community?
   end
 
-  def visible_to_public?
-    false # social_profile.visible_to_public? FIXME implemetn
+  def community_name
+    social_profile.community_name
   end
 
 
   def self.unique_cities_count
     self.count #FIXME #TODO #STUB
   end
+
   def self.health_data_streams_count
     340142 #FIXME #TODO #STUB
   end
 
-  def name
-    return "Anonymous" unless first_name && last_name
-    "#{first_name} #{last_name}"
-  end
 
   def self.scoped_users(email=nil, role=nil)
     users = all
@@ -72,24 +72,16 @@ class User < ActiveRecord::Base
     users
   end
 
-  def photo_url
-    if social_profile
-      social_profile.photo_url
-    else
-      "//www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.to_s)}?d=identicon"
-    end
+  def community_photo_url
+    social_profile.community_photo_url
   end
 
-  def my_photo_url
-    if social_profile and social_profile.photo
-      social_profile.photo.url
-    else
-      photo_url
-    end
+  def private_photo_url
+    social_profile.private_photo_url
   end
 
   def forem_name
-    if social_profile
+    if !social_profile.public_nickname.blank?
       social_profile.public_nickname
     else
       "Anonymous User #{Digest::MD5.hexdigest(email.to_s)[0,5]}"
@@ -103,10 +95,6 @@ class User < ActiveRecord::Base
   def revoke_consent
     update_attribute :accepted_consent_at, nil
     update_attribute :accepted_privacy_policy_at, nil
-  end
-
-  def created_social_profile?
-    self.social_profile.present? and self.social_profile.name.present?
   end
 
   def signed_consent?

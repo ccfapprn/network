@@ -14,7 +14,7 @@
   m.parentNode.insertBefore a, m
   return
 ) window, document, "script", "//www.google-analytics.com/analytics.js", "ga"
-ga "create", "<%= ENV["google_analytics_id"] %>", "auto"
+ga "create", "UA-53742602-1", "auto"
 ga "require", "displayfeatures"
 #ga "send", "pageview"
 
