@@ -386,7 +386,7 @@ module OODT
       # timestamp, stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain
     end
 
-    body = parse_body(response)
+    # body = parse_body(response) # this call returns no body
 
     if response.success?
       return true

@@ -173,6 +173,10 @@ class AnswerSession < ActiveRecord::Base
 
   #OODT SPECIFIC
   def to_oodt_format
+    if !all_answers
+      return nil
+    end
+
     oodt_question_key = {
       #1001: "NOT USED"
       1002 => "general_well_being",
