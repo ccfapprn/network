@@ -10,7 +10,7 @@
 
       .media
         .pull-left.media-middle{:href => "#"}
-          = image_tag post.user.photo_url, :class => "img-circle" if post.user
+          = image_tag post.user.community_photo_url, :class => "img-circle" if post.user
           %br/
           = post.author
           = post.created_at.strftime("%m/%d/%Y")

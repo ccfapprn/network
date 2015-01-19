@@ -18,11 +18,11 @@
       .panel.panel-primary
         .panel-heading
           %h4.panel-title
-            %a.a-no-decoration{"data-toggle" => "collapse", "data-parent" => "accordion", :href => "##{collapse_id}"}
+            %a.a-no-decoration{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "##{collapse_id}"}
               %i.fa{:class => master_badge.custom_fields[:icon]}
               = master_badge.custom_fields[:title]
 
-            %span.badge.pull-right= highest_level
+            %span.label.label-as-badge.pull-right{class: "#{"label-success" if highest_level > 0}"}= highest_level
             .clearfix
 
         .panel-collapse.collapse{id: collapse_id}

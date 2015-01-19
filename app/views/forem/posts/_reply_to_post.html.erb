@@ -9,7 +9,7 @@
       <h5 class='username text-small'>
         <%= link_to_if Forem.user_profile_links, post.user.forem_name, [main_app, post.user] %>
       </h5>
-      <%= image_tag post.user.photo_url, :class => "img-responsive img-thumbnail"  %>
+      <%= image_tag post.user.community_photo_url, :class => "img-responsive img-thumbnail"  %>
     </div>
     <div class='contents col-md-9'>
       <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)} #{t("ago")}" %></time>

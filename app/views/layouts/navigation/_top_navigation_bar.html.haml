@@ -28,18 +28,16 @@
 
         -##### User Account Stuff / Sign Out
         - if current_user
-          %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-              = current_user.email
-              %b.caret
-            %ul.dropdown-menu
-              %li
-                %a{href: main_app.account_path}
-                  %i.fa.fa-user &nbsp; Account Settings
-              - if current_user.can?(:view_admin_dashboard)
-                %li
-                  %a{href: main_app.admin_path, :title => "Admin Panel"}
-                    %i.fa.fa-wrench &nbsp; Admin Panel
+          -#%li{:class => "#{"active" if @active_top_nav_link == :account_settings}"}
+          -#  %a{:href => main_app.account_path}= current_user.email
+          -#%ul.dropdown-menu
+          -#  %li
+          -#    %a{href: main_app.account_path}
+          -#      %i.fa.fa-user &nbsp; Account Settings
+          - if current_user.can?(:view_admin_dashboard)
+            %li
+              %a{href: main_app.admin_path, :title => "Admin Panel"}
+                %i.fa.fa-wrench &nbsp; Admin Panel
           -# Sign Out
           %li
             = link_to "<i class='fa fa-sign-out'></i> Sign out".html_safe, main_app.destroy_user_session_path, :method => :delete

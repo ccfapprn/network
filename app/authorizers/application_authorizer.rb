@@ -23,7 +23,7 @@ class ApplicationAuthorizer < Authority::Authorizer
   end
 
   def self.authorizes_to_participate_in_social?(user, options={})
-    user.social_profile.present? and user.social_profile.name.present?
+    user.social_profile.community_name.present?
   end
 
 

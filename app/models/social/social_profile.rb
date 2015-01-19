@@ -39,7 +39,7 @@ class SocialProfile < ActiveRecord::Base
     if name.present? && visible_to_community?
       name
     else
-      "Anonymous User #{Digest::MD5.hexdigest(user.email.to_s)[0,5]}"
+      "Anonymous User #{Digest::MD5.hexdigest(user.email.to_s)[0,3]}"
     end
   end
 

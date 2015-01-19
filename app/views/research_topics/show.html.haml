@@ -46,10 +46,10 @@
             - elsif @research_topic.user.share_research_topics? && @research_topic.user.social_profile.present?
               .media
                 %a.pull-left
-                  = image_tag @research_topic.user.photo_url, :class => "img-responsive img-thumbnail"
+                  = image_tag @research_topic.user.community_photo_url, :class => "img-responsive img-thumbnail"
                 .media-body.small
                   %strong
-                    = @research_topic.user.social_profile.name
+                    = @research_topic.user.social_profile.community_name
                   %p
                     = @research_topic.user.social_profile.location
                 .clearfix
@@ -66,7 +66,7 @@
               - @research_topic.comments.each do |comment|
                 .media
                   .pull-left
-                    = image_tag comment.user.photo_url
+                    = image_tag comment.user.community_photo_url
                   .media-body
                     %h4.media-heading= comment.user.forem_name
                     = comment.body

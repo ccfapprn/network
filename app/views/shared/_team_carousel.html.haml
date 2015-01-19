@@ -7,9 +7,9 @@
     .row
       - users.each do |user|
         .col-sm-2
-          = image_tag user.photo_url, :class => "img-circle" if user.photo_url
+          = image_tag user.community_photo_url, :class => "img-circle" if user.community_photo_url
           .small
             %strong
-              = user.name
+              = user.community_name
 
 %br/

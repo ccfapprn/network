@@ -1,11 +1,13 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :locations, :discussion]
-  before_action :set_active_top_nav_link_to_members
+  before_action :set_active_top_nav_link_to_members, except: [:profile]
 
   layout "community"
 
   def profile
     @social_profile = current_user.social_profile
+    @active_top_nav_link = :account_settings
+    render layout: "account"
   end
 
   def update_profile

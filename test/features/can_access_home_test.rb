@@ -28,7 +28,7 @@ feature "CanAccessHome" do
   scenario "user can log out" do
     login_as(@user, :scope => :user)
     visit research_path
-    page.must_have_content @user.name
+    page.must_have_content @user.community_name
     click_on 'Sign out'
     page.must_have_content "Sign in"
 

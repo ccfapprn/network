@@ -17,8 +17,8 @@
         .row
           - 3.times do
             .col-sm-2
-              = image_tag user.photo_url, :class => "img-circle" if user.photo_url
+              = image_tag user.community_photo_url, :class => "img-circle" if user.community_photo_url
               .small
                 %strong
-                  = "Ms. Lorem Ipsum" || user.name
+                  = "Ms. Lorem Ipsum" || user.community_name
         %hr/

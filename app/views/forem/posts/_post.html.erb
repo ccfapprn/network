@@ -30,7 +30,7 @@
         <% if post.user.is_a?(Forem::NilUser) %>
           <%= image_tag 'default-user.jpg', class: "img-responsive img-thumbnail" %>
         <% else %>
-          <%= image_tag post.user.photo_url, class: "img-responsive img-thumbnail" %>
+          <%= image_tag post.user.community_photo_url, class: "img-responsive img-thumbnail" %>
         <% end %>
       </div>
 

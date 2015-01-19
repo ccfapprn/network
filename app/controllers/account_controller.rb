@@ -44,6 +44,8 @@ class AccountController < ApplicationController
 
   def account
     @user = current_user
+    @active_top_nav_link = :account_settings
+    render layout: "account"
   end
 
 
