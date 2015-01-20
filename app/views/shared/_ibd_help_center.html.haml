@@ -6,4 +6,4 @@
   .panel-body
     %p CCFA's IBD Help Center has IBD information specialists who are here to answer your questions.
     %p.text-center
-      = mail_to Figaro.env.website_support_email, "<i class='fa-envelope-o fa'></i> Ask a Question About IBD".html_safe, {subject: "Ask your question to the IBD Help Center here.", class: "btn btn-success"}
+      = mail_to "infopartners@ccfa.org", "<i class='fa-envelope-o fa'></i> Ask a Question About IBD".html_safe, {subject: "Ask your question to the IBD Help Center here.", class: "btn btn-success"}
