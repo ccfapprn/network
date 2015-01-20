@@ -20,7 +20,7 @@ class HealthDataController < ApplicationController
       @disease_activity_result = current_user.get_disease_activity_scores
       if @disease_activity_result #API call was successful
         if @disease_activity_result['numScores'] > 0
-          @disease_activity_scores = result['scores']
+          @disease_activity_scores = @disease_activity_result['scores']
         end
       end
     end
