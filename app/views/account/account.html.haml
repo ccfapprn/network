@@ -14,6 +14,9 @@
           = render partial: "shared/form_errors", locals: {resource: @user, message: "Your account settings could not be saved."}
         = form_for @user, url: update_account_path do |f|
           .form-group
+            %strong Your Email:
+            %em= current_user.email
+          .form-group
             = f.label :first_name, class: 'sr-only'
             = f.text_field :first_name, class: 'form-control input-lg', placeholder: User.human_attribute_name(:first_name), autocomplete: :off
           .form-group

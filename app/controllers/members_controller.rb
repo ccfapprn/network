@@ -6,7 +6,8 @@ class MembersController < ApplicationController
 
   def profile
     @social_profile = current_user.social_profile
-    @active_top_nav_link = :account_settings
+
+    @active_top_nav_link = :my_account
     render layout: "account"
   end
 
@@ -38,6 +39,7 @@ class MembersController < ApplicationController
   def index
     @network_users_count = OODT_ENABLED ? User.get_network_user_count : User.count
   end
+
 
 
   def locations

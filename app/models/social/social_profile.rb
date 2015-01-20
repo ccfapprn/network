@@ -11,17 +11,21 @@ class SocialProfile < ActiveRecord::Base
 
 
 
-  def private_photo_url
+  def private_photo_url(size = nil)
     if photo.present?
-      photo.url || email_gravatar
+      if size
+        photo.send(size).url || email_gravatar
+      else
+        photo.thumb.url || email_gravatar
+      end
     else
       anonymous_gravatar
     end
   end
 
-  def community_photo_url
+  def community_photo_url(size = nil)
     if visible_to_community?
-      private_photo_url
+      private_photo_url(size)
     else
       anonymous_gravatar
     end
@@ -39,7 +43,7 @@ class SocialProfile < ActiveRecord::Base
     if name.present? && visible_to_community?
       name
     else
-      "Anonymous User #{Digest::MD5.hexdigest(user.email.to_s)[0,3]}"
+      "Anonymous User" ##{Digest::MD5.hexdigest(user.email.to_s)[0,3]}"
     end
   end
 
@@ -64,7 +68,7 @@ class SocialProfile < ActiveRecord::Base
   private
 
   def email_gravatar
-    "//www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email.to_s)}?d=identicon"
+    "//www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email.to_s)}?d=identicon" # s=200 would make it 200x200, default is 80
   end
 
   def anonymous_gravatar

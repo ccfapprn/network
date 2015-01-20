@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 
     @network_user_count = OODT_ENABLED ? User.get_network_user_count : User.count
     @surveys_completed_count = OODT_ENABLED ? User.num_network_surveys_completed : 0 #FIXME Question.answered.count?
-    @health_data_streams_count = OODT_ENABLED ? User.num_health_data_streams : nil
+    @health_data_streams_count = nil ## OODT_ENABLED ? User.num_health_data_streams : nil
 
 
     # REFACTOR ME -- efficient querying
