@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def self.health_data_streams_count
-    340142 #FIXME #TODO #STUB
+    0 #FIXME #TODO #STUB
   end
 
 

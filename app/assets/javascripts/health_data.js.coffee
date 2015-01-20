@@ -16,13 +16,40 @@ submit_check_in = (submit_path, question_id, val) ->
   )
 
 
-$(document).on "change", "form#check-in input[type='range'], form#check-in input[type='radio']", (event) ->
+
+
+# $(document).on "change", "form#check-in input[type='range'], form#check-in input[type='radio']", (event) ->
+#   submit_path = $("form#check-in").attr("action")
+#   panel = $(this).closest(".panel")
+#   question_id = panel.data("question-id")
+#   val = $(this).val()
+
+#   submit_check_in(submit_path, question_id, val)
+
+########
+
+$(document).on "change", "form#check-in input[type='radio']", (event) ->
   submit_path = $("form#check-in").attr("action")
   panel = $(this).closest(".panel")
   question_id = panel.data("question-id")
   val = $(this).val()
 
   submit_check_in(submit_path, question_id, val)
+
+#mouseup because ie had trouble otherwise
+$(document).on "mouseup", "form#check-in input[type='range']", (event) ->
+  submit_path = $("form#check-in").attr("action")
+  panel = $(this).closest(".panel")
+  question_id = panel.data("question-id")
+  val = $(this).val()
+
+  submit_check_in(submit_path, question_id, val)
+
+#######
+
+
+
+
 $(document).on "click", "form#check-in .input-group .submit", (event) ->
   event.preventDefault()
 
