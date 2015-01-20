@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require jquery.pjax
+//NOT require turbolinks
+//NOT require jquery.pjax
 //= require bootstrap-sprockets
 //= require chosen.jquery
 //= require forem

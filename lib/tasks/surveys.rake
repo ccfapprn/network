@@ -15,8 +15,9 @@ namespace :surveys do
     ]
 
     survey_tables.each do |table|
-      ActiveRecord::Base.connection.execute("TRUNCATE #{table}")
-      ActiveRecord::Base.connection.execute("SELECT SETVAL('#{table}_id_seq', #{SEQUENCE_VALUE})")
+      ActiveRecord::Base.connection.execute("TRUNCATE table #{table}")
+      # problem for Oracle below - Marshall
+      #ActiveRecord::Base.connection.execute("SELECT SETVAL('#{table}_id_seq', #{SEQUENCE_VALUE})")
     end
   end
 
@@ -131,7 +132,7 @@ namespace :surveys do
 
   def clean_join_tables(tables)
     tables.each do |table|
-      ActiveRecord::Base.connection.execute("truncate #{table}")
+      ActiveRecord::Base.connection.execute("truncate table #{table}")
     end
   end
 
