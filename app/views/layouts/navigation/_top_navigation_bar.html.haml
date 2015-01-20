@@ -28,19 +28,28 @@
 
         -##### User Account Stuff / Sign Out
         - if current_user
-          -#%li{:class => "#{"active" if @active_top_nav_link == :account_settings}"}
-          -#  %a{:href => main_app.account_path}= current_user.email
-          -#%ul.dropdown-menu
-          -#  %li
-          -#    %a{href: main_app.account_path}
-          -#      %i.fa.fa-user &nbsp; Account Settings
-          - if current_user.can?(:view_admin_dashboard)
-            %li
-              %a{href: main_app.admin_path, :title => "Admin Panel"}
-                %i.fa.fa-wrench &nbsp; Admin Panel
-          -# Sign Out
-          %li
-            = link_to "<i class='fa fa-sign-out'></i> Sign out".html_safe, main_app.destroy_user_session_path, :method => :delete
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"}
+              My Account
+              %span.caret
+            %ul.dropdown-menu.dropdown-menu-right{role: "menu"}
+              %li
+                %a{href: main_app.social_profile_path}
+                  %i.fa.fa-user &nbsp; Social Profile
+
+              %li
+                %a{href: main_app.account_path}
+                  %i.fa.fa-wrench &nbsp; Account Details
+
+              - if current_user.can?(:view_admin_dashboard)
+                %li
+                  %a{href: main_app.admin_path, :title => "Admin Panel"}
+                    %i.fa.fa-wrench &nbsp; Admin Panel
+              %li.divider{role:"presentation"}
+
+              -# Sign Out
+              %li
+                = link_to "<i class='fa fa-sign-out'></i> Sign out".html_safe, main_app.destroy_user_session_path, :method => :delete
 
         - else
           -##############

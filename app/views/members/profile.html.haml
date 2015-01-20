@@ -8,28 +8,38 @@
 - content_for :after_scripts do
   = javascript_include_tag 'typeahead-addresspicker'
   = javascript_include_tag 'social/places'
+  = javascript_include_tag 'social_profile'
+
 
 
 
 = form_for @social_profile, html: {role: "form", class: 'form-horizontal'}, url: social_profile_path do |f|
   .panel.panel-default
     .panel-heading
-      %h4 Do you want other patients in the #{Figaro.env.website_title} to see you?
-      .radio
-        %label
-          = f.radio_button :visible_to_community, true, id: 'optionsRadios2'
-          %strong
-            Show me.
-          %span.small Add a marker for me on the map that shows the following info.
+      %h4 Show me to other members?
 
-      .radio
-        %label
-          = f.radio_button :visible_to_community, false, id: 'optionsRadios1'
-          %strong
-            Don't show me.
-          %span.small Don't let other patients on this site see any map marker for me.
+      .row
+        .col-md-9
+          .radio
+            %label
+              = f.radio_button :visible_to_community, false, id: 'visible_to_community_false' #, #optionsRadios1'
+              %strong
+                No.
+              %span.small Don't let other members see any info about me.
 
-    .panel-body
+
+          .radio
+            %label
+              = f.radio_button :visible_to_community, true, id: 'visible_to_community_true' #, #optionsRadios2'
+              %strong
+                Yes.
+              %span.small Let other members see the following info about me:
+        .col-md-3
+          %br/
+          =f.submit("Save", class: 'btn btn-primary pull-right')
+
+
+    .panel-body#social_profile_form_panel{style: "#{"display: none" if !current_user.visible_to_community?}"}
       - if @social_profile.errors.any?
         .alert.alert-danger.alert-dismissable
           %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} &times;
@@ -64,16 +74,16 @@
         .col-sm-6
           =f.select(:sex, ["Male", "Female", "Other"], {}, class: 'form-control')
 
-      .form-group
-        .col-sm-3.control-label
-          .checkbox.pull-right
-            %label
-              =f.check_box :show_karma, id: 'checkbox'
-        .col-sm-6
-          %h4 Show me in the top karma earners list if I qualify.
+      -#.form-group
+      -#  .col-sm-3.control-label
+      -#    .checkbox.pull-right
+      -#      %label
+      -#        =f.check_box :show_karma, id: 'checkbox'
+      -#  .col-sm-6
+      -#    %h4 Show me in the top karma earners list if I qualify.
+
+
       =f.submit("Save", class: 'btn btn-primary pull-right')
-
-
 
 -#.panel.panel-default
 -#  .panel-heading
