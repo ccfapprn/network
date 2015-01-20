@@ -50,7 +50,7 @@
 
       .form-group
         %label.col-sm-3.control-label
-          = image_tag current_user.private_photo_url, :class => "img-responsive img-thumbnail"
+          = image_tag current_user.private_photo_url, :class => "img-responsive img-circle pull-right"
         .col-sm-9
           %h3 Change Photo
           =f.file_field :photo
