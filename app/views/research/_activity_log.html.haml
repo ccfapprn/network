@@ -14,8 +14,9 @@
         %th Description
       %tbody
         - @research_access_events.each do |event|
+          - time = Time.parse(event['timestamp'])
           %tr
-            %td= event['timestamp']
+            %td= my_strftime(time) if time
             %td
               = event['description']
               = link_to " Learn More.", event['url'] if event['url']

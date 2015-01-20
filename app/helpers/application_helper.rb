@@ -17,11 +17,12 @@ module ApplicationHelper
   end
 
   def my_strftime(time)
-    if time.year == Time.now.year
-      time.strftime("%b %e")
-    else
-      time.strftime("%b %e, %Y")
-    end
+    time.strftime("%B %e, %Y")
+    # if time.year == Time.now.year
+    #   time.strftime("%b %e")
+    # else
+    #   time.strftime("%b %e, %Y")
+    # end
   end
 
 
