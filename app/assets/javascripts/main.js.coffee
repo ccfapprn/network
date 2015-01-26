@@ -70,7 +70,7 @@ $.rails.allowAction = (element) ->
 
   # PJAX
   #$(document).pjax(selector, [container], options)
-  $(document).pjax('[data-pjax] a, a[data-pjax]', '#pjax-container')
+  #$(document).pjax('[data-pjax] a, a[data-pjax]', '#pjax-container')
 
 
 

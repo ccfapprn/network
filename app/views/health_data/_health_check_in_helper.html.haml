@@ -14,7 +14,8 @@
             %div{data: {toggle: "buttons"}}
               - question.answer_template.answer_options.each do |option|
                 %label.btn.btn-primary
-                  %input{type: question.answer_template.display_type.input_type, autocomplete: "off", value: option.value, name: "#{question.id}[#{question.answer_template.id}]", id: "question_#{question.id}_#{question.answer_template.id}"}
+                  %input{type: question.answer_template.display_type.input_type, autocomplete: "off", value: option.value, name: "#{question.id}[#{question.answer_template.id}]"}
+                  -#id: "question_#{question.id}_#{question.answer_template.id}"
                   = option.value
           - elsif question.answer_templates
             .input-group.col-md-6
