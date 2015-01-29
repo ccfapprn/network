@@ -73,18 +73,27 @@ class HealthDataController < ApplicationController
   end
 
   def award_check_in_badges
-    grant_checkin_badge_on(1,1)
-    grant_checkin_badge_on(2,3)
-    grant_checkin_badge_on(3,5)
-    grant_checkin_badge_on(4,10)
-    grant_checkin_badge_on(5,20)
-    grant_checkin_badge_on(6,30)
+
+    next_checkin_level = current_user.badge_level("checkin") +1
+    checkin_quota = { 1=>1, 2=>3, 3=>5, 4=>10, 5=>20, 6=>30 }[next_checkin_level]
+
+
+    grant_checkin_badge_on(next_checkin_level,checkin_quota)
+    # grant_checkin_badge_on(2,3)
+    # grant_checkin_badge_on(3,5)
+    # grant_checkin_badge_on(4,10)
+    # grant_checkin_badge_on(5,20)
+    # grant_checkin_badge_on(6,30)
   end
 
   def grant_checkin_badge_on(level, quota)
-    if @answer_session.user.answer_sessions.select { |as| as.completed? }.count >= quota #note, this will count all user sessions, not just health checkin types
+    return unless quota
+
+    total_checkins = @answer_session.user.answer_sessions.select { |as| as.completed? }.count
+
+    if total_checkins >= quota #note, this will count all answer sessions, not just health checkin types
       badge = Merit::Badge.find { |b| b.name == "checkin" && b.level == level}.first
-      current_user.add_badge(badge.id) #fixme prevent redundant badging
+      current_user.add_badge(badge.id)
     end
   end
 

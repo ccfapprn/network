@@ -44,7 +44,6 @@ class User < ActiveRecord::Base
   # STUBS # TODO # TO IMPLEMENT
   scope :social, -> { where("1=1") } #TODO MUST DEFINE SOCIAL USERS #FIXME
 
-
   def visible_to_community?
     social_profile.visible_to_community?
   end
@@ -62,6 +61,14 @@ class User < ActiveRecord::Base
     0 #FIXME #TODO #STUB
   end
 
+  def badge_level(name)
+    these_badges = self.badges.find_all { |b| b.name == name }
+    if these_badges.any?
+      these_badges.sort_by { |b| b.level }.last.level
+    else
+      0
+    end
+  end
 
   def self.scoped_users(email=nil, role=nil)
     users = all

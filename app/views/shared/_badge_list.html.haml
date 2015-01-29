@@ -1,36 +1,64 @@
 
 - if current_user
+
+
+
+
+
+
   - current_user_badges = current_user.badges
   - @badge_groups = Merit::Badge.group_by{ |b| b.name }.sort_by { |name, badge_group| badge_group.first.custom_fields[:display_order] }
+
+
+
+
 
   -##############
   -#### SHOW BADGES
   -##############
 
 
+  %h4 Badges You've Earned:
   .panel-group#accordion
     - @badge_groups.each do |name, badge_group|
       - master_badge = badge_group.first
       - earned_badges = current_user_badges.select { |badge| badge.name == name }
-      - highest_level = earned_badges.first ? earned_badges.sort { |x| x.level }.first.level : 0
+      - highlighted_number = earned_badges.count
+      -# highest_level = earned_badges.first ? earned_badges.sort { |x| x.level }.first.level : 0
       - collapse_id = "collapse_badge_#{master_badge.id}"
 
-      .panel.panel-primary
+      .panel.panel-info
         .panel-heading
           %h4.panel-title
             %a.a-no-decoration{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "##{collapse_id}"}
               %i.fa{:class => master_badge.custom_fields[:icon]}
               = master_badge.custom_fields[:title]
 
-            %span.label.label-as-badge.pull-right{class: "#{"label-success" if highest_level > 0}"}= highest_level
+            %span.label.label-as-badge.pull-right{class: "#{"label-primary" if highlighted_number > 0}"}= earned_badges.count
             .clearfix
 
         .panel-collapse.collapse{id: collapse_id}
           .panel-body.small
             %ul{style: "padding-left: 25px;"}
-              %li.text-success.text-strong
+              %li.text-primary.text-strong
                 = "Level 0: This is where you start."
               - badge_group.each do |badge|
-                %li{class: "#{ earned_badges.include?(badge) ? "text-success text-strong" : "text-muted"}"}
+                %li{class: "#{ earned_badges.include?(badge) ? "text-primary text-strong" : "text-muted"}"}
                   = "Level #{badge.level}: #{badge.description}"
 
+  -##############
+  -#### KARMA
+  -##############
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        %a.a-no-decoration{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "#karma_info"}
+          %i.fa.fa-heart
+          Total Karma Points
+        %span.label.label-as-badge.label-default.label-lg.pull-right= current_user.badges.count
+        .clearfix
+
+      .panel-collapse.collapse#karma_info
+        .panel-body.small
+          Your karma points is the total number of badges you've received on the site!

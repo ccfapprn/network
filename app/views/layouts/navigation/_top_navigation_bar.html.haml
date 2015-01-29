@@ -33,6 +33,7 @@
               My Account
               %span.caret
             %ul.dropdown-menu.dropdown-menu-right{role: "menu"}
+
               %li
                 %a{href: main_app.social_profile_path}
                   %i.fa.fa-user &nbsp; Social Profile
@@ -49,7 +50,7 @@
 
               -# Sign Out
               %li
-                = link_to "<i class='fa fa-sign-out'></i> Sign out".html_safe, main_app.destroy_user_session_path, :method => :delete
+                = link_to "<i class='fa fa-sign-out'></i> Sign out of<br/><em>#{current_user.email}</em>".html_safe, main_app.destroy_user_session_path, :method => :delete
 
         - else
           -##############
