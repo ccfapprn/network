@@ -1,7 +1,7 @@
 
 - if current_user
   - current_user_badges = current_user.badges
-  - @badges = Merit::Badge.all
+  - @badge_groups = Merit::Badge.group_by{ |b| b.name }.sort_by { |name, badge_group| badge_group.first.custom_fields[:display_order] }
 
   -##############
   -#### SHOW BADGES
@@ -9,7 +9,7 @@
 
 
   .panel-group#accordion
-    - @badges.group_by{ |b| b.name }.each do |name, badge_group|
+    - @badge_groups.each do |name, badge_group|
       - master_badge = badge_group.first
       - earned_badges = current_user_badges.select { |badge| badge.name == name }
       - highest_level = earned_badges.first ? earned_badges.sort { |x| x.level }.first.level : 0
