@@ -205,47 +205,25 @@ module OODT
   ###############
   # SURVEYS
   ###############
-  def get_survey_scorecard #11
-    response = oodt.post "users/@@surveys", user_hash
+  def get_survey_scorecard(options) #11
+    response = oodt.post "users/@@surveys", user_hash.merge(:return_url => options[:return_url])
     body = parse_body(response)
 
     if response.success? && body['completed']
+      num_surveys_completed = body['completed'].count
+      update_survey_badges(num_surveys_completed)
+
+      # The API:
       # surveyOpenDate = body['surveyDate']
       # surveyURL = body['url']
-      num_surveys_completed = body['completed'].count
       # num_incompleted = body['incomplete'].count
       # num_surveys = num_completed + num_incompleted
-      # return "The next survey opens on #{surveyOpenDate} at #{surveyURL}. The user has completed #{num_completed}/#{num_surveys} surveys"
-
-      # Update the badges the user should have for survey participation
-      update_users_survey_badges(num_surveys_completed)
-
       return body
     else
       logger.error "API Call to get surveys for user ##{self.id} failed or was missing information. OODT returned the following response:\n#{response.body}"
       return body['errorMessage'] || body
     end
   end
-
-
-  #FIXME -- this logic might want to belong somewhere else other than OODT
-  def update_users_survey_badges(num_surveys_completed)
-    if num_surveys_completed > 0
-      # Find the badge that is due to the user
-      max_badge_level = 5 #this is fragile and needs to match to the highest level badge in merit.rb
-      badges_due = Merit::Badge.find { |b| b.name == 'survey_responder' && b.level <= [num_surveys_completed, max_badge_level].min }
-
-      #byebug
-      # Assign the badge to the user if he/she doesn't already have it
-                      #if badge_due.any? #&& self.badges.find { |my_badges| my_badges.id == badge_due.id }.empty?
-      badges_due.each do |badge|
-        self.add_badge(badge.id)
-      end
-                      #end
-
-    end
-  end
-
 
 
   ###############
