@@ -6,8 +6,8 @@ module ExternalAccounts
     #after_create :provision_external_accounts
 
     # Configure your application to use OODT and/or Validic in config/initalizers/pprn.rb
-    include OODT if OODT_ENABLED
-    include ValidicAdapter if VALIDIC_ENABLED
+    include OODT #if OODT_ENABLED
+    include ValidicAdapter #if VALIDIC_ENABLED
 
 
     has_one :external_account, dependent: :destroy, autosave: true;

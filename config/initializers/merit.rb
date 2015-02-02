@@ -17,20 +17,20 @@ Merit.setup do |config|
   # to retrieve :user_model_name object if no `:to` option is given. Default
   # is "current_#{user_model_name.downcase}".
   # config.current_user_method = 'current_user'
+
 end
 
 # Create application badges (uses https://github.com/norman/ambry)
 
 # Multi-Level Badges
-survey_responder_attr = {name: 'survey_responder', custom_fields: { title: 'Survey Responder', icon: 'fa-list-ul', category: 'research', category_description: 'Complete biannual surveys when they are available' }}
+# 1) Survey Responder, 2) Checkiner, 3) Research Proposer (title??), 4) Voter 5) Discusser 6) Community Face
+survey_responder_attr = {name: 'survey_responder', custom_fields: { title: 'Survey Responder', icon: 'fa-list-ul', category: 'research', category_description: 'Complete biannual surveys when they are available', display_order: 1 }}
+checkin_attr =  {name: 'checkin', custom_fields: { title: 'Check-iner', icon: 'fa-clock-o', category: 'health_data', category_description: 'Complete health check-ins to keep us up to date!', display_order: 2 }}
+research_designer_attr = {name: 'research_designer', custom_fields: { title: 'Research Designer', icon: 'fa-bar-chart', category: 'research', category_description: 'Design research questions that people like', display_order: 3 } }
+voter_attr = {name: 'voter', custom_fields: { title: 'Voter', icon: 'fa-check-circle-o', category: 'research', category_description: 'Vote for research questions you find most valuable', display_order: 4 } }
+discusser_attr =   {name: 'discusser', custom_fields: { title: 'Discusser', icon: 'fa-comments-o', category: 'research', category_description: 'Spark discussions about research questions!', display_order: 5 }}
+face_attr =  {name: 'face', custom_fields: { title: 'Community Face', icon: 'fa-group', category: 'members', category_description: 'Create a social profile for others to see', display_order: 6 }}
 
-research_designer_attr = {name: 'research_designer', custom_fields: { title: 'Research Designer', icon: 'fa-bar-chart', category: 'research', category_description: 'Design research questions that people like' } }
-discusser_attr =   {name: 'discusser', custom_fields: { title: 'Discusser', icon: 'fa-comments-o', category: 'research', category_description: 'Spark discussions about research questions!' }}
-voter_attr = {name: 'voter', custom_fields: { title: 'Voter', icon: 'fa-check-circle-o', category: 'research', category_description: 'Vote for research questions you find most valuable' } }
-
-checkin_attr =  {name: 'checkin', custom_fields: { title: 'Check-iner', icon: 'fa-clock-o', category: 'health_data', category_description: 'Complete health check-ins to keep us up to date!' }}
-
-face_attr =  {name: 'face', custom_fields: { title: 'Community Face', icon: 'fa-group', category: 'members', category_description: 'Create a social profile for others to see' }}
 
 badges = [
 

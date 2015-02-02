@@ -71,3 +71,4 @@ config/initializers/secret_token.rb
 
 config/initializers/pprn.rb # this needs to exist in some fashion
 
+/doc

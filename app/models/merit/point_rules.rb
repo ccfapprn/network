@@ -13,16 +13,16 @@ module Merit
     include Merit::PointRulesMethods
 
     def initialize
-      score 50, :on => 'registrations#create', model_name: "User"
+      # score 50, :on => 'registrations#create', model_name: "User"
 
-      # Give points to research topic authors that get upvoted
-      score 25, :on => 'votes#vote', :to => [:research_topic_author] do |vote|
-        vote.research_topic.present? && (vote.rating > 0)
-      end
+      # # Give points to research topic authors that get upvoted
+      # score 25, :on => 'votes#vote', :to => [:research_topic_author] do |vote|
+      #   vote.research_topic.present? && (vote.rating > 0)
+      # end
 
-      score 20, :on => 'research_topics#create'
+      # score 20, :on => 'research_topics#create'
 
-      score 10, :on => 'comments#create'
+      # score 10, :on => 'comments#create'
 
 
       # Add points for every badge awarded? How?
