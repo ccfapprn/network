@@ -108,7 +108,7 @@ module OODT
   # ACCOUNT SETUP
   ###################
   def pair_with_lcp(options = {}) #2
-    response = oodt.post "users/@@create", {:email => options[:email], :return_url => options[:return_url]}
+    response = oodt.post "users/@@create", {:email => options[:email]} #### WHEN SK UPDATES API ADD IN: , :return_url => options[:return_url]
     body = parse_body(response)
 
     if response.success?
