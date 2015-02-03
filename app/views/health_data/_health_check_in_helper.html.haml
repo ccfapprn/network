@@ -6,9 +6,19 @@
           %h4.text-primary
             = question.text
           - if question.answer_template.display_type.name == "range"
-            %input{type: question.answer_template.display_type.input_type, name: "#{question.id}[#{question.answer_template.id}]", id: "question_#{question.id}_#{question.answer_template.id}", min: question.answer_template.min_value, max: question.answer_template.max_value}
-            .pull-left.text-primary.small= question.answer_template.bottom_label
-            .pull-right.text-primary.small= question.answer_template.top_label
+            .row
+              .col-md-8
+                %input.display-value.custom{type: question.answer_template.display_type.input_type, name: "#{question.id}[#{question.answer_template.id}]", id: "question_#{question.id}_#{question.answer_template.id}", min: question.answer_template.min_value, max: question.answer_template.max_value}
+                -#%output 0
+                .pull-left.text-primary.small= question.answer_template.bottom_label
+                .pull-right.text-primary.small= question.answer_template.top_label
+                .clearfix
+              .col-md-4
+
+                .input-group
+                  %input.form-control{:type => "number", :min => question.answer_template.min_value, :max => question.answer_template.max_value, :disabled => true}
+                  %span.input-group-btn
+                    %button.btn.btn-primary.submit Submit
 
           - elsif question.answer_template.display_type.name == "multiple_choice_buttons"
             %div{data: {toggle: "buttons"}}

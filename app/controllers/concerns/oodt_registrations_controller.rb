@@ -27,7 +27,7 @@ module OODTRegistrationsController
       # No! user is not yet paired with LCP. Let's see if we can solve this...
 
       # 1. Try to Pair them with their primary email address
-      if current_user.pair_with_lcp(current_user.email)
+      if current_user.pair_with_lcp(email: current_user.email, return_url: pairing_wizard_url)
         flash.now[:notice] = "Success! Your account was linked to your survey data."
 
       # 2. If that didn't work, have they JUST provided an alternative email to try?
@@ -44,7 +44,7 @@ module OODTRegistrationsController
         # Is that email confirmed?
         if current_user.alt_email_confirmed
           # Trying pairing their confirmed email with LCP
-          if current_user.pair_with_lcp(current_user.alt_email)
+          if current_user.pair_with_lcp(email: current_user.alt_email, return_url: pairing_wizard_url)
             flash.now[:notice] = "Success! We found that your alternative email address, #{current_user.alt_email}, matches an existing CCFA Partners account. Wonderful! We've connected them automatically to save you time entering data."
           else
             flash.now[:error] = "Your alternative email address #{current_user.alt_email} was not found in the existing CCFA Partners database.  Did you register under a different email address?  If so, provide that email address below, and we'll try to make the connection."

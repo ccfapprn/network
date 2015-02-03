@@ -6,7 +6,6 @@
     .panel-heading
       Were you previously a CCFA Partners member?
     .panel-body
-      -#= "If you have previously registered for CCFAPartners.com, we'd love to connect your new account to the data from the existing. Do you know if you've registered with CCFAPartners.com in the past under a different email address other than #{current_user.email}? If so, provide that (or any potential) email address below, and we'll try to make the connection."
       = "If you previously registered for CCFA Partners, we'd love to connect your new account to the data from your previous account to save you time.  Please provide your email that you have previously used with CCFA Partners and we'll try to make the connection."
       %br/
 
@@ -26,17 +25,7 @@
       = "If you are pretty sure you have no previous CCFA Partners account, please continue with registration."
       %a.btn.btn-primary{href: redirect_to_lcp_reg_path} Continue with registration
 
-
--# Pair with Crohnology
--#- if !current_user.paired_with_crohnology?
--#  [ ] Pair this account with my Crohnology Account #{if acct found}
--#  [ ] Create a Crohnology acct #{if no acct found}
-
-
-
--# User allowed to pass?
-
-- if current_user.paired_with_lcp
+- else
   - if current_user.oodt_baseline_survey_complete
     %h3 Congrats! You're all ready to get into the site!
     %a.btn.btn-primary{href: home_path} Continue
@@ -45,6 +34,9 @@
       %strong You need to complete your baseline survey!
       = link_to "Click here to do it.", current_user.oodt_baseline_survey_url
 
--# else
--#  If you are pretty sure you have no existing CCFA Partners account, you can just set up a new account.
--#  %a.btn.btn-primary{href: redirect_to_lcp_reg_path, target: "_blank"} Set up New Account
+
+
+-# Pair with Crohnology
+-#- if !current_user.paired_with_crohnology?
+-#  [ ] Pair this account with my Crohnology Account #{if acct found}
+-#  [ ] Create a Crohnology acct #{if no acct found}

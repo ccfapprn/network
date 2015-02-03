@@ -10,26 +10,25 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery
 //= require jquery_ujs
-//NOT require turbolinks
-//NOT require jquery.pjax
-//= require bootstrap-sprockets
+//= require_directory .
+
+//# VENDOR INCLUDES
+
 //= require chosen.jquery
-//= require forem
 //= require jquery.slimscroll
 //= require jquery.PrintArea
-//= require d3.min
 //= require bootbox.min
 //= require typeahead
 //= require bloodhound
 //= require bootstrap-tagsinput
+//= require bootstrap-sprockets
 //= require placeholders.jquery.min
-//= require main
-//= require pages
-//= require admin
-//= require votes
-//= require surveys
-//= require health_data
-//= require forem/topics
+//= require range-touch.min
+//= require display-range-value
+
+//NOT require turbolinks
+//NOT require jquery.pjax
 

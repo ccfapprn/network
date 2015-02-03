@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 
 # Required in Rails 4 for logs to work in production
 gem 'rails_12factor', group: :production
+gem 'quiet_assets', group: :development
 
 gem 'thin'
 gem 'airbrake'

@@ -17,6 +17,7 @@ module OODT
     def oodt
       #prefix = "api/pcori/sandbox/v1/" #or "api/pcori/ops/v1/"
       #conn = Faraday.new(url: "https://whiterivercomputing.com/#{prefix}")
+      raise "No OODT Server Specified!" if !Figaro.env.oodt_server
       conn = Faraday.new(url: Figaro.env.oodt_server)
       conn.basic_auth(Figaro.env.oodt_username, Figaro.env.oodt_password)
       conn
@@ -106,8 +107,8 @@ module OODT
   ###################
   # ACCOUNT SETUP
   ###################
-  def pair_with_lcp(email_to_try) #2
-    response = oodt.post "users/@@create", {:email => email_to_try}
+  def pair_with_lcp(options = {}) #2
+    response = oodt.post "users/@@create", {:email => options[:email], :return_url => options[:return_url]}
     body = parse_body(response)
 
     if response.success?
@@ -121,7 +122,7 @@ module OODT
     end
   end
 
-  def sync_oodt_status(options) #Allowed Option :return_url #6
+  def sync_oodt_status(options = {}) #Allowed Option :return_url #6
     response = oodt.post "users/@@status", user_hash.merge(:return_url => options[:return_url]) #where you want the baseline survey to drop back users
     body = parse_body(response)
 
