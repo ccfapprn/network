@@ -27,8 +27,8 @@
 //= require bootstrap-sprockets
 //= require placeholders.jquery.min
 //= require range-touch.min
-//= require display-range-value
+//### Not needed: require display-range-value
 
-//NOT require turbolinks
-//NOT require jquery.pjax
+//### require turbolinks
+//### require jquery.pjax
 
