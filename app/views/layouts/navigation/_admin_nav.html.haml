@@ -1,7 +1,8 @@
 .list-group
-  %a.list-group-item{href: main_app.admin_users_path, class: "#{"active" if action_name == "users"}"} Users
+  - if current_user.has_role?(:admin) || current_user.has_role?(:owner)
+    %a.list-group-item{href: main_app.admin_users_path, class: "#{"active" if action_name == "users"}"} Users
   %a.list-group-item{href: main_app.admin_blog_path, class: "#{"active" if action_name == "blog"}"} Blog Posts
-  %a.list-group-item{href: main_app.admin_surveys_path, class: "#{"active" if action_name == "surveys"}"} Surveys
+  -# %a.list-group-item{href: main_app.admin_surveys_path, class: "#{"active" if action_name == "surveys"}"} Surveys
   %a.list-group-item{href: main_app.admin_research_topics_path, class: "#{"active" if /research_topic/ =~ action_name }"} Research Topics
 
 
@@ -9,8 +10,8 @@
   -#%a.list-group-item{href: main_app.admin_notifications_path, class: "#{"active" if action_name == "notifications"}"} Notifications
 
 
-.list-group
-  %a.list-group-item.list-group-item-warning{href: "https://openpprn.uservoice.com/admin", :target => "_blank"} UserVoice
+-#.list-group
+-#  %a.list-group-item.list-group-item-warning{href: "https://openpprn.uservoice.com/admin", :target => "_blank"} UserVoice
   -#%a.list-group-item.list-group-item-warning{href: "https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a53742602w86512802p89760206/", :target => "_blank"} Google Analytics
 
 
@@ -18,4 +19,7 @@
 -# Description of this section
 %p.small This admin panel gives admins control over content and publishings on the site.
 
+%h5 Your Role(s):
+- current_user.roles.each do |role|
+  .label.label-default= role.name.capitalize
 
