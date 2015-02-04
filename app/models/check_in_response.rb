@@ -9,7 +9,23 @@ class CheckInResponse < ActiveRecord::Base
 
   default_scope { includes(:check_in_survey) }
 
+  after_initialize :set_survey_version_if_unset
 
+
+
+  def set_survey_version_if_unset
+    if user && !check_in_survey
+      disease_type = user.get_disease_type
+
+      if disease_type && disease_type == "Crohn's disease"
+        self.check_in_survey = CheckInSurvey.find_by_version("CD1.0")
+      else
+        self.check_in_survey = CheckInSurvey.find_by_version("UC1.0")
+      end
+      ## Ileostomy Check
+      ## ######
+    end
+  end
 
 
   def summary

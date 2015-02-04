@@ -4,28 +4,47 @@ namespace :check_in_surveys do
   task :update => :environment do
 
     check_in_survey_files = Dir["lib/data/check_in_surveys/*.yml"]
+
     check_in_survey_files.each do |check_in_survey_file|
       survey_info = YAML.load_file(check_in_survey_file)
 
-      byebug
-
-      unless survey_info.false? || survey_info.empty?
+      ## Unless the file is empty or nonexistent...
+      unless survey_info.empty?
+        # See if a matching version is already in the DB
         existing_survey = CheckInSurvey.find_by(survey_info.slice('version'))
 
         if existing_survey
+          # If there is already a matching version in the DB, then only update it
           existing_survey.update(survey_info)
         else
+          # If this version is non-existent, then create it
           CheckInSurvey.create(survey_info)
         end
       end
 
-      byebug
-
     end
 
+
+    puts "Complete. There are now #{CheckInSurvey.count} Check-In Surveys in the DB."
+
+  end
+
+  desc "Destroy all surveys in the DB"
+  task :clear => :environment do
+    if warn("WARNING: You are about to destroy all surveys AND responses currently in the database.")
+      CheckInSurvey.destroy_all
+      CheckInResponse.destroy_all
+      puts "DESTROYED SURVEYS AND RESPONSES"
+    end
   end
 
 
 
+  def warn(msg)
+    puts msg
+    puts "Are you sure you want to continue? (y/n)"
+
+    STDIN.gets.strip.downcase == 'y'
+  end
 
 end

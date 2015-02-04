@@ -1,0 +1,29 @@
+%form#check-in{action: check_in_response_path}
+  - @question_flow.all_questions.each do |question|
+    = render partial: "health_check_in_helper", :locals => { name: @question_flow.name_en, question: question, answer_session: @answer_session, question_flow: @question_flow, current: (question == @answer_session.next_question) }
+
+  #completion_message{class: ("hidden" unless @answer_session.completed?) }
+    .alert.alert-info
+      %p Thank you. You are all Checked in!
+      -#%p.small You can come back and complete another health report tomorrow.
+      %p.small= link_to "Health changed already? Check in again.", health_data_path(new_check_in: true)
+
+
+
+
+
+
+-#<%= simple_form_for(@check_in_response) do |f| %>
+-#  <%= f.error_notification %>
+
+-#  <div class="form-inputs">
+-#    <%= f.input :answer_1 %>
+-#    <%= f.input :answer_2 %>
+-#    <%= f.input :answer_3 %>
+-#    <%= f.input :answer_4 %>
+-#  </div>
+
+-#  <div class="form-actions">
+-#    <%= f.button :submit %>
+-#  </div>
+-#<% end %>

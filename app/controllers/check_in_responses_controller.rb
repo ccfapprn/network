@@ -13,7 +13,7 @@ class CheckInResponsesController < ApplicationController
   end
 
   def new
-    @check_in_response = CheckInResponse.new
+    @check_in_response = current_user.check_in_responses.build
     respond_with(@check_in_response)
   end
 

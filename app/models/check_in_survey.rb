@@ -4,7 +4,7 @@ class CheckInSurvey < ActiveRecord::Base
 
   ## If you change the number of questions in the schema, update these:
   @@questions_count = 4
-  serialize :question_1, Hash
+  serialize :question_1, Hash # I'd hopefully be able be make these dynamic, maybe in the initiliazer
   serialize :question_2, Hash
   serialize :question_3, Hash
   serialize :question_4, Hash

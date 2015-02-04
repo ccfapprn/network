@@ -1,0 +1,38 @@
+# If you make any material changes to a survey, you should create a new one with a new version number so old answers stay tied to their old version.
+# If you do not update the version number and make changes, it will update the survey info on the existing survey in the DB --
+# this is a good idea if your changes were immaterial (ie. just to the title or description)
+# run "rake check_in_surveys:update" after you've made changes to any of these yml files
+version: "IL1.0"
+
+
+title: UC Survey
+description:
+
+question_1:
+  title: How are you feeling today?
+  description:
+  answer_type: :range
+  answer_range:
+    - 0
+    - 100
+
+question_2:
+  title: How would you describe your general well-being over the last week?
+  description:
+  answer_type: :option
+  answer_options:
+    - Generally Well
+    - Slightly Below Par
+    - Poor
+    - Very Poor
+    - Terrible
+
+question_3:
+  title: "How much blood have you seen in your stool over the last week?"
+  description:
+  answer_type: :option
+  answer_options:
+    - No blood seen
+    - Streaks of blood or blood in less than 1/2 of stools
+    - Obvious blood or blood in greater than 1/2 of stools
+    - Blood passes alone
