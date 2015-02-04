@@ -1,0 +1,2 @@
+module CheckInResponsesHelper
+end

@@ -1,0 +1,37 @@
+title: Crohn's Survey
+description:
+version: "1.0"
+
+question_1:
+  title: How are you feeling today?
+  description:
+  answer_type: :range
+  answer_range:
+    - 0
+    - 100
+
+question_2:
+  title: How would you describe your general well-being over the last week?
+  description:
+  answer_type: :option
+  answer_options:
+    - Generally Well
+    - Slightly Below Par
+    - Poor
+    - Very Poor
+    - Terrible
+
+question_3:
+  title: "On average, over the past week, would you rate your abdominal pain as:"
+  description:
+  answer_type: :option
+  answer_options:
+    - None
+    - Mild
+    - Moderate
+    - Severe
+
+question_4:
+  title: "On average, over the past week, how many liquid or very soft stools have you had per day?"
+  description:
+  answer_type: :integer

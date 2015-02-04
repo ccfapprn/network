@@ -1,0 +1,35 @@
+<h1>Listing check_in_responses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Check in survey</th>
+      <th>Answer 1</th>
+      <th>Answer 2</th>
+      <th>Answer 3</th>
+      <th>Answer 4</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @check_in_responses.each do |check_in_response| %>
+      <tr>
+        <td><%= check_in_response.user_id %></td>
+        <td><%= check_in_response.check_in_survey_id %></td>
+        <td><%= check_in_response.answer_1 %></td>
+        <td><%= check_in_response.answer_2 %></td>
+        <td><%= check_in_response.answer_3 %></td>
+        <td><%= check_in_response.answer_4 %></td>
+        <td><%= link_to 'Show', check_in_response %></td>
+        <td><%= link_to 'Edit', edit_check_in_response_path(check_in_response) %></td>
+        <td><%= link_to 'Destroy', check_in_response, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Check in response', new_check_in_response_path %>

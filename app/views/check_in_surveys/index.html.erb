@@ -1,0 +1,35 @@
+<h1>Listing check_in_surveys</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Question 1</th>
+      <th>Question 2</th>
+      <th>Question 3</th>
+      <th>Question 4</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @check_in_surveys.each do |check_in_survey| %>
+      <tr>
+        <td><%= check_in_survey.title %></td>
+        <td><%= check_in_survey.description %></td>
+        <td><%= check_in_survey.question_1 %></td>
+        <td><%= check_in_survey.question_2 %></td>
+        <td><%= check_in_survey.question_3 %></td>
+        <td><%= check_in_survey.question_4 %></td>
+        <td><%= link_to 'Show', check_in_survey %></td>
+        <td><%= link_to 'Edit', edit_check_in_survey_path(check_in_survey) %></td>
+        <td><%= link_to 'Destroy', check_in_survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Check in survey', new_check_in_survey_path %>
