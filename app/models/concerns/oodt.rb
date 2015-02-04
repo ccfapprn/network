@@ -317,7 +317,15 @@ module OODT
     body = parse_body(response)
 
     if response.success?
-      latest_data = body.last
+      #latest_data = body.last
+      #last element may have nil disease type
+      current_dt = nil
+      body.reverse.each do |dt|
+        if (dt['disease'] != nil) && (dt['disease'] != 'N/A')
+          current_dt = dt['disease']
+          break
+        end
+      end
       icd_to_human = {
         "N/A" => "Unknown",
         "None" => "No IBD",
@@ -326,7 +334,9 @@ module OODT
         "K52.3" => "Indeterminate colitis",
         "K52.8" => "Other colitis"
       }
-      return icd_to_human[latest_data['disease']]
+
+      #return icd_to_human[latest_data['disease']]
+      return icd_to_human[current_dt]
     else
       logger.error "API Call to disease type of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
       return false # body['errorMessage'] || body
