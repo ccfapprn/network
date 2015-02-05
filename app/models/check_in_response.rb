@@ -16,7 +16,6 @@ class CheckInResponse < ActiveRecord::Base
   def set_survey_version_if_unset
     if user && !check_in_survey
       disease_type = user.get_disease_type
-
       if disease_type && disease_type == "Crohn's disease"
         self.check_in_survey = CheckInSurvey.find_by_version("CD1.0")
       else

@@ -2,7 +2,7 @@
 # If you do not update the version number and make changes, it will update the survey info on the existing survey in the DB --
 # this is a good idea if your changes were immaterial (ie. just to the title or description)
 # run "rake check_in_surveys:update" after you've made changes to any of these yml files
-title: UC Survey
+title: U.C. Check-in
 description:
 version: "UC1.0"
 

@@ -108,7 +108,7 @@ module OODT
   # ACCOUNT SETUP
   ###################
   def pair_with_lcp(options = {}) #2
-    response = oodt.post "users/@@create", {:email => options[:email]} #### WHEN SK UPDATES API ADD IN: , :return_url => options[:return_url]
+    response = oodt.post "users/@@create", {:email => options[:email], :return_url => options[:return_url]}
     body = parse_body(response)
 
     if response.success?
@@ -329,6 +329,23 @@ module OODT
       return icd_to_human[latest_data['disease']]
     else
       logger.error "API Call to disease type of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return false # body['errorMessage'] || body
+    end
+  end
+
+
+  ### Ileostomy Check
+  # HTTP 200, Content-type: application/json, response body is a mapping with a single key "ileostomy" whose value is a boolean
+  # (true if the patient has an ileostomy, false otherwise).
+  # PREFIX/users/@@ileostomy?userID=ID
+  def has_ileostomy?
+    response = oodt.post "users/@@ileostomy", user_hash
+    body = parse_body(response)
+
+    if response.success?
+      return body['ileostomy']
+    else
+      logger.error "API Call to ileostomy of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
       return false # body['errorMessage'] || body
     end
   end

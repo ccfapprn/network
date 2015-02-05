@@ -5,7 +5,7 @@
 version: "IL1.0"
 
 
-title: UC Survey
+title: Ileostomy Check-in
 description:
 
 question_1:
@@ -15,24 +15,3 @@ question_1:
   answer_range:
     - 0
     - 100
-
-question_2:
-  title: How would you describe your general well-being over the last week?
-  description:
-  answer_type: :option
-  answer_options:
-    - Generally Well
-    - Slightly Below Par
-    - Poor
-    - Very Poor
-    - Terrible
-
-question_3:
-  title: "How much blood have you seen in your stool over the last week?"
-  description:
-  answer_type: :option
-  answer_options:
-    - No blood seen
-    - Streaks of blood or blood in less than 1/2 of stools
-    - Obvious blood or blood in greater than 1/2 of stools
-    - Blood passes alone
