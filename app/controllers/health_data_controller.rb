@@ -49,7 +49,7 @@ class HealthDataController < ApplicationController
 
     render json: {answer: @answer, next_question_id: (@answer.next_question.id if @answer and @answer.next_question)}
 
-    award_check_in_badges if @answer_session.completed?
+    current_user.update_check_in_badges if @answer_session.completed?
   end
 
 
@@ -72,30 +72,6 @@ class HealthDataController < ApplicationController
     self.class.send(:include, OODTHealthDataController) if OODT_ENABLED
   end
 
-  def award_check_in_badges
-
-    next_checkin_level = current_user.badge_level("checkin") +1
-    checkin_quota = { 1=>1, 2=>3, 3=>5, 4=>10, 5=>20, 6=>30 }[next_checkin_level]
-
-
-    grant_checkin_badge_on(next_checkin_level,checkin_quota)
-    # grant_checkin_badge_on(2,3)
-    # grant_checkin_badge_on(3,5)
-    # grant_checkin_badge_on(4,10)
-    # grant_checkin_badge_on(5,20)
-    # grant_checkin_badge_on(6,30)
-  end
-
-  def grant_checkin_badge_on(level, quota)
-    return unless quota
-
-    total_checkins = @answer_session.user.answer_sessions.select { |as| as.completed? }.count
-
-    if total_checkins >= quota #note, this will count all answer sessions, not just health checkin types
-      badge = Merit::Badge.find { |b| b.name == "checkin" && b.level == level}.first
-      current_user.add_badge(badge.id)
-    end
-  end
 
   def med_list_setup
     @med_list = (current_user and OODT_ENABLED) ? current_user.get_med_list : {}

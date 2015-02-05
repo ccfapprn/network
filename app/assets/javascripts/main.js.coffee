@@ -58,9 +58,10 @@ $.rails.allowAction = (element) ->
     no_results_text: 'No results matched'
     width: '100%'
 
-  $(document.links).filter(() ->
-    return this.hostname != window.location.hostname
-  ).attr('target', '_blank')
+  # uncomment if you'd like external links to open in a new window by default
+  # $(document.links).filter(() ->
+  #   return this.hostname != window.location.hostname
+  # ).attr('target', '_blank')
 
   # Offcanvas
   $("[data-toggle=\"offcanvas\"]").click ->

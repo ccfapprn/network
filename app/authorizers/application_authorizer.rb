@@ -18,6 +18,10 @@ class ApplicationAuthorizer < Authority::Authorizer
     user.has_role?(:owner) || user.has_role?(:admin) || user.has_role?(:moderator)
   end
 
+  def self.authorizes_to_moderate?(user, options = {})
+    user.has_role?(:owner) || user.has_role?(:admin) || user.has_role?(:moderator)
+  end
+
   def self.authorizes_to_participate_in_research?(user, options={})
     user.signed_consent?
   end

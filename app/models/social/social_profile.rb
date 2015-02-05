@@ -6,9 +6,15 @@ class SocialProfile < ActiveRecord::Base
   validates :age, numericality: {only_integer: true, less_than_or_equal_to: 120, allow_nil: true, greater_than_or_equal_to: 1}
   validates :sex, inclusion: { in: %w(Male Female Other), allow_nil: true}
 
+  scope :visible_to_community, -> { where ({visible_to_community: true}) }
   # visible_to_public?
   # visible_to_community?
 
+
+
+  def self.unique_locations_count
+    visible_to_community.select(:location_id).distinct.count
+  end
 
 
   def private_photo_url(size = nil)

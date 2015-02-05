@@ -34,7 +34,6 @@ module OpenPprn
 
     config.google_maps_api_key = "AIzaSyDEc7khzfAanF5QFEn-y5DK0l2l833dHAY"
 
-
   end
 
 end

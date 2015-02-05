@@ -61,10 +61,10 @@ class AdminController < ApplicationController
 
   end
 
-  def notifications
-    @posts = Post.notifications
-    @new_post = Post.new(post_type: :notification)
-  end
+  # def notifications
+  #   @posts = Post.notifications
+  #   @new_post = Post.new(post_type: :notification)
+  # end
 
 
   private
@@ -72,6 +72,7 @@ class AdminController < ApplicationController
   def authenticate_admin
     raise Authority::SecurityViolation.new(current_user, 'administrate', action_name) unless current_user.can?(:view_admin_dashboard)
   end
+
 
   def set_users
     @users = User.scoped_users(params[:search], params[:search_role])

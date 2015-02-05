@@ -32,18 +32,23 @@
             = f.label :password_confirmation, "Password Confirm", :class => "control-label col-sm-5"
             .col-sm-7
               = f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Password Confirmation"
-
-          - if Figaro.env.website_conditions
-            .form-group
-              = f.label :condition, :class => "control-label col-sm-5"
-              .col-sm-7
-                %select.form-control
-                  - Figaro.env.website_conditions.split(",").each do |condition|
-                    %option
-                      = condition
           .form-group
-            .col-sm-offset-5.col-sm-7
+            = f.label :confirm_disease, "Yes, I have Crohn's disease, ulcerative colitis, or indeterminate colitis.", :class => "control-label col-sm-5"
+            .col-sm-7
+              = check_box_tag "confirm_disease"
+
+          -#- if Figaro.env.website_conditions
+          -#  .form-group
+          -#    = f.label :condition, :class => "control-label col-sm-5"
+          -#    .col-sm-7
+          -#      %select.form-control
+          -#        - Figaro.env.website_conditions.split(",").each do |condition|
+          -#          %option
+          -#            = condition
+          .form-group
+            .col-sm-offset-5.col-sm-7#join_button_div
               = f.submit "Sign up", :class => "btn btn-primary"
+
     %p.text-center
       Already a Member
       %a{:href => new_user_session_path} Sign in.
@@ -52,4 +57,4 @@
       Under age 18?  Join
       = link_to "CCFA Partners Kids and Teens", "https://cgibd.med.unc.edu/ccfapeds/"
 
-
+= javascript_include_tag 'join'

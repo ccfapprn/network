@@ -1,7 +1,7 @@
 -##############
 -### COMMUNITY CONTRIBUTIONS
 -##############
-- scores = { "Members" => @network_users_count, "Social Profiles" => User.social.count, "Unique Cities" => User.unique_cities_count }
+- scores = { "Members" => @network_users_count, "Social Profiles" => SocialProfile.visible_to_community.count, "Unique Locations" => SocialProfile.unique_locations_count }
 - content_for :community_contributions, render(:partial => "/shared/community_scoreboard", locals: { scores: scores })
 
 
@@ -11,12 +11,9 @@
 - content_for :your_contributions do
   = render partial: "shared/badge_list"
 
--#- content_for :before_scripts do
--#  = javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.google_maps_api_key}"
 
--#- content_for :after_scripts do
--#  = javascript_include_tag 'social/maps'
-
+= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.google_maps_api_key}"
+= javascript_include_tag 'social/maps'
 
 
 -#-##############
@@ -24,7 +21,7 @@
 -#-##############
 
 
--#-#### MAP OF MEMBERS
+-#### MAP OF MEMBERS
 -#.panel.panel-default
 -#  .panel-heading
 -#    .row
@@ -79,7 +76,7 @@
     .col-md-12
       .panel.panel-default
         .panel-heading
-          %h3.panel-title Age
+          %h3.panel-title Members' Age Distribution
         .panel-body
           = image_tag "https://cgibd.med.unc.edu/ccfapartners/graphs/age_img.php?width=650&height=300&colors=88ccee|00FF00"
 
@@ -87,7 +84,7 @@
     .col-md-12
       .panel.panel-default
         .panel-heading
-          %h3.panel-title Length of time with IBD (years)
+          %h3.panel-title Years Since IBD Diagnosis
         .panel-body
           = image_tag "https://cgibd.med.unc.edu/ccfapartners/graphs/ibdage_img.php?width=650&height=300&colors=88ccee|00FF00"
 
@@ -95,7 +92,7 @@
     .col-md-12
       .panel.panel-default
         .panel-heading
-          %h3.panel-title Medication use of CCFA Partners members (% currently using)
+          %h3.panel-title Members' Current Medication Types
         .panel-body
           = image_tag "https://cgibd.med.unc.edu/ccfapartners/graphs/medchart.php?height=350&width=700"
           -# = image_tag "https://cgibd.med.unc.edu/ccfapartners/graphs/medchart.php?height=450&width=650&disease=uc&colors=3388cc|cceeff"

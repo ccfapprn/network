@@ -8,8 +8,6 @@ class ResearchTopicAuthorizer < ApplicationAuthorizer
     user.has_role? :moderator
   end
 
-
-
   def self.updatable_by?(user)
     user.has_role? :moderator
   end

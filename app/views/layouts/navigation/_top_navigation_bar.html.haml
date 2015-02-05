@@ -43,9 +43,10 @@
                   %i.fa.fa-wrench &nbsp; Account Details
 
               - if current_user.can?(:view_admin_dashboard)
+                %li.divider{role:"presentation"}
                 %li
                   %a{href: main_app.admin_path, :title => "Admin Panel"}
-                    %i.fa.fa-wrench &nbsp; Admin Panel
+                    %i.fa.fa-gavel &nbsp; Admin Panel
               %li.divider{role:"presentation"}
 
               -# Sign Out
