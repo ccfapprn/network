@@ -34,9 +34,11 @@
         - elsif @current_check_in.answer_type(i) == :option
           %div{data: {toggle: "buttons"}}
             - @current_check_in.answer_options(i).each_with_index do |option, index|
-              %label.btn.btn-primary{data: next_question_data, class: (@current_check_in.last_question?(i) ? "submit" : "next")}
+              %label.btn.btn-primary{data: next_question_data, class: (@current_check_in.last_question?(i) ? "" : "next")}
                 %input.next{type: 'radio', autocomplete: "off", value: index, name: "check_in_response[answer_#{i}]" }
                 = option
+
+
 
 
         - elsif @current_check_in.answer_type(i) == :number

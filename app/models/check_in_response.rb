@@ -7,7 +7,7 @@ class CheckInResponse < ActiveRecord::Base
 
   delegate :title, :question, :questions, :questions_count, :question_type, :question_title, :question_titles, :to => :check_in_survey
 
-  default_scope { includes(:check_in_survey) }
+  default_scope { includes(:check_in_survey).order(:updated_at) }
 
   after_initialize :set_survey_version_if_unset
   after_save :send_data_to_oodt
@@ -23,25 +23,26 @@ class CheckInResponse < ActiveRecord::Base
 
   def set_survey_version_if_unset
     if user && !check_in_survey
-      disease_type = user.get_disease_type
 
       if user.has_ileostomy?
         self.check_in_survey = CheckInSurvey.find_by_version("IL1.0")
+      else
+        disease_type = user.get_disease_type
 
-      elsif disease_type && disease_type == "Crohn's disease"
-        self.check_in_survey = CheckInSurvey.find_by_version("CD1.0")
+        if disease_type && disease_type == "Crohn's disease"
+          self.check_in_survey = CheckInSurvey.find_by_version("CD1.0")
+        else # they get the UC survey ---- disease_type && disease_type == "Ulcerative colitis"
+          self.check_in_survey = CheckInSurvey.find_by_version("UC1.0")
+        end
 
-      elsif disease_type && disease_type == "Ulcerative colitis"
-        self.check_in_survey = CheckInSurvey.find_by_version("UC1.0")
       end
 
     end
-
   end
 
 
   def summary
-    Hash[question_titles.zip(answers)]
+    Hash[question_titles.zip(answers_in_human)]
   end
 
   def answers_in_human
@@ -67,7 +68,7 @@ class CheckInResponse < ActiveRecord::Base
   end
 
   def answer_option_chosen(n)
-    question(n)['answer_options'][answer_in_code(n)]
+    question(n)['answer_options'][answer(n)]
   end
 
   def answer(n)

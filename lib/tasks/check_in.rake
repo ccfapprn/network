@@ -1,4 +1,4 @@
-namespace :check_in_surveys do
+namespace :check_ins do
 
   desc "Update Check in Surveys from YMLs"
   task :update => :environment do
@@ -42,8 +42,8 @@ namespace :check_in_surveys do
 
   desc "Destroy all surveys in the DB and Re-instantiate Surveys"
   task :refresh => :environment do
-    Rake::Task["check_in_surveys:clear"].invoke
-    Rake::Task["check_in_surveys:update"].invoke
+    Rake::Task["check_ins:clear"].invoke
+    Rake::Task["check_ins:update"].invoke
   end
 
 

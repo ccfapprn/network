@@ -1,9 +1,8 @@
 
 #check-in
-  = simple_form_for @current_check_in do |f|
+  = simple_form_for @current_check_in, id: "check-in-form" do |f|
     = f.error_notification
     .form-inputs
-
       - @current_check_in.questions_count.times do |i|
         = render partial: "check_in_helper", :locals => { f: f, i: i+1 }
 

@@ -10,3 +10,12 @@ $(document).on "click", "#check-in .next", (event) ->
   $("#question_" + $(this).attr('data-this-question-id')).addClass("hidden")
   $("#question_" + $(this).attr('data-next-question-id')).removeClass("hidden")
 
+
+# Move to the next question when .next DOM elements are touched
+# $(document).on "click", "#check-in .submit", (event) ->
+#   preventDefault
+#   $("#check-in form").submit
+
+# Move to the next question when .next DOM elements are touched
+# $(document).on "click", "input[type=radio].submit", (event) ->
+#   $(this).closest("form").submit

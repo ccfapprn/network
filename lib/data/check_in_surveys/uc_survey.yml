@@ -6,7 +6,7 @@ title: U.C. Check-in
 description:
 version: "UC1.0"
 
-question_1:
+question_4:
   title: How are you feeling today?
   description:
   answer_type: :range
@@ -17,7 +17,7 @@ question_1:
     - 75
     - 100
 
-question_2:
+question_1:
   title: How would you describe your general well-being over the last week?
   description:
   oodt_key: general_well_being
@@ -29,7 +29,7 @@ question_2:
     - Very Poor
     - Terrible
 
-question_3:
+question_2:
   title: "How much blood have you seen in your stool over the last week?"
   description:
   oodt_key: rectal_bleeding
@@ -40,11 +40,12 @@ question_3:
     - Obvious blood or blood in greater than 1/2 of stools
     - Blood passes alone
 
-question_4:
+question_3:
   title: "What has been your stool frequency over the last week?"
   description:
   oodt_key: stool_frequency
   answer_type: :option
+  answer_options:
     - Normal
     - 1-2 more than normal
     - 3-4 more than normal

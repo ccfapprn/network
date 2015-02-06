@@ -3,7 +3,7 @@ class CheckInSurvey < ActiveRecord::Base
   validates_presence_of :version
 
   ## If you change the number of questions in the schema, update these:
-  @@questions_count = 4
+  @@max_questions = 4
   serialize :question_1, Hash # I'd hopefully be able be make these dynamic, maybe in the initiliazer
   serialize :question_2, Hash
   serialize :question_3, Hash
@@ -12,12 +12,16 @@ class CheckInSurvey < ActiveRecord::Base
   # Collect the data from all question columns in the table
   def questions
     result = []
-    1.upto(questions_count) { |i| result << question(i) }
-    result
+    1.upto(@@max_questions) { |i| result << question(i) }
+    result.select { |q| !q.empty? }
   end
 
   def question_titles
     questions.collect { |q| q['title'] }
+  end
+
+  def questions_count
+    questions.size
   end
 
   # Retrieve the data from a given question column. Data will contain the following info:
@@ -42,8 +46,5 @@ class CheckInSurvey < ActiveRecord::Base
     question(n)['description']
   end
 
-  def questions_count
-    @@questions_count
-  end
 
 end

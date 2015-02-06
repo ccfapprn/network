@@ -331,8 +331,6 @@ module OODT
         "K52.3" => "Indeterminate colitis",
         "K52.8" => "Other colitis"
       }
-
-      #return icd_to_human[latest_data['disease']]
       return icd_to_human[current_dt]
     else
       logger.error "API Call to disease type of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
@@ -348,7 +346,7 @@ module OODT
   def has_ileostomy?
     response = oodt.post "users/@@ileostomy", user_hash
     body = parse_body(response)
-
+    return true
     if response.success?
       return body['ileostomy']
     else
