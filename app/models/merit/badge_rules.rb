@@ -25,8 +25,7 @@ module Merit
 
       ### SURVEYS ###
 
-      # level 1 is automatic:
-      grant_on 'registrations#create', badge: 'survey_responder', level: 1, to: :user
+      # level 1 is automatic: and trigged after create in user.rb
       # survey_responder_attr.merge({level: 1, description: 'You\'ve completed your baseline survey'}),
       # survey_responder_attr.merge({level: 2, description: 'You\'ve completed your second biannual survey'}),
       # survey_responder_attr.merge({level: 3, description: 'You\'ve completed your third biannual survey'}),
