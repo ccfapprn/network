@@ -10,13 +10,17 @@ question_1:
   title: How are you feeling today?
   description:
   answer_type: :range
-  answer_range:
+  answer_options:
     - 0
+    - 25
+    - 50
+    - 75
     - 100
 
 question_2:
   title: How would you describe your general well-being over the last week?
   description:
+  oodt_key: general_well_being
   answer_type: :option
   answer_options:
     - Generally Well
@@ -28,6 +32,7 @@ question_2:
 question_3:
   title: "How much blood have you seen in your stool over the last week?"
   description:
+  oodt_key: rectal_bleeding
   answer_type: :option
   answer_options:
     - No blood seen
@@ -38,7 +43,8 @@ question_3:
 question_4:
   title: "What has been your stool frequency over the last week?"
   description:
-  answer_type: :integer
+  oodt_key: stool_frequency
+  answer_type: :option
     - Normal
     - 1-2 more than normal
     - 3-4 more than normal

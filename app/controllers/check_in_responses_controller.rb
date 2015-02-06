@@ -3,38 +3,38 @@ class CheckInResponsesController < ApplicationController
 
   respond_to :html
 
-  def index
-    @check_in_responses = CheckInResponse.all
-    respond_with(@check_in_responses)
-  end
+  # def index
+  #   @check_in_responses = CheckInResponse.all
+  #   respond_with(@check_in_responses)
+  # end
 
-  def show
-    respond_with(@check_in_response)
-  end
+  # def show
+  #   respond_with(@check_in_response)
+  # end
 
   def new
     @check_in_response = current_user.check_in_responses.build
     respond_with(@check_in_response)
   end
 
-  def edit
-  end
+  # def edit
+  # end
 
   def create
     @check_in_response = CheckInResponse.new(check_in_response_params.merge(user_id: current_user.id, check_in_survey_id: 1))
-    flash[:notice] = 'CheckInResponse was successfully created.' if @check_in_response.save
-    respond_with(@check_in_response)
+    flash[:error] = 'There was a problem saving your health check in.' if !@check_in_response.save
+    respond_with(@check_in_response, location: health_data_path)
   end
 
   def update
-    flash[:notice] = 'CheckInResponse was successfully updated.' if @check_in_response.update(check_in_response_params)
-    respond_with(@check_in_response)
+    flash[:error] = 'There was a problem saving your health check in.' if !@check_in_response.update(check_in_response_params)
+    respond_with(@check_in_response, location: health_data_path)
   end
 
-  def destroy
-    @check_in_response.destroy
-    respond_with(@check_in_response)
-  end
+  # def destroy
+  #   @check_in_response.destroy
+  #   respond_with(@check_in_response)
+  # end
 
   private
     def set_check_in_response

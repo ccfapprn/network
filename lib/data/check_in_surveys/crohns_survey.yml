@@ -10,13 +10,17 @@ question_1:
   title: How are you feeling today?
   description:
   answer_type: :range
-  answer_range:
+  answer_options:
     - 0
+    - 25
+    - 50
+    - 75
     - 100
 
 question_2:
   title: How would you describe your general well-being over the last week?
   description:
+  oodt_key: general_well_being
   answer_type: :option
   answer_options:
     - Generally Well
@@ -28,6 +32,7 @@ question_2:
 question_3:
   title: "On average, over the past week, would you rate your abdominal pain as:"
   description:
+  oodt_key: abdominal_pain
   answer_type: :option
   answer_options:
     - None
@@ -38,4 +43,8 @@ question_3:
 question_4:
   title: "On average, over the past week, how many liquid or very soft stools have you had per day?"
   description:
-  answer_type: :integer
+  oodt_key: liquid_or_soft_stools_per_day
+  answer_type: :number
+  answer_options:
+    - 0
+    - 99999

@@ -12,6 +12,9 @@ question_1:
   title: How are you feeling today?
   description:
   answer_type: :range
-  answer_range:
+  answer_options:
     - 0
+    - 25
+    - 50
+    - 75
     - 100

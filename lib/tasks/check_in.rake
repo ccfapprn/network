@@ -2,6 +2,7 @@ namespace :check_in_surveys do
 
   desc "Update Check in Surveys from YMLs"
   task :update => :environment do
+    return unless warn("WARNING: You are about to update the check in survey templates in the DB. If they are using the same version numbers as existing survey templates, those templates will be overwritten.")
 
     check_in_survey_files = Dir["lib/data/check_in_surveys/*.yml"]
 
@@ -36,6 +37,13 @@ namespace :check_in_surveys do
       CheckInResponse.destroy_all
       puts "DESTROYED SURVEYS AND RESPONSES"
     end
+  end
+
+
+  desc "Destroy all surveys in the DB and Re-instantiate Surveys"
+  task :refresh => :environment do
+    Rake::Task["check_in_surveys:clear"].invoke
+    Rake::Task["check_in_surveys:update"].invoke
   end
 
 

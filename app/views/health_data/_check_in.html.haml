@@ -1,0 +1,14 @@
+
+#check-in
+  = simple_form_for @current_check_in do |f|
+    = f.error_notification
+    .form-inputs
+
+      - @current_check_in.questions_count.times do |i|
+        = render partial: "check_in_helper", :locals => { f: f, i: i+1 }
+
+  #question_0{class: ("hidden" if @current_check_in.new_record?) }
+    .alert.alert-info
+      %p Thank you. You are all Checked in!
+      %p.small
+        = link_to "Health changed already? Check in again.", "#", class: "next", data: { this_question_id: 0, next_question_id: 1 }

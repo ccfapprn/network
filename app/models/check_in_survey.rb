@@ -30,6 +30,18 @@ class CheckInSurvey < ActiveRecord::Base
     send "question_#{n}"
   end
 
+  def question_type(n)
+    question(n)['answer_type']
+  end
+
+  def question_title(n)
+    question(n)['title']
+  end
+
+  def question_description(n)
+    question(n)['description']
+  end
+
   def questions_count
     @@questions_count
   end
