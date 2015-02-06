@@ -1,0 +1,19 @@
+= simple_form_for(@check_in_response) do |f|
+  = f.error_notification
+  .form-inputs
+    test
+    = @check_in_response.check_in_survey.version
+
+    = @check_in_response.question(1)['title']
+    = f.input :answer_1
+
+    = @check_in_response.question(2)['title']
+    = f.input :answer_2
+
+    = @check_in_response.question(3)['title']
+    = f.input :answer_3
+
+    = @check_in_response.question(4)['title']
+    = f.input :answer_4
+  .form-actions
+    = f.button :submit

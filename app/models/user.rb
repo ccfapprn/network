@@ -36,13 +36,25 @@ class User < ActiveRecord::Base
   has_one :social_profile
   has_many :posts
   has_many :research_topics
+  has_many :check_in_responses
 
   # Named Scopes
+  default_scope { includes(:external_account) }
+
   scope :search_by_email, ->(terms) { where("LOWER(#{self.table_name}.email) LIKE ?", terms.to_s.downcase.gsub(/^| |$/, '%')) }
 
 
   # STUBS # TODO # TO IMPLEMENT
   scope :social, -> { where("1=1") } #TODO MUST DEFINE SOCIAL USERS #FIXME
+
+  #alias
+  def check_ins
+    check_in_responses
+  end
+
+  def latest_check_in
+    check_in_responses.last
+  end
 
   def visible_to_community?
     social_profile.visible_to_community?

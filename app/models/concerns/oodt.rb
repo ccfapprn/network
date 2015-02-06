@@ -1,9 +1,6 @@
 module OODT
   extend ActiveSupport::Concern
 
-  # To automatically provision OODT account on user hook, add it to User.rb like so:
-  # after_create :provision_oodt_user
-
 
   included do
 
@@ -108,7 +105,7 @@ module OODT
   # ACCOUNT SETUP
   ###################
   def pair_with_lcp(options = {}) #2
-    response = oodt.post "users/@@create", {:email => options[:email]} #### WHEN SK UPDATES API ADD IN: , :return_url => options[:return_url]
+    response = oodt.post "users/@@create", {:email => options[:email], :return_url => options[:return_url]}
     body = parse_body(response)
 
     if response.success?
@@ -334,11 +331,26 @@ module OODT
         "K52.3" => "Indeterminate colitis",
         "K52.8" => "Other colitis"
       }
-
-      #return icd_to_human[latest_data['disease']]
       return icd_to_human[current_dt]
     else
       logger.error "API Call to disease type of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return false # body['errorMessage'] || body
+    end
+  end
+
+
+  ### Ileostomy Check
+  # HTTP 200, Content-type: application/json, response body is a mapping with a single key "ileostomy" whose value is a boolean
+  # (true if the patient has an ileostomy, false otherwise).
+  # PREFIX/users/@@ileostomy?userID=ID
+  def has_ileostomy?
+    response = oodt.post "users/@@ileostomy", user_hash
+    body = parse_body(response)
+    return true
+    if response.success?
+      return body['ileostomy']
+    else
+      logger.error "API Call to ileostomy of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
       return false # body['errorMessage'] || body
     end
   end
@@ -355,9 +367,6 @@ module OODT
 
 
 
-
-
-
   # POST PREFIX/users/@@surveyResponses (takes no URL query parameters);
   # Request header "Content-type: application/json";
   # Request payload is a JSON dict with two keys:
@@ -366,23 +375,19 @@ module OODT
   # the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding,
   #  general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
 
-  def send_check_in_data_to_oodt(answer_session)
-    # can only send your own health data
-    return false if answer_session.user != self
-
+  def send_check_in_data_to_oodt(check_in_data_in_oodt_format)
     response = oodt.post do |req|
       req.url "users/@@surveyResponses"
       req.headers['Content-Type'] = 'application/json'
-      req.body = user_hash.merge({:responses => [answer_session.to_oodt_format]}).to_json
+      req.body = user_hash.merge({:responses => [check_in_data_in_oodt_format]}).to_json
       # timestamp, stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain
     end
 
     # body = parse_body(response) # this call returns no body
-
     if response.success?
       return true
     else
-      logger.error "API Call to send check in data of User ##{self.id} failed for Answer Session ##{answer_session.id}. OODT returned the following response:\n#{response.body}"
+      logger.error "API Call to send check in data of User ##{self.id} failed for check_in_data_in_oodt_format. OODT returned the following response:\n#{response.body}"
       return false #body['errorMessage'] || body
     end
   end

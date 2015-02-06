@@ -1,0 +1,16 @@
+<%= simple_form_for(@check_in_survey) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :question_1 %>
+    <%= f.input :question_2 %>
+    <%= f.input :question_3 %>
+    <%= f.input :question_4 %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :check_in_responses
+
+  resources :check_in_surveys
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

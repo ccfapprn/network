@@ -1,0 +1,20 @@
+# If you make any material changes to a survey, you should create a new one with a new version number so old answers stay tied to their old version.
+# If you do not update the version number and make changes, it will update the survey info on the existing survey in the DB --
+# this is a good idea if your changes were immaterial (ie. just to the title or description)
+# run "rake check_in_surveys:update" after you've made changes to any of these yml files
+version: "IL1.0"
+
+
+title: Ileostomy Check-in
+description:
+
+question_1:
+  title: How are you feeling today?
+  description:
+  answer_type: :range
+  answer_options:
+    - 0
+    - 25
+    - 50
+    - 75
+    - 100
