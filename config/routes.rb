@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :check_in_responses
+
+  resources :check_in_surveys
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -61,10 +65,6 @@ Rails.application.routes.draw do
   get 'health_data/my_health_measures' => 'health_data#my_health_measures', as: :my_health_measures
   get 'health_data/my_dashboard' =>  'health_data#my_dashboard', as: :my_dashboard
   get 'health_data/my_connections' =>  'health_data#my_connections', as: :my_connections
-
-
-
-
 
 
 

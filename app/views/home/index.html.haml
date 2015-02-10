@@ -5,16 +5,6 @@
 - scores = {"Members" => @network_user_count, "Research Ideas" => ResearchTopic.count, "Surveys Completed" => @surveys_completed_count}
 - content_for :community_contributions, render(:partial => "/shared/community_scoreboard", locals: { scores: scores })
 
-
--##############
--### YOUR CONTRIBUTIONS
--##############
-- content_for :your_contributions do
-  = render partial: "shared/badge_list"
-
-
-
-
 -####################
 -#HOME/INDEX.HAML (AKA DASHBOARD)
 

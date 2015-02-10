@@ -25,12 +25,13 @@ module Merit
 
       ### SURVEYS ###
 
+      # level 1 is automatic: and trigged after create in user.rb
       # survey_responder_attr.merge({level: 1, description: 'You\'ve completed your baseline survey'}),
       # survey_responder_attr.merge({level: 2, description: 'You\'ve completed your second biannual survey'}),
       # survey_responder_attr.merge({level: 3, description: 'You\'ve completed your third biannual survey'}),
       # survey_responder_attr.merge({level: 4, description: 'You\'ve completed your fourth biannual survey'}),
       # survey_responder_attr.merge({level: 5, description: 'You\'ve completed 5+ biannual surveys'}),
-      # IMPLEMENTATION: SURVEY RESPONDER BADGES ARE GRANTED MANUALLY IN OODT.RB
+      # IMPLEMENTATION: SURVEY RESPONDER BADGES ARE GRANTED MANUALLY IN OODT.RB->USER.RB
 
 
 
@@ -85,7 +86,7 @@ module Merit
 
 
       ### HEALTH DATA ###
-      # these badges are directly in health_data_controller
+      # these badges are directly user.rb
       # def grant_checkin_badge_on(level, quota)
       #   grant_on 'health_data#check_in', badge: 'checkin', model_name: 'answer_session', level: level do |answer_session|
       #     answer_session.complete? && (answer_session.user.answer_sessions.count >= quota) #FIXME this will count all user sessions, not just health checkin types
