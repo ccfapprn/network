@@ -20,7 +20,7 @@
 
       -#################
       -# PAGE CONTENT! #
-      = content_for?(:research_content) ? yield(:research_content) : yield
+      = content_for?(:page_content) ? yield(:page_content) : yield
 
 
     -# YOUR CONTRIBUTIONS SIDEBAR
@@ -28,16 +28,9 @@
       - if !current_user
         = render partial: "shared/promotion_to_join"
       - else
-        - if content_for(:your_contributions)
-
-          <br/><br/><br/><br/><br/>
-          %a{href: social_profile_path}
-            .panel.panel-primary
-              = render partial: "shared/bio"
-
-          = yield :your_contributions
-
-
+        <br/><br/><br/><br/><br/>
+        = render partial: "shared/bio"
+        = render partial: "shared/badge_list"
 
 
 = render template: "layouts/application"

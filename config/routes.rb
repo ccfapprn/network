@@ -68,10 +68,6 @@ Rails.application.routes.draw do
 
 
 
-
-
-
-
   get 'data_reports' => 'health_data#reports'
   get 'data_medications' => 'health_data#medications'
   get 'data_intro' => 'health_data#intro'

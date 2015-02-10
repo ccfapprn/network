@@ -7,15 +7,7 @@
   = render(:partial => "/shared/community_scoreboard", locals: { scores: scores })
 
 
--##############
--### YOUR CONTRIBUTIONS
--##############
-- content_for :your_contributions do
-  = render partial: "shared/badge_list" if current_user
-
-
-
-- content_for :research_content do
+- content_for :page_content do
   %ul.nav.nav-tabs{role: "tablist"}
     %li{class: "#{'active' if @active_sub_nav == :research_prioritization}"}
       %a{href: research_prioritization_path} Research Prioritization

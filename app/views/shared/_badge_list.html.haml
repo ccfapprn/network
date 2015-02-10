@@ -1,16 +1,7 @@
 
 - if current_user
-
-
-
-
-
-
   - current_user_badges = current_user.badges
   - @badge_groups = Merit::Badge.group_by{ |b| b.name }.sort_by { |name, badge_group| badge_group.first.custom_fields[:display_order] }
-
-
-
 
 
   -##############

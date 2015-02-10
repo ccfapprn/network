@@ -346,7 +346,7 @@ module OODT
   def has_ileostomy?
     response = oodt.post "users/@@ileostomy", user_hash
     body = parse_body(response)
-    return true
+
     if response.success?
       return body['ileostomy']
     else
