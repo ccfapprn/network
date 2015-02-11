@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   self.authorizer_name = "UserAuthorizer"
 
-  before_create :build_social_profile
+  after_create :create_social_profile
   after_create :grant_first_survey_badge
 
   # Include default devise modules. Others available are:
