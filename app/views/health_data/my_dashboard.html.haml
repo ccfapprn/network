@@ -11,14 +11,17 @@
         #dashboard_data{ data: { health_today: current_user.latest_check_in_complete.health_index , disease_type: "#{current_user.get_disease_type}", disease_index: current_user.latest_check_in_complete.disease_index} }
         %div
           #gauge4.col-sm-6{:style => "width: 300px; height: 200px"}
-          - if current_user.get_disease_type == "Crohn's disease"
+          - if current_user.latest_check_in_complete.check_in_survey.version == "CD1.0"
             #gauge5.col-sm-6{:style => "width: 300px; height: 200px"}
-          - else
+          - elsif current_user.latest_check_in_complete.check_in_survey.version == "UC1.0"
             #gauge6.col-sm-6{:style => "width: 300px; height: 200px"}
+          - else
+            .col-sm-6
+              %p.text-center disease index unavailable
         .col-sm-12
           %p.text-center
             %em
-              latest data collected on
+              as of
               = current_user.latest_check_in_complete.created_at.strftime("%b %d, %Y")
         = javascript_include_tag 'my_dashboard'
       -else
