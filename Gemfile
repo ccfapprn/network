@@ -103,6 +103,9 @@ gem 'merit'
 # gem 'validic' -- handrolling for now, since their gem has no documnetation
 gem 'faraday'
 
+# HighCharts
+gem "highcharts-rails"
+
 # Development
 group :development do
   gem "better_errors"

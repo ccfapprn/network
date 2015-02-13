@@ -88,6 +88,55 @@ class CheckInResponse < ActiveRecord::Base
     n == 1
   end
 
+  def complete?
+    1.upto(questions_count) do |i| 
+      if answer(i).nil?
+        return false
+      end
+    end
+    return true
+  end
+
+  def health_index
+    if user && complete?
+      summary['How are you feeling today?']
+    else
+      nil
+    end
+  end
+
+  def disease_index
+    if user && complete?
+      if user.has_ileostomy?
+        nil # no disease index available
+      elsif check_in_survey.version == 'CD1.0'
+        scdai
+      else
+        prucsi
+      end
+    else
+      nil # unable to calc
+    end
+  end
+
+  def scdai
+    well_being = answer(2)
+    pain = answer(3)
+    stools = answer(4) < 30 ? answer(4) : 30
+
+    idx = 44 + (2*(stools*7)) + (5*(pain*7)) + (7*(well_being*7))
+    idx.round
+  end
+
+  def prucsi
+    well_being = answer(1)
+    bleeding = answer(2)
+    stool_frequency = answer(3)
+
+    idx = (0.7824 * stool_frequency) + (1.0925 * bleeding) + (1.4727 * well_being)
+    idx.round
+  end
+
 
   private
 

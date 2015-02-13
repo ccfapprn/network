@@ -57,6 +57,15 @@ class User < ActiveRecord::Base
     check_in_responses.last
   end
 
+  def latest_check_in_complete
+    check_in_responses.reverse.each do |resp|
+      if resp.complete?
+        return resp
+      end
+    end
+   return nil
+  end
+
   def visible_to_community?
     social_profile.visible_to_community?
   end
