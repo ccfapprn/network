@@ -86,13 +86,19 @@ module Merit
 
 
       ### HEALTH DATA ###
-      # these badges are directly user.rb
-      # def grant_checkin_badge_on(level, quota)
-      #   grant_on 'health_data#check_in', badge: 'checkin', model_name: 'answer_session', level: level do |answer_session|
-      #     answer_session.complete? && (answer_session.user.answer_sessions.count >= quota) #FIXME this will count all user sessions, not just health checkin types
-      #     byebug
-      #   end
-      # end
+      def grant_checkin_badge_on(level, quota)
+        grant_on 'check_in_responses#create', badge: 'checkin', temporary: true, level: level do |check_in_response|
+          check_in_response.user.check_in_responses.count >= quota
+        end
+      end
+
+      grant_checkin_badge_on(1,1)
+      grant_checkin_badge_on(2,3)
+      grant_checkin_badge_on(3,5)
+      grant_checkin_badge_on(4,10)
+      grant_checkin_badge_on(5,20)
+      grant_checkin_badge_on(6,30)
+
 
       # # checkin_attr.merge({level: 1, description: 'You\'ve done one health check in!'}),
       # # checkin_attr.merge({level: 2, description: 'You\'ve done three health check ins!'}),
@@ -100,16 +106,6 @@ module Merit
       # # checkin_attr.merge({level: 4, description: 'You\'ve done 10 health check ins!'}),
       # # checkin_attr.merge({level: 5, description: 'You\'ve done 20 health check ins!'}),
       # # checkin_attr.merge({level: 6, description: 'You\'ve done 30+ health check ins!'}),
-      # grant_checkin_badge_on(1,1)
-      # grant_checkin_badge_on(2,3)
-      # # grant_checkin_badge_on(3,5)
-      # # grant_checkin_badge_on(4,10)
-      # # grant_checkin_badge_on(5,20)
-      # # grant_checkin_badge_on(6,30)
-
-      # grant_on 'health_data#check_in', badge: 'checkin', level: 6 do |answer_session|
-      #   byebug
-      # end
 
 
 
