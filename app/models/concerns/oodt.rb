@@ -338,7 +338,6 @@ module OODT
     end
   end
 
-
   ### Ileostomy Check
   # HTTP 200, Content-type: application/json, response body is a mapping with a single key "ileostomy" whose value is a boolean
   # (true if the patient has an ileostomy, false otherwise).
