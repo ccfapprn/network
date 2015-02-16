@@ -70,12 +70,12 @@ badges = [
   ### HEALTH DATA ###
 
   # Health Data
-  checkin_attr.merge({level: 1, description: 'You\'ve done one health check in!'}),
-  checkin_attr.merge({level: 2, description: 'You\'ve done three health check ins!'}),
-  checkin_attr.merge({level: 3, description: 'You\'ve done five health check ins!'}),
-  checkin_attr.merge({level: 4, description: 'You\'ve done 10 health check ins!'}),
-  checkin_attr.merge({level: 5, description: 'You\'ve done 20 health check ins!'}),
-  checkin_attr.merge({level: 6, description: 'You\'ve done 30+ health check ins!'}),
+  checkin_attr.merge({level: 1, description: 'You\'ve checked in on one day!'}),
+  checkin_attr.merge({level: 2, description: 'You\'ve checked in on three days!'}),
+  checkin_attr.merge({level: 3, description: 'You\'ve checked in on five days!'}),
+  checkin_attr.merge({level: 4, description: 'You\'ve checked in on 10 days!'}),
+  checkin_attr.merge({level: 5, description: 'You\'ve checked in on 20 days!'}),
+  checkin_attr.merge({level: 6, description: 'You\'ve checked in on 30+ days!'}),
   #{name: 'connector', description: 'You\'ve connected 3 Data Sources', custom_fields: { title: 'Connector', icon: 'fa-link', category: 'health_data' }},
   #{name: 'sherlock', description: 'Investigate and graph your data', custom_fields: { title: 'Sherlock', icon: 'fa-search', category: 'health_data' }},
 

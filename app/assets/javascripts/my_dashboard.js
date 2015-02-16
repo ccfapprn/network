@@ -308,7 +308,7 @@ $(function () {
           min: 0,
           max: 12,
           title: {
-              text: 'UC Disease Activity'
+              text: 'UC/IC Disease Activity'
               ,style: { fontSize: '23px'}
           }
       },
@@ -318,7 +318,7 @@ $(function () {
       },
 
       series: [{
-          name: 'UC Disease Activity',
+          name: 'UC/IC Disease Activity',
           data: [disease_index],
           dataLabels: {
               format: '<div style="text-align:center"><span style="font-size:25px;color:' +

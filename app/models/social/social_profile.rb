@@ -64,7 +64,9 @@ class SocialProfile < ActiveRecord::Base
   end
 
   def self.locations_for_map(user=nil)
-    res = select(:latitude, :longitude).where("show_location IS TRUE AND latitude IS NOT NULL AND longitude IS NOT NULL")
+    # changing query to work on Oracle.  I *think* the query will work on pgsql, but I'm not able to test
+    #res = select(:latitude, :longitude).where("show_location IS TRUE AND latitude IS NOT NULL AND longitude IS NOT NULL")
+    res = select(:latitude, :longitude).where("show_location in ('t',1) AND latitude IS NOT NULL AND longitude IS NOT NULL")
     res = res.where.not(id: user.social_profile.id) if user and user.social_profile
 
     res.map{|geo| {latitude: geo.latitude, longitude: geo.longitude} }
