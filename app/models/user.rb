@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   self.authorizer_name = "UserAuthorizer"
 
-  before_create :build_social_profile
+  after_create :create_social_profile
   after_create :grant_first_survey_badge
 
   # Include default devise modules. Others available are:
@@ -55,6 +55,15 @@ class User < ActiveRecord::Base
 
   def latest_check_in
     check_in_responses.last
+  end
+
+  def latest_check_in_complete
+    check_in_responses.reverse.each do |resp|
+      if resp.complete?
+        return resp
+      end
+    end
+   return nil
   end
 
   def visible_to_community?
