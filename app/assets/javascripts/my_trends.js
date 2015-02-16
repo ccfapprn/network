@@ -24,7 +24,7 @@ $(function () {
 	      },
 	      {
 	          title: {
-	              text: 'Disease Index'
+	              text: 'Disease Activity'
 	          },
 	      opposite: true
 	      },
@@ -44,7 +44,7 @@ $(function () {
 	          data: [2000, 3000, 4000, 5500, 5000, 5550, 4300, 5300, 5800, 5990, 6500, 6900]
 	    }, {
 	          yAxis: 1,
-	          name: 'Disease Index',
+	          name: 'Disease Activity',
 	          data: [225, 230, 199, 220, 190, 150, 168, 145, 140, 135, 150, 120]
 	    }]
 	});
