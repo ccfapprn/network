@@ -7,10 +7,10 @@
 %center
   = image_tag "app_icons_bw.png"
 
-- if current_user && VALIDIC_ENABLED
-  %h4 Please visit the Validic App Marketplace to Authorize your Apps:
-  %br/
-  %a.btn.btn-success.btn-md{:href => current_user.validic_app_marketplace_url, :target => "_blank"} Add or Remove Device Connections
+-#- if current_user && VALIDIC_ENABLED
+-#  %h4 Please visit the Validic App Marketplace to Authorize your Apps:
+-#  %br/
+-#  %a.btn.btn-success.btn-md{:href => current_user.validic_app_marketplace_url, :target => "_blank"} Add or Remove Device Connections
 
-- else
-  .alert.alert-info= "Please sign in or sign up to connect your devices and apps."
+-#- else
+-#  .alert.alert-info= "Please sign in or sign up to connect your devices and apps."

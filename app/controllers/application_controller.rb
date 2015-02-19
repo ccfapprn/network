@@ -3,16 +3,7 @@ class ApplicationController < ActionController::Base
   # Add theme folder to view path
   self.view_paths.unshift(*Rails.root.join('app', 'views', ENV['website_code_name'])) if ENV['website_code_name']
 
-
-  # NOTE: this was moved out of oodt_application_controller here, because due to a bug(?) in rails, it couldn't be skipped if it were inside there.
   before_action :redirect_to_pairing_if_user_not_paired
-
-
-  def initialize
-    include_application_plugins
-    super
-  end
-
 
   def forem_user
     current_user
@@ -60,8 +51,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def include_application_plugins
-    self.class.send(:include, OODTApplicationController) if OODT_ENABLED
+  def redirect_to_pairing_if_user_not_paired
+    if current_user && (!current_user.paired_with_lcp || !current_user.oodt_baseline_survey_complete)
+      redirect_to pairing_wizard_path
+      return
+    end
   end
 
 

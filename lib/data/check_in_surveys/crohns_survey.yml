@@ -1,0 +1,50 @@
+# If you make any material changes to a survey, you should create a new one with a new version number so old answers stay tied to their old version.
+# If you do not update the version number and make changes, it will update the survey info on the existing survey in the DB --
+# this is a good idea if your changes were immaterial (ie. just to the title or description)
+# run "rake check_in_surveys:update" after you've made changes to any of these yml files
+title: Crohn's Check-in
+description:
+version: "CD1.0"
+
+question_1:
+  title: How are you feeling today?
+  description:
+  answer_type: :range
+  answer_options:
+    - 0
+    - 25
+    - 50
+    - 75
+    - 100
+
+question_2:
+  title: How would you describe your general well-being over the last week?
+  description:
+  oodt_key: general_well_being
+  answer_type: :option
+  answer_options:
+    - Generally Well
+    - Slightly Below Par
+    - Poor
+    - Very Poor
+    - Terrible
+
+question_3:
+  title: "On average, over the past week, would you rate your abdominal pain as:"
+  description:
+  oodt_key: abdominal_pain
+  answer_type: :option
+  answer_options:
+    - None
+    - Mild
+    - Moderate
+    - Severe
+
+question_4:
+  title: "On average, over the past week, how many liquid or very soft stools have you had per day?"
+  description:
+  oodt_key: liquid_or_soft_stools_per_day
+  answer_type: :number
+  answer_options:
+    - 0
+    - 99999

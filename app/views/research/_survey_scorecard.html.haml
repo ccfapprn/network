@@ -20,6 +20,6 @@
         - opening_date = Time.parse(@survey_scorecard['openingDate'])
 
         - if opening_date.future?
-          = "Your survey will be available on #{my_strftime(opening_date)}"
+          = "Your next survey will be available on #{my_strftime(opening_date)}"
         - else
-          = link_to 'The current survey is open. click here to do it.', @survey_scorecard['url']
+          = link_to 'The current survey is open.  Click here to do it.', @survey_scorecard['url']

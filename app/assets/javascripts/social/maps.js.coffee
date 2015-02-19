@@ -18,6 +18,7 @@ ready = ->
       mapOptions =
         zoom: zoom
         center: centerLatlng
+        scrollwheel: false
 
       document.map = new google.maps.Map(document.getElementById("user_map"), mapOptions)
 

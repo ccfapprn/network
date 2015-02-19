@@ -6,9 +6,15 @@ class SocialProfile < ActiveRecord::Base
   validates :age, numericality: {only_integer: true, less_than_or_equal_to: 120, allow_nil: true, greater_than_or_equal_to: 1}
   validates :sex, inclusion: { in: %w(Male Female Other), allow_nil: true}
 
+  scope :visible_to_community, -> { where ({visible_to_community: true}) }
   # visible_to_public?
   # visible_to_community?
 
+
+
+  def self.unique_locations_count
+    visible_to_community.select(:location_id).distinct.count
+  end
 
 
   def private_photo_url(size = nil)
@@ -58,7 +64,10 @@ class SocialProfile < ActiveRecord::Base
   end
 
   def self.locations_for_map(user=nil)
+    # query below does not work with oracle
     res = select(:latitude, :longitude).where("show_location IS TRUE AND latitude IS NOT NULL AND longitude IS NOT NULL")
+    # oracle would need somethign like this
+    #res = select(:latitude, :longitude).where("show_location = 1 AND latitude IS NOT NULL AND longitude IS NOT NULL")
     res = res.where.not(id: user.social_profile.id) if user and user.social_profile
 
     res.map{|geo| {latitude: geo.latitude, longitude: geo.longitude} }

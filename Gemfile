@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 
 # Required in Rails 4 for logs to work in production
 gem 'rails_12factor', group: :production
+gem 'quiet_assets', group: :development
 
 gem 'thin'
 gem 'airbrake'
@@ -101,6 +102,9 @@ gem 'merit'
 # For Third-Party API Connections
 # gem 'validic' -- handrolling for now, since their gem has no documnetation
 gem 'faraday'
+
+# HighCharts
+gem "highcharts-rails"
 
 # Development
 group :development do

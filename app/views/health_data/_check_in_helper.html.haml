@@ -1,0 +1,66 @@
+
+
+
+- next_question_data = {this_question_id: i, next_question_id: i+1}
+- prev_question_data = {this_question_id: i, next_question_id: i-1}
+
+.panel.panel-default.question{id: "question_#{i}", class: ("hidden" unless (@current_check_in.new_record? && @current_check_in.first_question?(i)) ) }
+  .panel-body
+    .row
+      .col-md-9
+
+        -# THE QUESTION
+        %h4.text-primary
+          = @current_check_in.question_title(i)
+
+
+        -# ANSWER FIELD(S)
+        - if @current_check_in.answer_type(i) == :range
+          .row
+            .col-md-8
+              %input.display-value.custom{type: @current_check_in.question_type(i), name: "check_in_response[answer_#{i}]", id: "", min: @current_check_in.answer_options(i).first, max: @current_check_in.answer_options(i).last, value: @current_check_in.answer(i)}
+              .pull-left.text-primary.small= @current_check_in.answer_options(i).first
+              .pull-right.text-primary.small= @current_check_in.answer_options(i).last
+              .clearfix
+
+            .col-md-4
+              .input-group
+                %input#range-value.form-control{:type => "number", value: @current_check_in.answer(i), :min => @current_check_in.answer_options(i).first, :max => @current_check_in.answer_options(i).last, :disabled => true}
+                %span.input-group-btn
+                  %button.btn.btn-primary{class: (@current_check_in.last_question?(i) ? "submit" : "next"), data: next_question_data}
+                    = @current_check_in.last_question?(i) ? "Save" : "Next"
+
+
+        - elsif @current_check_in.answer_type(i) == :option
+          %div{data: {toggle: "buttons"}}
+            - @current_check_in.answer_options(i).each_with_index do |option, index|
+              %label.btn.btn-primary{data: next_question_data, class: (@current_check_in.last_question?(i) ? "" : "next")}
+                %input.next{type: 'radio', autocomplete: "off", value: index, name: "check_in_response[answer_#{i}]" }
+                = option
+
+
+
+
+        - elsif @current_check_in.answer_type(i) == :number
+          .input-group.col-md-6
+            %input.form-control{:type => "number", :min => @current_check_in.answer_options(i).first, :max => @current_check_in.answer_options(i).last, :name => "check_in_response[answer_#{i}]", value: @current_check_in.answer(i)}
+            %span.input-group-btn
+              %button.btn.btn-primary{class: (@current_check_in.last_question?(i) ? "submit" : "next"), data: next_question_data}
+                = @current_check_in.last_question?(i) ? "Save" : "Next"
+
+
+
+      -# METADATA
+      .col-md-3.text-right
+        %small.muted
+          = @current_check_in.title
+        -#%br/
+        -#%small.muted
+        -#  %em
+        -#    Last completed:
+        -#    = @current_check_in.updated_at.localtime.to_formatted_s(:short)
+        %br/
+        - unless i == 1
+          %small
+            = link_to "Back to Last Question", "#", class: "next", data: prev_question_data
+

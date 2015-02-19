@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
 
   self.authorizer_name = "UserAuthorizer"
 
-  before_create :build_social_profile
+  after_create :create_social_profile
+  after_create :grant_first_survey_badge
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -36,13 +37,34 @@ class User < ActiveRecord::Base
   has_one :social_profile
   has_many :posts
   has_many :research_topics
+  has_many :check_in_responses
 
   # Named Scopes
+  default_scope { includes(:external_account) }
+
   scope :search_by_email, ->(terms) { where("LOWER(#{self.table_name}.email) LIKE ?", terms.to_s.downcase.gsub(/^| |$/, '%')) }
 
 
   # STUBS # TODO # TO IMPLEMENT
   scope :social, -> { where("1=1") } #TODO MUST DEFINE SOCIAL USERS #FIXME
+
+  #alias
+  def check_ins
+    check_in_responses
+  end
+
+  def latest_check_in
+    check_in_responses.last
+  end
+
+  def latest_check_in_complete
+    check_in_responses.reverse.each do |resp|
+      if resp.complete?
+        return resp
+      end
+    end
+   return nil
+  end
 
   def visible_to_community?
     social_profile.visible_to_community?
@@ -61,6 +83,50 @@ class User < ActiveRecord::Base
     0 #FIXME #TODO #STUB
   end
 
+
+  ### BADGE - extra code for awarding badges here ###
+
+  def grant_first_survey_badge
+    badge = Merit::Badge.find { |b| b.name == "survey_responder" && b.level == 1}.first
+    add_badge(badge.id)
+  end
+
+  def update_check_in_badges
+    next_checkin_level = badge_level("checkin") +1
+    checkin_quota = { 1=>1, 2=>3, 3=>5, 4=>10, 5=>20, 6=>30 }[next_checkin_level]
+
+    grant_checkin_badge_on(next_checkin_level,checkin_quota)
+  end
+
+
+  def grant_checkin_badge_on(level, quota)
+    return unless quota
+
+    total_checkins = answer_sessions.select { |as| as.completed? }.count
+
+    if total_checkins >= quota #note, this will count all answer sessions, not just health checkin types
+      badge = Merit::Badge.find { |b| b.name == "checkin" && b.level == level}.first
+      add_badge(badge.id)
+    end
+  end
+
+  def update_survey_badges(num_surveys_completed)
+    max_badge_level = 5 # FRAGILE: this needs to match to the highest level badge in merit.rb
+
+    survey_badge_level_due = [num_surveys_completed, max_badge_level].min
+    survey_badge_level_current = badge_level('survey_responder')
+
+    if survey_badge_level_due > survey_badge_level_current
+      badges_due = Merit::Badge.find { |b| b.name == 'survey_responder' && (b.level > survey_badge_level_current) && (b.level <= survey_badge_level_due) }
+
+      badges_due.each do |badge|
+        self.add_badge(badge.id)
+      end
+    end
+
+    ## Could add code here to remove badges in the case its possible they aren't due the badges they currently have.
+  end
+
   def badge_level(name)
     these_badges = self.badges.find_all { |b| b.name == name }
     if these_badges.any?
@@ -69,6 +135,10 @@ class User < ActiveRecord::Base
       0
     end
   end
+
+
+
+
 
   def self.scoped_users(email=nil, role=nil)
     users = all

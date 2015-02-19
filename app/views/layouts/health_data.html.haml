@@ -3,21 +3,14 @@
 -##############
 - scores = { "Proposed Questions" => ResearchTopic.count, "Votes Cast" => Vote.count, "Being Researched" => ResearchTopic.under_study.count}
 - content_for :community_contributions do
-  = render partial: "health_check_in" if current_user
+  = render partial: "check_in" if current_user
 
   -# HEALTH DATA
   = render partial: "med_list" if current_user
 
 
--##############
--### YOUR CONTRIBUTIONS
--##############
-- content_for :your_contributions do
-  = render partial: "shared/badge_list" if current_user
 
-
-
-- content_for :research_content do
+- content_for :page_content do
   %ul.nav.nav-tabs{role: "tablist"}
     %li{class: "#{'active' if @active_sub_nav == :my_trends}"}
       %a{href: my_trends_path} My Trends

@@ -24,6 +24,5 @@
   .panel-heading
     %h4.panel-title Health Tracking
   .panel-body
-    %h3 Coming Soon.
-    %p Soon you’ll be able to track your health over time. This feature is currently under development. Check back later!
-    = image_tag "placeholder_graph_gray.png", width: "100%"
+    #linechart{:style => "width: 700px; height: 500px"}
+    = javascript_include_tag 'my_trends'

@@ -1,0 +1,18 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  check_in_survey_id: 1
+  answer_1: 1
+  answer_2: 1
+  answer_3: 1
+  answer_4: 1
+
+two:
+  user_id: 1
+  check_in_survey_id: 1
+  answer_1: 1
+  answer_2: 1
+  answer_3: 1
+  answer_4: 1

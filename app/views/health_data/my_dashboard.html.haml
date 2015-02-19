@@ -1,10 +1,35 @@
 - @title = "My Dashboard"
 - @active_sub_nav = :my_dashboard
 
-%h3 Coming Soon.
-%p Soon you’ll be able to view up-to-date information about your health. This functionality is being built, but not quite ready. Check back later!
--#.panel.panel-default
--#  .panel-heading
--#    %h4.panel-title My Dashboard (Coming Soon)
--#  .panel-body
--#    %em (Soon you’ll be able to view up-to-date information about your health. This functionality is being built, but not quite ready. Check back later!)
+
+- if current_user 
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title My Dashboard
+    .panel-body
+    - if current_user.latest_check_in_complete
+      #dashboard_data{ data: { sleep: 0, steps: 0, health_today: current_user.latest_check_in_complete.health_index , disease_type: "#{current_user.get_disease_type}", disease_index: current_user.latest_check_in_complete.disease_index} }
+      %div
+        #gauge4.col-sm-6{:style => "width: 300px; height: 200px"}
+        - if current_user.latest_check_in_complete.check_in_survey.version == "CD1.0"
+          #gauge5.col-sm-6{:style => "width: 300px; height: 200px"}
+        - elsif current_user.latest_check_in_complete.check_in_survey.version == "UC1.0"
+          #gauge6.col-sm-6{:style => "width: 300px; height: 200px"}
+        - else
+          .col-sm-6
+            %p.text-center disease index unavailable
+      .col-sm-12
+        %p.text-center
+          %em
+            as of
+            = current_user.latest_check_in_complete.created_at.strftime("%b %d, %Y")
+      %div
+        #gauge-step.col-sm-6{:style => "width: 300px; height: 200px"}
+        #gauge-sleep.col-sm-6{:style => "width: 300px; height: 200px"}
+      = javascript_include_tag 'my_dashboard'
+    - else
+      %p Complete a health check in to see your data
+    .clearfix
+
+- else
+  .alert.alert-info= "Please sign in or sign up to see your Dashboard"

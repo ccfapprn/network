@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :check_in_responses
+
+  resources :check_in_surveys
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -64,10 +68,6 @@ Rails.application.routes.draw do
 
 
 
-
-
-
-
   get 'data_reports' => 'health_data#reports'
   get 'data_medications' => 'health_data#medications'
   get 'data_intro' => 'health_data#intro'
@@ -98,7 +98,7 @@ Rails.application.routes.draw do
   match 'members/discussion/terms_and_conditions', to: 'account#terms_and_conditions', via: :get, as: :terms_and_conditions
 
   # Admin Section
-  get 'admin' => 'admin#users'
+  get 'admin' => 'admin#blog'
   match 'admin/users', to: 'admin#users', as: 'admin_users', via: [:get, :post]
   get 'admin/surveys' => 'admin#surveys', as: 'admin_surveys'
   get 'admin/blog' => 'admin#blog', as: 'admin_blog'

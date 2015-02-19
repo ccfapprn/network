@@ -1,9 +1,6 @@
 module OODT
   extend ActiveSupport::Concern
 
-  # To automatically provision OODT account on user hook, add it to User.rb like so:
-  # after_create :provision_oodt_user
-
 
   included do
 
@@ -17,6 +14,7 @@ module OODT
     def oodt
       #prefix = "api/pcori/sandbox/v1/" #or "api/pcori/ops/v1/"
       #conn = Faraday.new(url: "https://whiterivercomputing.com/#{prefix}")
+      raise "No OODT Server Specified!" if !Figaro.env.oodt_server
       conn = Faraday.new(url: Figaro.env.oodt_server)
       conn.basic_auth(Figaro.env.oodt_username, Figaro.env.oodt_password)
       conn
@@ -106,8 +104,8 @@ module OODT
   ###################
   # ACCOUNT SETUP
   ###################
-  def pair_with_lcp(email_to_try) #2
-    response = oodt.post "users/@@create", {:email => email_to_try}
+  def pair_with_lcp(options = {}) #2
+    response = oodt.post "users/@@create", {:email => options[:email], :return_url => options[:return_url]}
     body = parse_body(response)
 
     if response.success?
@@ -121,7 +119,7 @@ module OODT
     end
   end
 
-  def sync_oodt_status(options) #Allowed Option :return_url #6
+  def sync_oodt_status(options = {}) #Allowed Option :return_url #6
     response = oodt.post "users/@@status", user_hash.merge(:return_url => options[:return_url]) #where you want the baseline survey to drop back users
     body = parse_body(response)
 
@@ -205,47 +203,25 @@ module OODT
   ###############
   # SURVEYS
   ###############
-  def get_survey_scorecard #11
-    response = oodt.post "users/@@surveys", user_hash
+  def get_survey_scorecard(options) #11
+    response = oodt.post "users/@@surveys", user_hash.merge(:return_url => options[:return_url])
     body = parse_body(response)
 
     if response.success? && body['completed']
+      num_surveys_completed = body['completed'].count
+      update_survey_badges(num_surveys_completed)
+
+      # The API:
       # surveyOpenDate = body['surveyDate']
       # surveyURL = body['url']
-      num_surveys_completed = body['completed'].count
       # num_incompleted = body['incomplete'].count
       # num_surveys = num_completed + num_incompleted
-      # return "The next survey opens on #{surveyOpenDate} at #{surveyURL}. The user has completed #{num_completed}/#{num_surveys} surveys"
-
-      # Update the badges the user should have for survey participation
-      update_users_survey_badges(num_surveys_completed)
-
       return body
     else
       logger.error "API Call to get surveys for user ##{self.id} failed or was missing information. OODT returned the following response:\n#{response.body}"
       return body['errorMessage'] || body
     end
   end
-
-
-  #FIXME -- this logic might want to belong somewhere else other than OODT
-  def update_users_survey_badges(num_surveys_completed)
-    if num_surveys_completed > 0
-      # Find the badge that is due to the user
-      max_badge_level = 5 #this is fragile and needs to match to the highest level badge in merit.rb
-      badges_due = Merit::Badge.find { |b| b.name == 'survey_responder' && b.level <= [num_surveys_completed, max_badge_level].min }
-
-      #byebug
-      # Assign the badge to the user if he/she doesn't already have it
-                      #if badge_due.any? #&& self.badges.find { |my_badges| my_badges.id == badge_due.id }.empty?
-      badges_due.each do |badge|
-        self.add_badge(badge.id)
-      end
-                      #end
-
-    end
-  end
-
 
 
   ###############
@@ -338,7 +314,15 @@ module OODT
     body = parse_body(response)
 
     if response.success?
-      latest_data = body.last
+      #latest_data = body.last
+      #last element may have nil disease type
+      current_dt = nil
+      body.reverse.each do |dt|
+        if (dt['disease'] != nil) && (dt['disease'] != 'N/A')
+          current_dt = dt['disease']
+          break
+        end
+      end
       icd_to_human = {
         "N/A" => "Unknown",
         "None" => "No IBD",
@@ -347,9 +331,25 @@ module OODT
         "K52.3" => "Indeterminate colitis",
         "K52.8" => "Other colitis"
       }
-      return icd_to_human[latest_data['disease']]
+      return icd_to_human[current_dt]
     else
       logger.error "API Call to disease type of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
+      return false # body['errorMessage'] || body
+    end
+  end
+
+  ### Ileostomy Check
+  # HTTP 200, Content-type: application/json, response body is a mapping with a single key "ileostomy" whose value is a boolean
+  # (true if the patient has an ileostomy, false otherwise).
+  # PREFIX/users/@@ileostomy?userID=ID
+  def has_ileostomy?
+    response = oodt.post "users/@@ileostomy", user_hash
+    body = parse_body(response)
+
+    if response.success?
+      return body['ileostomy']
+    else
+      logger.error "API Call to ileostomy of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
       return false # body['errorMessage'] || body
     end
   end
@@ -366,9 +366,6 @@ module OODT
 
 
 
-
-
-
   # POST PREFIX/users/@@surveyResponses (takes no URL query parameters);
   # Request header "Content-type: application/json";
   # Request payload is a JSON dict with two keys:
@@ -377,23 +374,19 @@ module OODT
   # the time the measurement was taken in ISO-8601 UTC (Z) format and one or more keys from the set {stool_frequency, rectal_bleeding,
   #  general_well_being, liquid_or_soft_stools_per_day, abdominal_pain} whose values are integers describing the participant's responses.
 
-  def send_check_in_data_to_oodt(answer_session)
-    # can only send your own health data
-    return false if answer_session.user != self
-
+  def send_check_in_data_to_oodt(check_in_data_in_oodt_format)
     response = oodt.post do |req|
       req.url "users/@@surveyResponses"
       req.headers['Content-Type'] = 'application/json'
-      req.body = user_hash.merge({:responses => [answer_session.to_oodt_format]}).to_json
+      req.body = user_hash.merge({:responses => [check_in_data_in_oodt_format]}).to_json
       # timestamp, stool_frequency, rectal_bleeding, general_well_being, liquid_or_soft_stools_per_day, abdominal_pain
     end
 
     # body = parse_body(response) # this call returns no body
-
     if response.success?
       return true
     else
-      logger.error "API Call to send check in data of User ##{self.id} failed for Answer Session ##{answer_session.id}. OODT returned the following response:\n#{response.body}"
+      logger.error "API Call to send check in data of User ##{self.id} failed for check_in_data_in_oodt_format. OODT returned the following response:\n#{response.body}"
       return false #body['errorMessage'] || body
     end
   end
