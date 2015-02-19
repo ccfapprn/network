@@ -27,9 +27,12 @@ class HealthDataController < ApplicationController
     #@disease_activity_score = (current_user && OODT_ENABLED) ? current_user.get_disease_activity_score : {}
   end
 
-
  def my_health_measures
     @chart_urls = (current_user and OODT_ENABLED) ? current_user.get_chart_urls : {}
+  end
+
+  def my_connections
+    current_user.provision_if_unprovisioned if current_user
   end
 
 

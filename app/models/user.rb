@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise_params = [ :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :lockable ]
-  if Figaro.env.devise_confirmable
+  if Figaro.env.devise_confirmable == "true"
     devise_params << :confirmable
   end
   devise *devise_params

@@ -29,8 +29,13 @@ module ValidicAdapter
     {access_token: Figaro.env.validic_access_token, "user[uid]" => self.id}
   end
 
+  def get_validic_org_summary
+    response = Faraday.get "https://api.validic.com/v1/organizations/#{Figaro.env.validic_organization_id}.json", basic_data
+  end
+
   def check_validic_alive
     response = Faraday.get "https://api.validic.com/v1/organizations/#{Figaro.env.validic_organization_id}.json", basic_data
+    #response = get_validic_org_summary
     response.success?
   end
 
@@ -73,7 +78,8 @@ module ValidicAdapter
   ###################
 
   def validic_app_marketplace_url
-    provision_if_unprovisioned #this only provisions users when they get to the marketplace link
+    # to create custom marketplace, all users must be provisioned before marketplace is displayed, moved to controller
+    #provision_if_unprovisioned #this only provisions users when they get to the marketplace link
     "https://app.validic.com/#{Figaro.env.validic_organization_id}/#{self.validic_access_token}"
   end
 
@@ -136,7 +142,5 @@ module ValidicAdapter
   def delete_all_validic_users
     get_all_validic_users.each { |id| delete_validic_user(id) } if get_all_validic_users.present?
   end
-
-
 
 end
