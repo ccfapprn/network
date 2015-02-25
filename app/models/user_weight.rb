@@ -1,3 +1,4 @@
 class UserWeight < ActiveRecord::Base
-  validates :validic_id, uniqueness: true
+  belongs_to :external_account, primary_key: "validic_id", foreign_key: "validic_id"
+  validates :validic_obj_id, uniqueness: true
 end

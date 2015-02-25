@@ -2,8 +2,8 @@ class CreateUserSleeps < ActiveRecord::Migration
   def change
     create_table :user_sleeps do |t|
       #
+      t.string :validic_obj_id, null: false
       t.string :validic_id, null: false
-      t.string :user_id, null: false
       t.string :timestamp
       t.datetime :timestamp_date
       t.string :utc_offset
@@ -21,8 +21,8 @@ class CreateUserSleeps < ActiveRecord::Migration
       #
       t.timestamps
     end
-    add_index :user_sleeps, :validic_id, unique: true
-    add_index :user_sleeps, :user_id
+    add_index :user_sleeps, :validic_obj_id, unique: true
+    add_index :user_sleeps, :validic_id
     add_index :user_sleeps, :timestamp_date
   end
 end

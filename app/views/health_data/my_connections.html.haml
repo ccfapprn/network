@@ -1,16 +1,51 @@
 - @title = "My Connections"
 - @active_sub_nav = :my_connections
 
-%h3 Coming Soon.
-%p Soon you’ll be able to connect your mobile health apps to the network. This functionality is being built, but not quite ready. Check back later!
-
 -# %center
 -#   = image_tag "app_icons_bw.png"
 
 - if current_user && VALIDIC_ENABLED
-  %h4 Please visit the Validic App Marketplace to Authorize your Apps:
-  %br/
-  %a.btn.btn-success.btn-md{:href => current_user.validic_app_marketplace_url, :target => "_blank"} Add or Remove Device Connections
+  %h3 Sync My Apps & Devices
+  %p
+    %em We partner with Validic to do...
+    %strong WE NEED TEXT HERE TO EXPLAIN WHAT VALIDIC IS, THE USER WILL SEE VALIDIC MENTIONED WHEN SYNCING DEVICES
 
+  -# %h2 generic marketplace (not using)
+  -# %br/
+  -# %a.btn.btn-success.btn-md{:href => current_user.validic_app_marketplace_url, :target => "_blank"} Add or Remove Device Connections
+
+  .row
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fitbit'}
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Moves App'}
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Nike +'}
+
+  .row
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Map My Fitness'}
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Jawbone Up'}
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'BodyMedia'}
+
+  .row
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'RunKeeper'}
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Strava'}
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Withings'}
+
+  .row
+    .col-sm-4
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fatsecret'}
+    .col-sm-4
+    .col-sm-4
+  %hr/
+
+  = javascript_include_tag 'my_dashboard'
+  
 - else
   .alert.alert-info= "Please sign in or sign up to connect your devices and apps."

@@ -2,8 +2,8 @@ class CreateUserWeights < ActiveRecord::Migration
   def change
     create_table :user_weights do |t|
       #
+      t.string :validic_obj_id, null: false
       t.string :validic_id, null: false
-      t.string :user_id, null: false
       t.string :timestamp
       t.datetime :timestamp_date
       t.string :utc_offset
@@ -21,8 +21,8 @@ class CreateUserWeights < ActiveRecord::Migration
       #
       t.timestamps
     end
-    add_index :user_weights, :validic_id, unique: true
-    add_index :user_weights, :user_id
+    add_index :user_weights, :validic_obj_id, unique: true
+    add_index :user_weights, :validic_id
     add_index :user_weights, :timestamp_date
   end
 end

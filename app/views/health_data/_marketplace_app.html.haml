@@ -1,0 +1,19 @@
+.well.well-sm
+  .row
+    .col-sm-4
+      = image_tag "https://app.validic.com" + marketplace_app['logo_url'] , class: "img-responsive", size: "75x75"
+    .col-sm-8
+      %h4
+        = marketplace_app['name']
+
+      - if marketplace_app['synced']
+        %a{:href => marketplace_app['unsync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + load_connections_path, :class => 'sync_link'}
+          .btn.btn-default
+            %span{:style => "padding: 0 20px 0 20px;"}
+              Disconnect
+
+      - else
+        %a{:href => marketplace_app['sync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + load_connections_path, :class => 'sync_link'}
+          .btn.btn-primary
+            %span{:style => "padding: 0 20px 0 20px;"}
+              Connect

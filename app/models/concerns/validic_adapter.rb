@@ -29,6 +29,10 @@ module ValidicAdapter
     {access_token: Figaro.env.validic_access_token, "user[uid]" => self.id}
   end
 
+  def basic_auth_data
+    {access_token: Figaro.env.validic_access_token, authentication_token: validic_access_token}
+  end
+
   def get_validic_org_summary
     response = Faraday.get "https://api.validic.com/v1/organizations/#{Figaro.env.validic_organization_id}.json", basic_data
   end
@@ -110,6 +114,20 @@ module ValidicAdapter
       return false
     end
 
+  end
+
+  def get_validic_marketplace
+    if validic_id
+      response = validic.get "apps.json", basic_auth_data
+      if response.success?
+        JSON.parse(response.body)['apps']
+      else
+        logger.error "API Call to validic to get user marketplace (apps.json) for user #{id} failed.  Validic returned the following response:\n#{response.body}"
+        false
+      end
+    else
+      false
+    end
   end
 
 

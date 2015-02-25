@@ -25,6 +25,15 @@ class HealthDataController < ApplicationController
     # end
 
     #@disease_activity_score = (current_user && OODT_ENABLED) ? current_user.get_disease_activity_score : {}
+
+    if current_user
+      @user_sleep = current_user.latest_sleep
+      @user_routine = current_user.latest_routine
+      #@health_today = current_user.latest_check_in_complete.health_index 
+      #@disease_index = current_user.latest_check_in_complete.disease_index
+      @check_in = current_user.latest_check_in_complete
+      @synched = @user_sleep || @user_steps
+    end
   end
 
  def my_health_measures
@@ -32,7 +41,18 @@ class HealthDataController < ApplicationController
   end
 
   def my_connections
-    current_user.provision_if_unprovisioned if current_user
+    if current_user
+      current_user.provision_if_unprovisioned if current_user
+      @marketplace = current_user.get_validic_marketplace
+    end
+  end
+
+  def load_connections
+    if current_user
+      loader = ValidicLoader.new(Figaro.env.validic_organization_id, Figaro.env.validic_access_token)
+      loader.load_user current_user
+    end
+    redirect_to my_connections_path
   end
 
 

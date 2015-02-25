@@ -66,6 +66,22 @@ class User < ActiveRecord::Base
    return nil
   end
 
+  def latest_routine
+    if external_account.user_routine
+      external_account.user_routine.first
+    else
+      nil
+    end
+  end
+
+  def latest_sleep
+    if external_account.user_sleep
+      external_account.user_sleep.first
+    else
+      nil
+    end
+  end
+
   def visible_to_community?
     social_profile.visible_to_community?
   end

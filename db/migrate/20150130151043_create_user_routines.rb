@@ -2,8 +2,8 @@ class CreateUserRoutines < ActiveRecord::Migration
   def change
     create_table :user_routines do |t|
       #
+      t.string :validic_obj_id, null: false
       t.string :validic_id, null: false
-      t.string :user_id, null: false
       t.string :timestamp
       t.datetime :timestamp_date
       t.string :utc_offset
@@ -19,8 +19,8 @@ class CreateUserRoutines < ActiveRecord::Migration
       t.string :source_name
       t.timestamps
     end
-    add_index :user_routines, :validic_id, unique: true
-    add_index :user_routines, :user_id
+    add_index :user_routines, :validic_obj_id, unique: true
+    add_index :user_routines, :validic_id
     add_index :user_routines, :timestamp_date
   end
 end

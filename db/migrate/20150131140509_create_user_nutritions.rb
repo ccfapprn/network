@@ -2,8 +2,8 @@ class CreateUserNutritions < ActiveRecord::Migration
   def change
     create_table :user_nutritions do |t|
       #
+      t.string :validic_obj_id, null: false
       t.string :validic_id, null: false
-      t.string :user_id, null: false
       t.string :timestamp
       t.datetime :timestamp_date
       t.string :utc_offset
@@ -23,8 +23,8 @@ class CreateUserNutritions < ActiveRecord::Migration
       #
       t.timestamps
     end
-    add_index :user_nutritions, :validic_id, unique: true
-    add_index :user_nutritions, :user_id
+    add_index :user_nutritions, :validic_obj_id, unique: true
+    add_index :user_nutritions, :validic_id
     add_index :user_nutritions, :timestamp_date
   end
 end

@@ -2,8 +2,8 @@ class CreateUserTobaccos < ActiveRecord::Migration
   def change
     create_table :user_tobaccos do |t|
       #
+      t.string :validic_obj_id, null: false
       t.string :validic_id, null: false
-      t.string :user_id, null: false
       t.string :timestamp
       t.datetime :timestamp_date
       t.string :utc_offset
@@ -19,8 +19,8 @@ class CreateUserTobaccos < ActiveRecord::Migration
       #
       t.timestamps
     end
-    add_index :user_tobaccos, :validic_id, unique: true
-    add_index :user_tobaccos, :user_id
+    add_index :user_tobaccos, :validic_obj_id, unique: true
+    add_index :user_tobaccos, :validic_id
     add_index :user_tobaccos, :timestamp_date
   end
 end

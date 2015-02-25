@@ -6,7 +6,7 @@ $(function () {
   var sleep = $('#dashboard_data').data('sleep');
   var steps = $('#dashboard_data').data('steps');
 
-  var gaugeOptions = {
+  var gaugeHealthOptions = {
 
       chart: {
           type: 'solidgauge'
@@ -37,8 +37,10 @@ $(function () {
               //[0.1, '#55BF3B'], // green
               //[0.5, '#DDDF0D'], // yellow
               //[0.9, '#DF5353'] // red
-              [0.1, '#0091C3'], // ccfa blue
-              [0.9, '#0091C3'], // ccfa blue
+              //[0.1, '#0091C3'], // ccfa blue
+              //[0.9, '#0091C3'], // ccfa blue
+              [0.1, '#55BF3B'], // green
+              [0.9, '#55BF3B'] // green
           ],
           lineWidth: 0,
           minorTickInterval: null,
@@ -92,11 +94,13 @@ $(function () {
       // the value axis
       yAxis: {
           stops: [
-              [0.1, '#0091C3'], // ccfa blue
-              [0.9, '#0091C3'], // ccfa blue
+              //[0.1, '#0091C3'], // ccfa blue
+              //[0.9, '#0091C3'], // ccfa blue
               //[0.1, '#55BF3B'], // green
               //[0.5, '#DDDF0D'], // yellow
               //[0.9, '#DF5353'] // red
+              [0.1, '#DF5353'], // red
+              [0.9, '#DF5353'] // red
           ],
           lineWidth: 0,
           minorTickInterval: null,
@@ -149,8 +153,8 @@ $(function () {
       // the value axis
       yAxis: {
           stops: [
-              [0.1, '#AAAAAA'], 
-              [0.9, '#AAAAAA'], 
+              [0.1, '#55BF3B'], 
+              [0.9, '#55BF3B'] 
               //[0.1, '#0091C3'], // ccfa blue
               //[0.9, '#0091C3'], // ccfa blue
               //[0.1, '#55BF3B'], // green
@@ -208,8 +212,8 @@ $(function () {
       // the value axis
       yAxis: {
           stops: [
-              [0.1, '#AAAAAA'], 
-              [0.9, '#AAAAAA'], 
+              [0.1, '#55BF3B'], 
+              [0.9, '#55BF3B'], 
               //[0.1, '#0091C3'], // ccfa blue
               //[0.9, '#0091C3'], // ccfa blue
               //[0.1, '#55BF3B'], // green
@@ -239,10 +243,7 @@ $(function () {
       }
   };
 
-  // The steps gauge
-
-  // The steps gauge
-  $('#gauge4').highcharts(Highcharts.merge(gaugeOptions, {
+  $('#gauge-health').highcharts(Highcharts.merge(gaugeHealthOptions, {
       yAxis: {
           min: 0,
           max: 100,
@@ -272,8 +273,7 @@ $(function () {
 
   }));
 
-  // The steps gauge
-  $('#gauge5').highcharts(Highcharts.merge(gaugeDIOptions, {
+  $('#gauge-cd').highcharts(Highcharts.merge(gaugeDIOptions, {
       yAxis: {
           min: 0,
           max: 700,
@@ -303,7 +303,7 @@ $(function () {
   }));
 
   // The DI gauge
-  $('#gauge6').highcharts(Highcharts.merge(gaugeDIOptions, {
+  $('#gauge-uc').highcharts(Highcharts.merge(gaugeDIOptions, {
       yAxis: {
           min: 0,
           max: 12,
@@ -339,7 +339,7 @@ $(function () {
           min: 0,
           max: 10,
           title: {
-              text: 'COMING SOON! Sleep'
+              text: 'Sleep'
               ,style: { fontSize: '23px'}
           }
       },
@@ -363,13 +363,12 @@ $(function () {
 
   }));
 
-  // The STEP gauge
   $('#gauge-step').highcharts(Highcharts.merge(gaugeStepOptions, {
       yAxis: {
           min: 0,
           max: 12000,
           title: {
-              text: 'COMING SOON! Steps'
+              text: 'Steps'
               ,style: { fontSize: '23px'}
           }
       },
