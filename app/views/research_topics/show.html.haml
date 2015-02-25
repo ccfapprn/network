@@ -68,7 +68,10 @@
                   .pull-left
                     = image_tag comment.user.community_photo_url
                   .media-body
-                    %h4.media-heading= comment.user.forem_name
+                    %h4.media-heading
+                      = comment.user.forem_name
+                      - if comment.user.has_role?(:research_team)
+                        .label.label-default= "Research Team"
                     = comment.body
                     %br/
                     %small= comment.created_at

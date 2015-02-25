@@ -395,17 +395,20 @@ module OODT
   def get_disease_activity_score
     # CURRENTLY BLOWING UP (OODT API FAILING UNGRACEFULLY) WHEN NO SCORES
 
-    response = oodt.post "users/@@diseaseActivityScore", user_hash
+    response = oodt.post "users/@@latestDiseaseActivityScore", user_hash
     body = parse_body(response)
 
     if response.success?
-      # ... if body['scoreType'] == "No scores found"
+      if body['scoreType'] == "No scores found"
+        return false
+      else
+        return body
+      end
       # • scoreType, whose value is a string indicating the type of score (currently SCDAI or PRUSCI) or the special string "No scores found" indicating that no scores were found for the participant. When this string is given, no other keys will be present in the JSON dict.
       # • min, whose value is an integer indicating the minimum value permissible by the score type.
       # • max, whose value is an integer indicating the maximum value permissible by the score type.
       # • timestamp, whose value is a string indicating when the latest score was computed, in ISO-8601 format in UTC.
       # • value, whose value is an integer indicating the latest score.
-      return body
     else
       logger.error "API Call to get_disease_activity_score of User ##{self.id} failed. OODT returned the following response:\n#{response.body}"
       return false # body['errorMessage'] || body
