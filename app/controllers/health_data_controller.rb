@@ -48,14 +48,7 @@ class HealthDataController < ApplicationController
   end
 
   def load_connections
-    if current_user
-      loader = ValidicLoader.new(Figaro.env.validic_organization_id, Figaro.env.validic_access_token)
-      loader.load_user current_user
-    end
-    redirect_to my_connections_path
   end
-
-
 
 
   private

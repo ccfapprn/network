@@ -32,9 +32,14 @@ class ValidicLoader
       # log error?
       rails "validic_db.get_objects call failed" if obj_arr == false
       obj_arr.each do |obj|
-        model = model_name.constantize.new
-        model.attributes= obj
-        model.save
+        #model = model_name.constantize.new
+        #model.attributes= obj
+        #model.save
+        model = model_name.constantize
+        model_obj = model.find_by_validic_obj_id( obj['validic_obj_id'])
+        model_obj = model.new if model_obj.nil?
+        model_obj.attributes= obj
+        model_obj.save
       end
     end
   end

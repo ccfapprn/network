@@ -17,7 +17,8 @@ class ValidicData
       if response.success?
         validic_url = body['summary']['next']
         body[validic_obj_name].each do |obj|
-          ret_arr << validic_to_model(obj)
+          model = validic_to_model(obj)
+          ret_arr << model
         end
       else
         validic_url = nil
@@ -30,6 +31,7 @@ class ValidicData
     model = validic_object
     model['validic_id'] = validic_object.delete 'user_id'
     model['validic_obj_id'] = validic_object.delete '_id'
+    model['validic_type'] = validic_object.delete 'type' if validic_object.include?('type')
     model['timestamp_date'] = validic_object['timestamp']
     model['last_updated_date'] = validic_object['last_updated']
     model
