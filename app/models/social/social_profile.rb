@@ -65,9 +65,9 @@ class SocialProfile < ActiveRecord::Base
 
   def self.locations_for_map(user=nil)
     # query below does not work with oracle
-    res = select(:latitude, :longitude).where("show_location IS TRUE AND latitude IS NOT NULL AND longitude IS NOT NULL")
+    # res = select(:latitude, :longitude).where("show_location IS TRUE AND latitude IS NOT NULL AND longitude IS NOT NULL")
     # oracle would need somethign like this
-    #res = select(:latitude, :longitude).where("show_location = 1 AND latitude IS NOT NULL AND longitude IS NOT NULL")
+    res = select(:latitude, :longitude).where("visible_to_community = 1 AND latitude IS NOT NULL AND longitude IS NOT NULL")
     res = res.where.not(id: user.social_profile.id) if user and user.social_profile
 
     res.map{|geo| {latitude: geo.latitude, longitude: geo.longitude} }
