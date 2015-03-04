@@ -7,9 +7,9 @@
         = marketplace_app['name']
 
       - if marketplace_app['synced']
-        %a{:href => marketplace_app['unsync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + load_connections_path, :class => 'unsync_link'}
+        %a{:href => marketplace_app['unsync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + my_connections_path, :class => 'unsync_link'}
           .btn.btn-default
-            %span{:style => "padding: 0 20px 0 20px;"}
+            %span{:style => "padding: 0 10px 0 10px;"}
               Disconnect
 
       - else
