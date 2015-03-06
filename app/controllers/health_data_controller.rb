@@ -42,8 +42,10 @@ class HealthDataController < ApplicationController
 
   def my_connections
     if current_user
-      current_user.provision_if_unprovisioned if current_user
-      @marketplace = current_user.get_validic_marketplace
+      if VALIDIC_ENABLED
+        current_user.provision_if_unprovisioned if current_user
+        @marketplace = current_user.get_validic_marketplace
+      end
     end
   end
 
