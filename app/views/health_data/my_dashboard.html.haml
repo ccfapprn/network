@@ -37,25 +37,33 @@
               %br/
               %br/
               disease activity unavailable
-      .row
-        .col-sm-6
-          #gauge-step{:style => "width: 300px; height: 200px"}
-          %p.text-center
-            %em
-              -if @user_routine
-                as of
-                = @user_routine.timestamp_date.strftime("%b %d, %Y")
-              -else
-                no data available
-        .col-sm-6
-          #gauge-sleep{:style => "width: 300px; height: 200px"}
-          %p.text-center
-            %em
-              -if @user_sleep
-                as of
-                = @user_sleep.timestamp_date.strftime("%b %d, %Y")
-              -else
-                no data available
+      -if VALIDIC_ENABLED
+        .row
+          .col-sm-6
+            #gauge-step{:style => "width: 300px; height: 200px"}
+            %p.text-center
+              %em
+                -if @user_routine
+                  as of
+                  = @user_routine.timestamp_date.strftime("%b %d, %Y")
+                -else
+                  no data available
+          .col-sm-6
+            #gauge-sleep{:style => "width: 300px; height: 200px"}
+            %p.text-center
+              %em
+                -if @user_sleep
+                  as of
+                  = @user_sleep.timestamp_date.strftime("%b %d, %Y")
+                -else
+                  no data available
+      -else
+        .row
+          .col-sm-6
+            #gauge-step-coming-soon{:style => "width: 300px; height: 200px"}
+            %p.text-center
+          .col-sm-6
+            #gauge-sleep-coming-soon{:style => "width: 300px; height: 200px"}
 
       = javascript_include_tag 'my_dashboard'
     - else

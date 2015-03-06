@@ -37,10 +37,8 @@ $(function () {
               //[0.1, '#55BF3B'], // green
               //[0.5, '#DDDF0D'], // yellow
               //[0.9, '#DF5353'] // red
-              //[0.1, '#0091C3'], // ccfa blue
-              //[0.9, '#0091C3'], // ccfa blue
-              [0.1, '#55BF3B'], // green
-              [0.9, '#55BF3B'] // green
+              [0.1, '#0091C3'], // ccfa blue
+              [0.9, '#0091C3'], // ccfa blue
           ],
           lineWidth: 0,
           minorTickInterval: null,
@@ -94,13 +92,11 @@ $(function () {
       // the value axis
       yAxis: {
           stops: [
-              //[0.1, '#0091C3'], // ccfa blue
-              //[0.9, '#0091C3'], // ccfa blue
+              [0.1, '#0091C3'], // ccfa blue
+              [0.9, '#0091C3'] // ccfa blue
               //[0.1, '#55BF3B'], // green
               //[0.5, '#DDDF0D'], // yellow
               //[0.9, '#DF5353'] // red
-              [0.1, '#DF5353'], // red
-              [0.9, '#DF5353'] // red
           ],
           lineWidth: 0,
           minorTickInterval: null,
@@ -153,10 +149,8 @@ $(function () {
       // the value axis
       yAxis: {
           stops: [
-              [0.1, '#55BF3B'], 
-              [0.9, '#55BF3B'] 
-              //[0.1, '#0091C3'], // ccfa blue
-              //[0.9, '#0091C3'], // ccfa blue
+              [0.1, '#0091C3'], // ccfa blue
+              [0.9, '#0091C3'] // ccfa blue
               //[0.1, '#55BF3B'], // green
               //[0.5, '#DDDF0D'], // yellow
               //[0.9, '#DF5353'] // red
@@ -184,6 +178,62 @@ $(function () {
       }
   };
 
+  var gaugeComingSoonOptions = {
+
+      chart: {
+          type: 'solidgauge'
+      },
+
+      title: null,
+
+      pane: {
+          center: ['50%', '85%'],
+          size: '140%',
+          startAngle: -90,
+          endAngle: 90,
+          background: {
+              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+              innerRadius: '60%',
+              outerRadius: '100%',
+              shape: 'arc'
+          }
+      },
+
+      tooltip: {
+          enabled: false
+      },
+
+      // the value axis
+      yAxis: {
+          stops: [
+              [0.1, '#DDDDDD'],
+              [0.9, '#DDDDDD'] 
+              //[0.1, '#55BF3B'], // green
+              //[0.5, '#DDDF0D'], // yellow
+              //[0.9, '#DF5353'] // red
+          ],
+          lineWidth: 0,
+          minorTickInterval: null,
+          tickPixelInterval: 60,
+          tickWidth: 2,
+          title: {
+              y: -70
+          },
+          labels: {
+              y: 16
+          }
+      },
+
+      plotOptions: {
+          solidgauge: {
+              dataLabels: {
+                  y: 5,
+                  borderWidth: 0,
+                  useHTML: true
+              }
+          }
+      }
+  };
   var gaugeStepOptions = {
 
       chart: {
@@ -212,10 +262,8 @@ $(function () {
       // the value axis
       yAxis: {
           stops: [
-              [0.1, '#55BF3B'], 
-              [0.9, '#55BF3B'], 
-              //[0.1, '#0091C3'], // ccfa blue
-              //[0.9, '#0091C3'], // ccfa blue
+              [0.1, '#0091C3'], // ccfa blue
+              [0.9, '#0091C3'] // ccfa blue
               //[0.1, '#55BF3B'], // green
               //[0.5, '#DDDF0D'], // yellow
               //[0.9, '#DF5353'] // red
@@ -380,6 +428,65 @@ $(function () {
       series: [{
           name: 'Steps',
           data: [steps],
+          dataLabels: {
+              format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                  ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                     '<span style="font-size:12px;color:silver">Steps</span></div>'
+          },
+          tooltip: {
+              valueSuffix: ' '
+          }
+      }]
+
+  }));
+
+  // The COMING SOON SLEEP gauge
+  $('#gauge-sleep-coming-soon').highcharts(Highcharts.merge(gaugeComingSoonOptions, {
+      yAxis: {
+          min: 0,
+          max: 10,
+          title: {
+              text: 'COMING SOON - Sleep'
+              ,style: { fontSize: '23px'}
+          }
+      },
+
+      credits: {
+          enabled: false
+      },
+
+      series: [{
+          name: 'Sleep',
+          data: [0],
+          dataLabels: {
+              format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                  ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                     '<span style="font-size:12px;color:silver">Hours of Sleep</span></div>'
+          },
+          tooltip: {
+              valueSuffix: ' '
+          }
+      }]
+
+  }));
+
+  $('#gauge-step-coming-soon').highcharts(Highcharts.merge(gaugeComingSoonOptions, {
+      yAxis: {
+          min: 0,
+          max: 12000,
+          title: {
+              text: 'COMING SOON - Steps'
+              ,style: { fontSize: '23px'}
+          }
+      },
+
+      credits: {
+          enabled: false
+      },
+
+      series: [{
+          name: 'Steps',
+          data: [0],
           dataLabels: {
               format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                   ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
