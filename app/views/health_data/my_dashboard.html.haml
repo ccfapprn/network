@@ -27,11 +27,8 @@
             #gauge-uc{:style => "width: 300px; height: 200px"}
             %p.text-center
               %em
-                -if @user_sleep
-                  as of
-                  = @user_sleep.timestamp_date.strftime("%b %d, %Y")
-                -else
-                  no data available
+                as of
+                = current_user.latest_check_in_complete.created_at.strftime("%b %d, %Y")
           - else
             %p.text-center
               %br/
