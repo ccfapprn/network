@@ -19,8 +19,8 @@
           .row
             .col-md-8
               %input.display-value.custom{type: @current_check_in.question_type(i), name: "check_in_response[answer_#{i}]", id: "", min: @current_check_in.answer_options(i).first, max: @current_check_in.answer_options(i).last, value: @current_check_in.answer(i)}
-              .pull-left.text-primary.small= @current_check_in.answer_options(i).first
-              .pull-right.text-primary.small= @current_check_in.answer_options(i).last
+              .pull-left.text-primary.small= @current_check_in.answer_labels(i).first
+              .pull-right.text-primary.small= @current_check_in.answer_labels(i).last
               .clearfix
 
             .col-md-4

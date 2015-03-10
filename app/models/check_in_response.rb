@@ -71,6 +71,10 @@ class CheckInResponse < ActiveRecord::Base
     question(n)['answer_options'][answer(n)]
   end
 
+  def answer_labels(n)
+    question(n)['answer_labels']
+  end
+
   def answer(n)
     send answer_method(n)
   end
@@ -89,7 +93,7 @@ class CheckInResponse < ActiveRecord::Base
   end
 
   def complete?
-    1.upto(questions_count) do |i| 
+    1.upto(questions_count) do |i|
       if answer(i).nil?
         return false
       end

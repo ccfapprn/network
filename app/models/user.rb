@@ -102,13 +102,24 @@ class User < ActiveRecord::Base
 
   ### BADGE - extra code for awarding badges here ###
 
+  def badge_level(name)
+    these_badges = self.badges.find_all { |b| b.name == name }
+    if these_badges.any?
+      these_badges.sort_by { |b| b.level }.last.level
+    else
+      0
+    end
+  end
+
+
+  # CHECK IN BADGES
   def grant_first_survey_badge
     badge = Merit::Badge.find { |b| b.name == "survey_responder" && b.level == 1}.first
     add_badge(badge.id)
   end
 
   def update_check_in_badges
-    next_checkin_level = badge_level("checkin") +1
+    next_checkin_level = badge_level("checkin") + 1
     checkin_quota = { 1=>1, 2=>3, 3=>5, 4=>10, 5=>20, 6=>30 }[next_checkin_level]
 
     grant_checkin_badge_on(next_checkin_level,checkin_quota)
@@ -120,12 +131,15 @@ class User < ActiveRecord::Base
 
     total_checkins = answer_sessions.select { |as| as.completed? }.count
 
-    if total_checkins >= quota #note, this will count all answer sessions, not just health checkin types
+    if total_checkins >= quota
       badge = Merit::Badge.find { |b| b.name == "checkin" && b.level == level}.first
       add_badge(badge.id)
     end
   end
 
+
+
+  # SURVEY RESPONDER BADGES
   def update_survey_badges(num_surveys_completed)
     max_badge_level = 5 # FRAGILE: this needs to match to the highest level badge in merit.rb
 
@@ -139,18 +153,46 @@ class User < ActiveRecord::Base
         self.add_badge(badge.id)
       end
     end
-
-    ## Could add code here to remove badges in the case its possible they aren't due the badges they currently have.
+    # if users have too many badges, or are missing badge levels, the clean_up_survey_badges which will be run on a cron should set things straight
   end
 
-  def badge_level(name)
-    these_badges = self.badges.find_all { |b| b.name == name }
-    if these_badges.any?
-      these_badges.sort_by { |b| b.level }.last.level
+  def clean_up_survey_badges
+    puts "Cleaning Survey Badges for User id##{self.id}"
+    max_badge_level = 5 # FRAGILE: this needs to match to the highest level badge in merit.rb
+    num_surveys_completed = get_num_surveys_completed
+    num_surveys_completed = 2 if self.id == 36
+    if num_surveys_completed == false
+      puts " :::: Number of surveys completed could not be determined (OODT API call failed, perhaps because user hasn't been provisioned)"
+      return
     else
-      0
+      puts " >>>> User has completed #{num_surveys_completed} surveys"
+    end
+
+    survey_badge_level_due = [num_surveys_completed, max_badge_level].min
+    received_survey_badges = self.badges.find_all { |b| b.name == 'survey_responder' }
+
+    # Add Badges Due Not Received
+    badges_due = Merit::Badge.find { |b| b.name == 'survey_responder' && (b.level <= survey_badge_level_due) }
+
+    badges_due.each do |badge|
+      if !received_survey_badges.include?(badge)
+        puts " - Adding Badge #{badge.id}"
+        self.add_badge(badge.id)
+      end
+    end
+
+    # Remove Badges Not Due that have been received
+    badges_not_due = Merit::Badge.find { |b| b.name == 'survey_responder' && (b.level > survey_badge_level_due) }
+
+    badges_not_due.each do |badge|
+      if received_survey_badges.include?(badge)
+        puts " - Removing Badge #{badge.id}"
+        self.rm_badge(badge.id)
+      end
     end
   end
+
+
 
 
 

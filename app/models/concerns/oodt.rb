@@ -225,6 +225,26 @@ module OODT
 
 
   ###############
+  # SURVEYS
+  ###############
+  # this is used in the badges:clean rake task to specifically return surveys completed so survey badges can be updated
+  def get_num_surveys_completed #11
+    response = oodt.post "users/@@surveys", user_hash
+
+    body = parse_body(response)
+
+    if response.success? && body['completed']
+      num_surveys_completed = body['completed'].count
+      return num_surveys_completed
+    else
+      logger.error "API Call to get num_surveys_completed for user ##{self.id} failed or was missing information. OODT returned the following response:\n#{response.body}"
+      return false #body['errorMessage'] || body
+    end
+  end
+
+
+
+  ###############
   # HEALTH DATA
   ###############
 
