@@ -3,7 +3,7 @@ $(function () {
   var health_today = $('#dashboard_data').data('health-today');
   var disease_type = $('#dashboard_data').data('disease-type');
   var disease_index = $('#dashboard_data').data('disease-index');
-  var sleep = $('#dashboard_data').data('sleep');
+  var sleep = parseFloat( $('#dashboard_data').data('sleep') );
   var steps = $('#dashboard_data').data('steps');
 
   var gaugeHealthOptions = {

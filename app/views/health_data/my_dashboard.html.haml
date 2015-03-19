@@ -1,14 +1,13 @@
 - @title = "My Dashboard"
 - @active_sub_nav = :my_dashboard
 
-
 - if current_user 
   .panel.panel-default
     .panel-heading
       %h4.panel-title My Dashboard
     .panel-body
     - if current_user.latest_check_in_complete
-      #dashboard_data{ data: { sleep: @user_sleep?(@user_sleep.sleep_hours):0, steps: @user_routine?(@user_routine.steps.to_i):0, health_today: @check_in?(@check_in.health_index):0 , disease_type: "#{current_user.get_disease_type}", disease_index: @check_in?(@check_in.disease_index):0, sleep_date: @user_sleep?(@user_sleep.timestamp_date):0, steps_date: @user_routine?(@user_routine.timestamp_date):0, health_today_date: @check_in?(@check_in.created_at):0 , disease_index_date: @check_in?(@check_in.created_at):0} }
+      #dashboard_data{ data: { sleep: @user_sleep?("#{@user_sleep.sleep_hours.to_s}"):0, steps: @user_routine?(@user_routine.steps.to_i):0, health_today: @check_in?(@check_in.health_index):0 , disease_type: "#{current_user.get_disease_type}", disease_index: @check_in?(@check_in.disease_index):0, sleep_date: @user_sleep?(@user_sleep.timestamp_date):0, steps_date: @user_routine?(@user_routine.timestamp_date):0, health_today_date: @check_in?(@check_in.created_at):0 , disease_index_date: @check_in?(@check_in.created_at):0} }
       .row
         .col-sm-6
           #gauge-health{:style => "width: 300px; height: 200px"}
