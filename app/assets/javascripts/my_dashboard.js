@@ -5,8 +5,10 @@ $(function () {
   var disease_index = $('#dashboard_data').data('disease-index');
   var sleep = parseFloat( $('#dashboard_data').data('sleep') );
   var steps = $('#dashboard_data').data('steps');
+  var calories_in = $('#dashboard_data').data('calories-in');
+  var calories_out = $('#dashboard_data').data('calories-out');
 
-  var gaugeHealthOptions = {
+  var gaugeOptions = {
 
       chart: {
           type: 'solidgauge'
@@ -64,120 +66,6 @@ $(function () {
   };
 
 
-  var gaugeDIOptions = {
-
-      chart: {
-          type: 'solidgauge'
-      },
-
-      title: null,
-
-      pane: {
-          center: ['50%', '85%'],
-          size: '140%',
-          startAngle: -90,
-          endAngle: 90,
-          background: {
-              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
-              innerRadius: '60%',
-              outerRadius: '100%',
-              shape: 'arc'
-          }
-      },
-
-      tooltip: {
-          enabled: false
-      },
-
-      // the value axis
-      yAxis: {
-          stops: [
-              [0.1, '#0091C3'], // ccfa blue
-              [0.9, '#0091C3'] // ccfa blue
-              //[0.1, '#55BF3B'], // green
-              //[0.5, '#DDDF0D'], // yellow
-              //[0.9, '#DF5353'] // red
-          ],
-          lineWidth: 0,
-          minorTickInterval: null,
-          tickPixelInterval: 60,
-          tickWidth: 2,
-          title: {
-              y: -70
-          },
-          labels: {
-              y: 16
-          }
-      },
-
-      plotOptions: {
-          solidgauge: {
-              dataLabels: {
-                  y: 5,
-                  borderWidth: 0,
-                  useHTML: true
-              }
-          }
-      }
-  };
-
-  var gaugeSleepOptions = {
-
-      chart: {
-          type: 'solidgauge'
-      },
-
-      title: null,
-
-      pane: {
-          center: ['50%', '85%'],
-          size: '140%',
-          startAngle: -90,
-          endAngle: 90,
-          background: {
-              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
-              innerRadius: '60%',
-              outerRadius: '100%',
-              shape: 'arc'
-          }
-      },
-
-      tooltip: {
-          enabled: false
-      },
-
-      // the value axis
-      yAxis: {
-          stops: [
-              [0.1, '#0091C3'], // ccfa blue
-              [0.9, '#0091C3'] // ccfa blue
-              //[0.1, '#55BF3B'], // green
-              //[0.5, '#DDDF0D'], // yellow
-              //[0.9, '#DF5353'] // red
-          ],
-          lineWidth: 0,
-          minorTickInterval: null,
-          tickPixelInterval: 60,
-          tickWidth: 2,
-          title: {
-              y: -70
-          },
-          labels: {
-              y: 16
-          }
-      },
-
-      plotOptions: {
-          solidgauge: {
-              dataLabels: {
-                  y: 5,
-                  borderWidth: 0,
-                  useHTML: true
-              }
-          }
-      }
-  };
-
   var gaugeComingSoonOptions = {
 
       chart: {
@@ -234,64 +122,9 @@ $(function () {
           }
       }
   };
-  var gaugeStepOptions = {
+  ;
 
-      chart: {
-          type: 'solidgauge'
-      },
-
-      title: null,
-
-      pane: {
-          center: ['50%', '85%'],
-          size: '140%',
-          startAngle: -90,
-          endAngle: 90,
-          background: {
-              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
-              innerRadius: '60%',
-              outerRadius: '100%',
-              shape: 'arc'
-          }
-      },
-
-      tooltip: {
-          enabled: false
-      },
-
-      // the value axis
-      yAxis: {
-          stops: [
-              [0.1, '#0091C3'], // ccfa blue
-              [0.9, '#0091C3'] // ccfa blue
-              //[0.1, '#55BF3B'], // green
-              //[0.5, '#DDDF0D'], // yellow
-              //[0.9, '#DF5353'] // red
-          ],
-          lineWidth: 0,
-          minorTickInterval: null,
-          tickPixelInterval: 60,
-          tickWidth: 2,
-          title: {
-              y: -70
-          },
-          labels: {
-              y: 16
-          }
-      },
-
-      plotOptions: {
-          solidgauge: {
-              dataLabels: {
-                  y: 5,
-                  borderWidth: 0,
-                  useHTML: true
-              }
-          }
-      }
-  };
-
-  $('#gauge-health').highcharts(Highcharts.merge(gaugeHealthOptions, {
+  $('#gauge-health').highcharts(Highcharts.merge(gaugeOptions, {
       yAxis: {
           min: 0,
           max: 100,
@@ -321,7 +154,7 @@ $(function () {
 
   }));
 
-  $('#gauge-cd').highcharts(Highcharts.merge(gaugeDIOptions, {
+  $('#gauge-cd').highcharts(Highcharts.merge(gaugeOptions, {
       yAxis: {
           min: 0,
           max: 700,
@@ -351,7 +184,7 @@ $(function () {
   }));
 
   // The DI gauge
-  $('#gauge-uc').highcharts(Highcharts.merge(gaugeDIOptions, {
+  $('#gauge-uc').highcharts(Highcharts.merge(gaugeOptions, {
       yAxis: {
           min: 0,
           max: 12,
@@ -382,7 +215,7 @@ $(function () {
 
 
   // The SLEEP gauge
-  $('#gauge-sleep').highcharts(Highcharts.merge(gaugeSleepOptions, {
+  $('#gauge-sleep').highcharts(Highcharts.merge(gaugeOptions, {
       yAxis: {
           min: 0,
           max: 10,
@@ -411,7 +244,7 @@ $(function () {
 
   }));
 
-  $('#gauge-step').highcharts(Highcharts.merge(gaugeStepOptions, {
+  $('#gauge-step').highcharts(Highcharts.merge(gaugeOptions, {
       yAxis: {
           min: 0,
           max: 12000,
@@ -432,6 +265,65 @@ $(function () {
               format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                   ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
                      '<span style="font-size:12px;color:silver">Steps</span></div>'
+          },
+          tooltip: {
+              valueSuffix: ' '
+          }
+      }]
+
+  }));
+
+
+  $('#gauge-calories_in').highcharts(Highcharts.merge(gaugeOptions, {
+      yAxis: {
+          min: 0,
+          max: 6000,
+          title: {
+              text: 'Dietary Calories'
+              ,style: { fontSize: '23px'}
+          }
+      },
+
+      credits: {
+          enabled: false
+      },
+
+      series: [{
+          name: 'Dietary Calories',
+          data: [calories_in],
+          dataLabels: {
+              format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                  ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                     '<span style="font-size:12px;color:silver">Calories</span></div>'
+          },
+          tooltip: {
+              valueSuffix: ' '
+          }
+      }]
+
+  }));
+
+  $('#gauge-calories_out').highcharts(Highcharts.merge(gaugeOptions, {
+      yAxis: {
+          min: 0,
+          max: 6000,
+          title: {
+              text: 'Calories Burned'
+              ,style: { fontSize: '23px'}
+          }
+      },
+
+      credits: {
+          enabled: false
+      },
+
+      series: [{
+          name: 'Calories Burned',
+          data: [calories_out],
+          dataLabels: {
+              format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                  ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                     '<span style="font-size:12px;color:silver">Calories</span></div>'
           },
           tooltip: {
               valueSuffix: ' '

@@ -15,31 +15,31 @@
 
   .row
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fitbit'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fitbit'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Moves App'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Moves App'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Nike +'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Nike +'}, locals: { marketplace_synced: @marketplace_synced}
 
   .row
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Map My Fitness'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Map My Fitness'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Jawbone Up'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Jawbone Up'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'BodyMedia'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'BodyMedia'}, locals: { marketplace_synced: @marketplace_synced}
 
   .row
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'RunKeeper'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'RunKeeper'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Strava'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Strava'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Withings'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Withings'}, locals: { marketplace_synced: @marketplace_synced}
 
   .row
     .col-sm-4
-      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fatsecret'}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fatsecret'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
     .col-sm-4
   %hr/

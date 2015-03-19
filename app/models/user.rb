@@ -82,6 +82,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def latest_nutrition
+    if external_account.user_nutrition
+      external_account.user_nutrition.first
+    else
+      nil
+    end
+  end
+
   def visible_to_community?
     social_profile.visible_to_community?
   end
