@@ -15,7 +15,7 @@
       - else
         - if marketplace_synced
           .btn.btn-default
-            %span{:style => "padding: 0 20px 0 20px;"}
+            %span{:style => "padding: 0 0 0 0;"}
               Unavailable
         - else
           %a{:href => marketplace_app['sync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + load_connections_path, :class => 'sync_link'}

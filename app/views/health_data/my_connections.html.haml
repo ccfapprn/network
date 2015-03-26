@@ -5,9 +5,12 @@
 -#   = image_tag "app_icons_bw.png"
 
 - if current_user && VALIDIC_ENABLED
-  %h3 Sync My Apps & Devices
+  %h3 Sync My Favorite App/Device
   %p
-    %em We partner with Validic to make connecting your mobile health apps and devices as easy and safe as possible. For more information about Validic, click here. By connecting the data from your devices to the network, you can create even more graphs in your patient portal. You can always disconnect any of the devices you're using at any time.
+    %em
+      We partner with Validic to make connecting your favorite mobile health app or device as easy and safe as possible. For more information about Validic, 
+      =link_to "click here.","https://validic.com/about"
+      By connecting your app or device, you’ll be able to create more graphs to track your health in the patient portal. You can only connect one app or device at a time. If you want to connect a different app, just disconnect the app you’re using first.
 
   -# %h2 generic marketplace (not using)
   -# %br/
@@ -42,7 +45,6 @@
       = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fatsecret'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
     .col-sm-4
-  %hr/
 
   = javascript_include_tag 'my_dashboard'
   
@@ -53,3 +55,78 @@
     = image_tag "app_icons_bw.png"
 
   -#.alert.alert-info= "Please sign in or sign up to connect your devices and apps."
+
+%h3 Health Data from Apps & Devices
+%p Check out the list of apps and devices below to see what health data is displayed from each in your personal health tracking graphs (found in My Dashboard and, soon to come, My Trends). If your app/device does not currently provide health data for graphs, we hope you’ll still connect it to help further IBD research. 
+
+%table.table.table-striped
+  %thead
+    %td
+    %td Steps
+    %td Sleep
+    %td Calories Burned
+  %tr
+    %td BodyMedia
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+  %tr
+    %td FatSecret
+    %td
+    %td
+    %td
+  %tr
+    %td Fitbit
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+  %tr
+    %td JawboneUP
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+  %tr
+    %td MapMyFitness
+    %td
+    %td
+    %td
+  %tr
+    %td Moves
+    %td
+      %i.fa.fa-times
+    %td
+    %td
+      %i.fa.fa-times
+  %tr
+    %td Nike+
+    %td
+      %i.fa.fa-times
+    %td
+    %td
+      %i.fa.fa-times
+  %tr
+    %td RunKeeper
+    %td
+    %td
+    %td
+  %tr
+    %td Strava
+    %td
+    %td
+    %td
+  %tr
+    %td Withings
+    %td
+      %i.fa.fa-times
+    %td
+    %td
+      %i.fa.fa-times

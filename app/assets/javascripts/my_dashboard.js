@@ -60,7 +60,8 @@ $(function () {
                   y: 5,
                   borderWidth: 0,
                   useHTML: true
-              }
+              },
+            wrap: false,
           }
       }
   };

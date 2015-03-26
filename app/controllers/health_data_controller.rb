@@ -29,7 +29,8 @@ class HealthDataController < ApplicationController
     if current_user
       @user_sleep = current_user.latest_sleep
       @user_routine = current_user.latest_routine
-      @user_nutrition = current_user.latest_nutrition
+      #calories not reliable, deletes are not handled, checking with validic
+      #@user_calories = current_user.latest_calories_in
       #@health_today = current_user.latest_check_in_complete.health_index 
       #@disease_index = current_user.latest_check_in_complete.disease_index
       @check_in = current_user.latest_check_in_complete
