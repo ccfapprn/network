@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :no_layout, :only => [:badge_list]
 
 
   def index
@@ -25,5 +26,7 @@ class HomeController < ApplicationController
 
     render layout: "community"
   end
+
+
 
 end

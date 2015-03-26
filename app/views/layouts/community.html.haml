@@ -30,7 +30,8 @@
       - else
         <br/><br/><br/><br/><br/>
         = render partial: "shared/bio"
-        = render partial: "shared/badge_list"
+        .badge_list{data: {target_path: badge_list_path}}
+          = render partial: "shared/badge_list"
 
 
 = render template: "layouts/application"
