@@ -43,11 +43,11 @@
         -#  =link_to "example measure","/"
         %li.dropdown{:role=>"presentation"}
           %a.dropdown-toggle{:href=>"#", "data-toggle"=>"dropdown", :role=>"button"}
-            -case params[:measure_one]
+            -case @measure_one #params[:measure_one]
             -when 'health'
-              Health
+              Health Today
             -when 'disease'
-              Disease
+              Disease Activity
             -when 'sleep'
               Sleep
             -when 'steps'
@@ -59,7 +59,7 @@
             %span.caret
           %ul.dropdown-menu{:role=>"menu"}
             %li
-              =link_to "Disease Index", health_data_path( params.merge(:measure_one=>"disease") )
+              =link_to "Disease Activity", health_data_path( params.merge(:measure_one=>"disease") )
             %li
               =link_to "Health Today", health_data_path( params.merge(:measure_one=>"health") )
             %li
@@ -71,11 +71,11 @@
 
         %li.dropdown{:role=>"presentation"}
           %a.dropdown-toggle{:href=>"#", "data-toggle"=>"dropdown", :role=>"button"}
-            -case params[:measure_two]
+            -case @measure_two #params[:measure_two]
             -when 'health'
-              Health
+              Health Today
             -when 'disease'
-              Disease
+              Disease Activity
             -when 'sleep'
               Sleep
             -when 'steps'
@@ -87,7 +87,7 @@
             %span.caret
           %ul.dropdown-menu{:role=>"menu"}
             %li
-              =link_to "Disease Index", health_data_path( params.merge(:measure_two=>"disease") )
+              =link_to "Disease Activity", health_data_path( params.merge(:measure_two=>"disease") )
             %li
               =link_to "Health Today", health_data_path( params.merge(:measure_two=>"health") )
             %li
@@ -95,11 +95,21 @@
             %li
               =link_to "Sleep", health_data_path( params.merge(:measure_two=>"sleep") )
             %li
-              =link_to "Calories Burned", health_data_path( params.merge(:measure_one=>"calories_out") )
+              =link_to "Calories Burned", health_data_path( params.merge(:measure_two=>"calories_out") )
 
         %li.dropdown{:role=>"presentation"}
           %a.dropdown-toggle{:href=>"#", "data-toggle"=>"dropdown", :role=>"button"}
-            Select Timeframe
+            -case @measure_month #params[:measure_month]
+            -when '1'
+              1 Month
+            -when '3'
+              3 Month
+            -when '6'
+              6 Month
+            -when '12'
+              12 Month
+            -else
+              Select Timeframe
             %span.caret
           %ul.dropdown-menu{:role=>"menu"}
             %li
@@ -107,12 +117,10 @@
             %li
               =link_to "3 Month", health_data_path( params.merge(:measure_month=>"3") )
             %li
+              =link_to "6 Month", health_data_path( params.merge(:measure_month=>"6") )
+            %li
               =link_to "12 Month", health_data_path( params.merge(:measure_month=>"12") )
 
-    %hr/
-    =debug(@chart_start)
-    =debug(@chart_one[:data].values.reverse.to_json)
-    =debug(@chart_two[:data].values.reverse.to_json)
     %hr/
     %br/
     #linechart{:style => "width: 700px; height: 500px"}

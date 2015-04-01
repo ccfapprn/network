@@ -6,16 +6,32 @@ $(function () {
   //var chart_two_json = $('#trend_data').data('chart-two');
   //var chart_one = $.map(chart_one_json, function(el) {return el;});
 
+  var chart_subtitle = '';
+  if( chart_one_name != '' && chart_two_name != '')
+    chart_subtitle = chart_one_name + ' vs ' + chart_two_name;
+  else if( chart_one_name != '' )
+    chart_subtitle = chart_one_name;
+  else if( chart_two_name != '' )
+    chart_subtitle = chart_two_name;
+
+
+  var chart_one_title = 'select first measure';
+  var chart_two_title = 'select second measure';
+  if( chart_one_name != '' )
+    chart_one_title = chart_one_name;
+  if( chart_two_name != '' )
+    chart_two_title = chart_two_name;
+
 	$('#linechart').highcharts({
 	      credits: {
           	enabled: false
       	},
 	    title: {
-	        text: 'COMING SOON! Health Tracking',
+	        text: 'Health Tracking',
 	        x: -20 //center
 	    },
 	    subtitle: {
-	        text: 'Source: data for demonstration only',
+	        text: chart_subtitle,
 	        x: -20
 	    },
 	    xAxis: {
@@ -27,18 +43,18 @@ $(function () {
 	    yAxis: [
 	      {
 	          title: {
-	              text: 'Steps per day'
+	              text: chart_one_title
 	          },
 	      },
 	      {
 	          title: {
-	              text: 'Disease Activity'
+	              text: chart_two_title
 	          },
 	      opposite: true
 	      },
 	    ],
 	    tooltip: {
-	          valueSuffix: ''
+	          valueSuffix: '',
 	    },
 	    legend: {
 	          layout: 'vertical',
@@ -52,7 +68,8 @@ $(function () {
             //pointStart: Date.UTC(2015, 2, 28),
             pointStart: Date.parse(chart_start),
 	          yAxis: 0,
-	          name: chart_one_name,
+              marker: { enabled: true, radius: 4},
+	          name: chart_one_title,
               data: chart_one_arr,
 	          //data: [
 	          //	2000, 3000, 4000, 5500, 5000, 5550, 4300, 5300, 5800, 5990,
@@ -64,7 +81,8 @@ $(function () {
             //pointStart: Date.UTC(2015, 2, 28),
             pointStart: Date.parse(chart_start),
 	          yAxis: 1,
-	          name: chart_two_name,
+              marker: { enabled: true, radius: 4},
+	          name: chart_two_title,
               data: chart_two_arr,
 	          //data: [
 	          //	225, 230, 199, 220, 190, 150, 168, 145, 140, 135,
@@ -74,94 +92,3 @@ $(function () {
 	    }]
 	});
 });
-
-
-/************************************
-$(function () {
-    $('#linechart').highcharts({
-        chart: {
-            zoomType: 'x'
-        },
-        title: {
-            text: 'Steps mockup'
-        },
-        subtitle: {
-            text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' :
-                    'Pinch the chart to zoom in'
-        },
-        xAxis: {
-            type: 'datetime',
-            minRange: 14 * 24 * 3600 * 1000 // fourteen days
-        },
-        yAxis: {
-            title: {
-                text: 'Exchange rate'
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            area: {
-                fillColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-                    stops: [
-                        [0, Highcharts.getOptions().colors[0]],
-                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                    ]
-                },
-                marker: {
-                    radius: 2
-                },
-                lineWidth: 1,
-                states: {
-                    hover: {
-                        lineWidth: 1
-                    }
-                },
-                threshold: null
-            }
-        },
-
-        series: [{
-            type: 'area',
-            name: 'USD to EUR',
-            pointInterval: 24 * 3600 * 1000, //every day
-            pointStart: Date.UTC(2015, 2, 1),
-            data: [
-            4400,
-            4400,
-            4400,
-            4400,
-            7800,
-            4400,
-            4400,
-            4400,
-            4400,
-            4400,
-            9900,
-            4400,
-            4400,
-            4400,
-            4400,
-            4400,
-            4400,
-            1200,
-            4400,
-            4400,
-            4400,
-            null,
-            4400,
-            4400,
-            4400,
-            4400,
-            4400,
-            4400,
-            4400,
-            4400,
-            ]
-        }]
-    });
-});
-********************************/

@@ -39,9 +39,9 @@ class TrendChart
     when 'disease'
       'Disease Activity'
     when 'sleep'
-      'Sleep'
+      'Hours of Sleep'
     when 'steps'
-      'Steps'
+      'Steps per Day'
     when 'calories_out'
       'Calories Burned'
     else
