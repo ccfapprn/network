@@ -8,7 +8,27 @@ class HealthDataController < ApplicationController
 
 
   def index
+    if current_user
+      @measure_one = params[:measure_one] || cookies[:measure_one]
+      @measure_two = params[:measure_two] ||cookies[:measure_two]
+      @measure_month = params[:measure_month] ||cookies[:measure_month]
+
+      #cookies[:measure_one] = @measure_one if @measure_one
+      #cookies[:measure_two] = @measure_two if @measure_two
+      #cookies[:measure_month] = @measure_month if @measure_month
+
+      #get Y axis data
+      charter = TrendChart.new(current_user)
+      months_ago = 1
+      @chart_start = months_ago.month.ago.to_date.strftime
+      @chart_one = charter.get_measure(@measure_one, months_ago)
+      @chart_two = charter.get_measure(@measure_two, months_ago)
+
+    end
+
   end
+
+
 
 
   def my_dashboard

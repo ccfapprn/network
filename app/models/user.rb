@@ -82,6 +82,40 @@ class User < ActiveRecord::Base
     end
   end
 
+  def chart_health
+    chart_survey_data(check_ins) {|c| c.health_index}
+  end
+
+  def chart_disease
+    chart_survey_data(check_ins) {|c| c.disease_index}
+  end
+
+  def chart_sleep
+    chart_validic_data(external_account.user_sleep) {|c| c.sleep_hours}
+    #external_account.user_sleep.each { |c| chart[c.updated_at.strftime('%Y-%m-%d')] = {date: c.updated_at, data: c.sleep_hours}}
+  end
+
+  def chart_steps
+    chart_validic_data(external_account.user_routine) {|c| c.steps.to_i}
+  end
+
+  def chart_calories_out
+    chart_validic_data(external_account.user_routine) {|c| c.calories_burned.to_i}
+  end
+
+
+  def chart_survey_data(arr)
+    chart = {}
+    arr.each { |a| chart[a.updated_at.strftime('%Y-%m-%d')] = yield(a) }
+    chart
+  end
+
+  def chart_validic_data(arr)
+    chart = {}
+    arr.each { |a| chart[a.timestamp_date.strftime('%Y-%m-%d')] = yield(a) }
+    chart
+  end
+
   def visible_to_community?
     social_profile.visible_to_community?
   end

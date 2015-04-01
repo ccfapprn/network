@@ -24,5 +24,103 @@
   .panel-heading
     %h4.panel-title Health Tracking
   .panel-body
+    -if current_user
+      -chart_one_str = '{"chart_one":' + @chart_one[:data].values.reverse.to_json + '}'
+      #trend_data{ data: { chart_start: @chart_start, chart_one: chart_one_str, chart_two: 2} }
+    
+
+    -#.dropdown
+    -#  %button#dLabel{ :type=>"button",:"data-toggle"=>"dropdown",:"aria-haspopup"=>"true",:"aria-expanded"=>"false"}
+    -#    Dropdown trigger
+    -#    %span.caret
+    -#  %ul.dropdown-menu{:role=>"menu",:"aria-labelledby"=>"dLabel"}
+    -#    %li what
+    -#    %li the
+    -#    %li heck
+    #measures
+      %ul.nav.nav-pills
+        -#%li.active{:role=>"presentation"}
+        -#  =link_to "example measure","/"
+        %li.dropdown{:role=>"presentation"}
+          %a.dropdown-toggle{:href=>"#", "data-toggle"=>"dropdown", :role=>"button"}
+            -case params[:measure_one]
+            -when 'health'
+              Health
+            -when 'disease'
+              Disease
+            -when 'sleep'
+              Sleep
+            -when 'steps'
+              Steps
+            -when 'calories_out'
+              Calories Burned
+            -else
+              Select First Measure
+            %span.caret
+          %ul.dropdown-menu{:role=>"menu"}
+            %li
+              =link_to "Disease Index", health_data_path( params.merge(:measure_one=>"disease") )
+            %li
+              =link_to "Health Today", health_data_path( params.merge(:measure_one=>"health") )
+            %li
+              =link_to "Steps", health_data_path( params.merge(:measure_one=>"steps") )
+            %li
+              =link_to "Sleep", health_data_path( params.merge(:measure_one=>"sleep") )
+            %li
+              =link_to "Calories Burned", health_data_path( params.merge(:measure_one=>"calories_out") )
+
+        %li.dropdown{:role=>"presentation"}
+          %a.dropdown-toggle{:href=>"#", "data-toggle"=>"dropdown", :role=>"button"}
+            -case params[:measure_two]
+            -when 'health'
+              Health
+            -when 'disease'
+              Disease
+            -when 'sleep'
+              Sleep
+            -when 'steps'
+              Steps
+            -when 'calories_out'
+              Calories Burned
+            -else
+              Select Second Measure
+            %span.caret
+          %ul.dropdown-menu{:role=>"menu"}
+            %li
+              =link_to "Disease Index", health_data_path( params.merge(:measure_two=>"disease") )
+            %li
+              =link_to "Health Today", health_data_path( params.merge(:measure_two=>"health") )
+            %li
+              =link_to "Steps", health_data_path( params.merge(:measure_two=>"steps") )
+            %li
+              =link_to "Sleep", health_data_path( params.merge(:measure_two=>"sleep") )
+            %li
+              =link_to "Calories Burned", health_data_path( params.merge(:measure_one=>"calories_out") )
+
+        %li.dropdown{:role=>"presentation"}
+          %a.dropdown-toggle{:href=>"#", "data-toggle"=>"dropdown", :role=>"button"}
+            Select Timeframe
+            %span.caret
+          %ul.dropdown-menu{:role=>"menu"}
+            %li
+              =link_to "1 Month", health_data_path( params.merge(:measure_month=>"1") )
+            %li
+              =link_to "3 Month", health_data_path( params.merge(:measure_month=>"3") )
+            %li
+              =link_to "12 Month", health_data_path( params.merge(:measure_month=>"12") )
+
+    %hr/
+    =debug(@chart_start)
+    =debug(@chart_one[:data].values.reverse.to_json)
+    =debug(@chart_two[:data].values.reverse.to_json)
+    %hr/
+    %br/
     #linechart{:style => "width: 700px; height: 500px"}
+    :javascript
+      //var chart_one_arr = [1,2,3,4,5,6,7,8,8,8,8,8,8,8,8,8,8,8,9,4,5,6];
+      var chart_one_arr = #{@chart_one[:data].values.reverse.to_json};
+      var chart_two_arr = #{@chart_two[:data].values.reverse.to_json};
+      var chart_one_name = "#{@chart_one[:name]}";
+      var chart_two_name = "#{@chart_two[:name]}";
+      var chart_start = "#{@chart_start}";
     = javascript_include_tag 'my_trends'
