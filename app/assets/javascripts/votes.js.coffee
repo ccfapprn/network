@@ -31,17 +31,28 @@ $(document).on "click", "#answer_session .voting button", () ->
 $(document).on "click", ".research_topics a.vote, #vote-counter a.vote, .research-topic a.vote", (event) ->
   event.preventDefault()
 
-  link = $(this)
+
+  research_topic_id = $(this).data("research-topic-id")
+  data_type = $(this).data("type")
+
+  #select the cast/retract button we want to be able to flip to cast/retract and vise versa
+  if data_type == 'retract-counter'
+    #the user has clicked the retract counter from the list of "my votes", so we need to find the original item in the list above
+    link = $("a[data-research-topic-id='"+research_topic_id+"']")
+  else
+    # the user clicked the original item in the list, so the link is that btn
+    link = $(this)
+
+
   link_text = ""
   badge = $(this).closest(".research-topic").find(".rating")
-  console.log badge.html() #FIXME - should we be logging all this stuff?
 
   submit_path = $(this).data("submit-path")
   research_topic_path = $(this).data("research-topic-path")
   vote_counter = $(".vote_counter")
+  badge_list = $(".badge_list")
 
 
-  research_topic_id = $(this).data("research-topic-id")
   vote_hash = {research_topic_id: research_topic_id}
 
   if $(this).data("type") == "cast"
@@ -57,12 +68,16 @@ $(document).on "click", ".research_topics a.vote, #vote-counter a.vote, .researc
 
   $.post(submit_path, post_hash, (data) ->
     if data.saved
-      if $(this).data("type") == 'retract-counter'
+      if data_type == 'retract-counter'
+        # remove the item from the my votes section
         $(this).closest(".list-group-item").remove()
-      else
-        link.text(link_text)
-        link.toggleClass('btn-primary').toggleClass("btn-default")
-        link.data("type", new_data)
+
+      #toggle the link text
+      link.text(link_text)
+      link.toggleClass('btn-primary').toggleClass("btn-default")
+      link.data("type", new_data)
+
+
       if badge.length
         $.getJSON(research_topic_path+".json", (data) ->
           badge.html(data.rating)
@@ -72,13 +87,16 @@ $(document).on "click", ".research_topics a.vote, #vote-counter a.vote, .researc
         $.get(vote_counter.data("target-path"), (data) ->
           vote_counter.html(data)
         )
+
+      #update the badge list since it may have changed since voting!
+      if badge_list.length
+        $.get(badge_list.data("target-path"), (data) ->
+          badge_list.html(data)
+        )
     else
-      console.log data  #FIXME - should we be logging all this stuff?
       bootbox.alert("Sorry! You have used all your votes. If you want to vote for this topic, first retract a vote from another.")
-
-
-
   )
+
 
 $(document).on "click", ".research_topics a.disabled", (event) ->
   event.preventDefault()

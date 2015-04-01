@@ -116,6 +116,32 @@ class User < ActiveRecord::Base
     chart
   end
 
+  def latest_nutrition
+    if external_account.user_nutrition
+      external_account.user_nutrition.first
+    else
+      nil
+    end
+  end
+
+  def latest_calories_in
+    sum_calories_in.values[0]
+  end
+
+  def sum_calories_in
+    sum = {}
+    if external_account.user_nutrition
+      external_account.user_nutrition.each do |n|
+        key = n.timestamp_date.to_date.strftime('%Y-%m-%d')
+        sum[key] = {} unless sum[key]
+        sum[key][:source_name] = n.source_name
+        sum[key][:timestamp_date] = n.timestamp_date
+        sum[key][:calories] = (sum[key][:calories])?(sum[key][:calories] + n.calories.to_i):(n.calories.to_i)
+      end
+    end
+    sum
+  end
+
   def visible_to_community?
     social_profile.visible_to_community?
   end

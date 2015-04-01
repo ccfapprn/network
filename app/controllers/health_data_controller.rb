@@ -49,10 +49,12 @@ class HealthDataController < ApplicationController
     if current_user
       @user_sleep = current_user.latest_sleep
       @user_routine = current_user.latest_routine
+      #calories not reliable, deletes are not handled, checking with validic
+      #@user_calories = current_user.latest_calories_in
       #@health_today = current_user.latest_check_in_complete.health_index 
       #@disease_index = current_user.latest_check_in_complete.disease_index
       @check_in = current_user.latest_check_in_complete
-      @synched = @user_sleep || @user_steps
+      #@synched = @user_sleep || @user_steps
     end
   end
 
@@ -65,6 +67,7 @@ class HealthDataController < ApplicationController
       if VALIDIC_ENABLED
         current_user.provision_if_unprovisioned if current_user
         @marketplace = current_user.get_validic_marketplace
+        @marketplace_synced = (@marketplace.find {|app| app['synced'] == true})?true:false
       end
     end
   end

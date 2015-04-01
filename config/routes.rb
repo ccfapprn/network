@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'home' => "home#index"
   get 'about' => 'static#about'
   get 'resources' => 'static#resources'
+  get 'badge_list' => 'home#badge_list'
+
 
   get 'external_link_warning' => 'static#external_link_warning'
   #Content Pages

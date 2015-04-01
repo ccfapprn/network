@@ -8,12 +8,17 @@
 
       - if marketplace_app['synced']
         %a{:href => marketplace_app['unsync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + my_connections_path, :class => 'unsync_link'}
-          .btn.btn-default
+          .btn.btn-success
             %span{:style => "padding: 0 10px 0 10px;"}
               Disconnect
 
       - else
-        %a{:href => marketplace_app['sync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + load_connections_path, :class => 'sync_link'}
-          .btn.btn-primary
-            %span{:style => "padding: 0 20px 0 20px;"}
-              Connect
+        - if marketplace_synced
+          .btn.btn-default
+            %span{:style => "padding: 0 0 0 0;"}
+              Unavailable
+        - else
+          %a{:href => marketplace_app['sync_url'] + '&redirect_uri=https://' + Figaro.env.website_url + load_connections_path, :class => 'sync_link'}
+            .btn.btn-primary
+              %span{:style => "padding: 0 20px 0 20px;"}
+                Connect
