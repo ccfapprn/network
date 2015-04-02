@@ -20,23 +20,14 @@
 
 
 
-.panel.panel-default
-  .panel-heading
-    %h4.panel-title Health Tracking
-  .panel-body
-    -if current_user
-      -chart_one_str = '{"chart_one":' + @chart_one[:data].values.reverse.to_json + '}'
-      #trend_data{ data: { chart_start: @chart_start, chart_one: chart_one_str, chart_two: 2} }
-    
+-if current_user
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title Health Tracking
+    .panel-body
+    -chart_one_str = '{"chart_one":' + @chart_one[:data].values.reverse.to_json + '}'
+    #trend_data{ data: { chart_start: @chart_start, chart_one: chart_one_str, chart_two: 2} }
 
-    -#.dropdown
-    -#  %button#dLabel{ :type=>"button",:"data-toggle"=>"dropdown",:"aria-haspopup"=>"true",:"aria-expanded"=>"false"}
-    -#    Dropdown trigger
-    -#    %span.caret
-    -#  %ul.dropdown-menu{:role=>"menu",:"aria-labelledby"=>"dLabel"}
-    -#    %li what
-    -#    %li the
-    -#    %li heck
     #measures
       %ul.nav.nav-pills
         -#%li.active{:role=>"presentation"}
@@ -132,3 +123,5 @@
       var chart_two_name = "#{@chart_two[:name]}";
       var chart_start = "#{@chart_start}";
     = javascript_include_tag 'my_trends'
+- else
+  .alert.alert-info= "Please sign in or sign up to see your Trends"
