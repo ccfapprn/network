@@ -106,13 +106,13 @@ class User < ActiveRecord::Base
 
   def chart_survey_data(arr)
     chart = {}
-    arr.each { |a| chart[a.updated_at.strftime('%Y-%m-%d')] = yield(a) }
+    arr.each { |a| chart[a.updated_at.strftime('%Y-%m-%d')] = yield(a) if a.updated_at }
     chart
   end
 
   def chart_validic_data(arr)
     chart = {}
-    arr.each { |a| chart[a.timestamp_date.strftime('%Y-%m-%d')] = yield(a) }
+    arr.each { |a| chart[a.timestamp_date.strftime('%Y-%m-%d')] = yield(a) if a.timestamp_date }
     chart
   end
 

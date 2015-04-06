@@ -7,7 +7,7 @@ class TrendChart
 
   def get_measure(measure, num_months)
       dat = user_measure_data(measure) || {}
-      ret = {data: [], name: ""}
+      ret = {}
       Date.today.downto( num_months.months.ago.to_date).each do |day|
         d = day.to_s 
         ret[d] = dat[d]
