@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
 
   include ::ActionView::Helpers::TextHelper
 
+  default_scope { order("created_at DESC") }
+
   scope :blog_posts, -> { where(post_type: "blog") }
   scope :notifications, -> { where(post_type: "notification") }
   scope :viewable, -> { where(state: "accepted").order(:created_at) }
