@@ -10,9 +10,13 @@
           %h4
             %a{href: social_profile_path}
               = current_user.private_name
-          .badge.badge-primary
-            = pprn_number_to_human(current_user.points)
-            Karma
+            %br/
+            %div{"style" => "margin-top: 5px;"}
+              -#, "data-toggle" => "tooltip", "data-placement" => "right", "title" =>"Citizen Scientist Level: The total number of badges you've earned."}
+              %span.label.label-as-badge.label-default.label-md
+                %i.fa.fa-flask
+                = current_user.badges.count
+
     .panel-footer.small.center
       - if current_user.social_profile.visible_to_community?
         Social is On: This bio is shared with others.

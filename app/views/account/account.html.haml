@@ -17,7 +17,7 @@
   .col-md-12
     .panel.panel-default
       .panel-heading
-        %h3.panel-title Your Profile
+        %h3.panel-title Your Community Profile
         %span This is for community purposes only. You can make your community name different than your real name.
       .panel-body#social_profile_form_panel
         = form_for @social_profile, html: {role: "form", class: 'form-horizontal'}, url: update_social_profile_path do |f|
@@ -75,27 +75,35 @@
     = form_for @social_profile, html: {role: "form", class: 'form-horizontal'}, url: update_social_profile_path do |f|
       .panel.panel-default
         .panel-heading
-          %h4 Show me to other members?
+          %h4 Show my community profile to other users?
+          .radio
+            %label
+              = f.radio_button :visible_to_community, true, id: 'visible_to_community_true' #, #optionsRadios2'
+              %strong
+                Social On.
 
-          .row
-            .col-md-9
-              .radio
-                %label
-                  = f.radio_button :visible_to_community, true, id: 'visible_to_community_true' #, #optionsRadios2'
-                  %strong
-                    Social On:
-                  %span.small Let other members see my above profile.
-              .radio
-                %label
-                  = f.radio_button :visible_to_community, false, id: 'visible_to_community_false' #, #optionsRadios1'
-                  %strong
-                    Social Off:
-                  %span.small Don't let other members see any info about me (such as my above profile).
+          %span.small When I make posts and comments my community profile is shown beside this content. My community profile will be linked to on the user map.
+          %br/
+          %br/
+          .radio
+            %label
+              = f.radio_button :visible_to_community, false, id: 'visible_to_community_false' #, #optionsRadios1'
+              %strong
+                Social Off.
+          %span.small Don't show my community profile to anyone (you really don't need it filled out if you choose this). Beside your posts and comments there will be an anonymous avatar rather than your name and photo.
 
-
-            .col-md-3
-              %br/
-              =f.submit("Save", class: 'btn btn-primary pull-right')
+          %br/
+          %br/
+          .alert.alert-info.small
+            .row
+              .col-sm-1.text-center
+                .fa.fa-info-circle{style: "font-size:24px;"}
+              .col-sm-11
+                If you change from social on to social off or vise versa, all your content will make that change. That means that if you change from social off to social on, comments you wrote that were previously anonymous will change to show your community profile.
+          .clearfix
+          .pull-right
+            =f.submit("Save", class: 'btn btn-primary pull-right')
+          .clearfix
 
 
 .row
