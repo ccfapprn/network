@@ -275,6 +275,10 @@ class User < ActiveRecord::Base
     social_profile.private_photo_url
   end
 
+  def private_name
+    social_profile.private_name
+  end
+
   def forem_name
     community_name
   end

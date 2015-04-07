@@ -3,12 +3,12 @@
 -##############
 
 - content_for :page_content do
-  %ul.nav.nav-tabs{role: "tablist"}
-    %li{class: "#{'active' if @active_sub_nav == :social_profile}"}
-      %a{href: social_profile_path} Social Profile
-    %li{class: "#{'active' if @active_sub_nav == :account}"}
-      %a{href: account_path} Account Details
-  %br/
+  -#%ul.nav.nav-tabs{role: "tablist"}
+  -#  %li{class: "#{'active' if @active_sub_nav == :social_profile}"}
+  -#    %a{href: social_profile_path} Social Profile
+  -#  %li{class: "#{'active' if @active_sub_nav == :account}"}
+  -#    %a{href: account_path} Account Details
+  -#%br/
 
   = yield
 

@@ -79,7 +79,7 @@ Rails.application.routes.draw do
 
   # members Section
   match 'members', to: 'members#index', via: :get, as: 'members' # show
-  match 'members/profile', to: 'members#profile', as: 'social_profile', via: :get #edit
+  #match 'members/profile', to: 'members#profile', as: 'social_profile', via: :get #edit
   match 'members/profile', to: 'members#update_profile', as: 'update_social_profile', via: [:put, :post, :patch] # update
   match 'locations', via: :get, as: :locations, format: :json, to: 'members#locations'
 
@@ -90,6 +90,7 @@ Rails.application.routes.draw do
 
 
   # Account Section
+  match 'account/account', to: 'account#account', as: 'social_profile', via: :get #edit
   get 'account' => 'account#account'
   get 'account_export' => 'account#account_export'
   match 'consent', to: "account#consent", as: :consent, via: [:get, :post]

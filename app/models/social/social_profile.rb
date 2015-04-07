@@ -53,6 +53,9 @@ class SocialProfile < ActiveRecord::Base
     end
   end
 
+  def private_name
+    name if name.present?
+  end
 
 
   def location_for_map

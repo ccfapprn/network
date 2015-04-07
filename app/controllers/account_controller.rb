@@ -1,6 +1,6 @@
 class AccountController < ApplicationController
   before_action :authenticate_user!, except: [:consent, :privacy_policy, :terms_and_conditions]
-
+  before_action :fetch_social_profile, only: [:account, :update, :change_password]
   # def view_consent
   #   @pc = YAML.load_file(Rails.root.join('lib', 'data', 'content', "consent.#{I18n.locale}.yml"))
   # end
@@ -44,10 +44,14 @@ class AccountController < ApplicationController
 
   def account
     @user = current_user
+
     @active_top_nav_link = :my_account
     render layout: "account"
   end
 
+  def fetch_social_profile
+    @social_profile = current_user.social_profile
+  end
 
   def terms_and_conditions
   end

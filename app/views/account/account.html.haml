@@ -1,40 +1,113 @@
 - @title = "Account"
 - @active_sub_nav = :account
 
-%h3 My User Information
-%br/
+
+-# content_for :before_scripts do
+= javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=#{Rails.configuration.google_maps_api_key}"
+
+
+-# content_for :after_scripts do
+= javascript_include_tag 'typeahead-addresspicker'
+= javascript_include_tag 'social/places'
+= javascript_include_tag 'social/social_profile'
+
+
+
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Your Profile
+        %span This is for community purposes only. You can make your community name different than your real name.
+      .panel-body#social_profile_form_panel
+        = form_for @social_profile, html: {role: "form", class: 'form-horizontal'}, url: update_social_profile_path do |f|
+
+          - if @social_profile.errors.any?
+            .alert.alert-danger.alert-dismissable
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} &times;
+              %strong Profile Errors
+              %ul
+                - @social_profile.errors.full_messages.each do |msg|
+                  %li= msg.html_safe
+
+          .form-group
+            %label.col-sm-3.control-label
+              = image_tag current_user.private_photo_url, :class => "img-responsive img-circle pull-right"
+            .col-sm-9
+              %h4 Your Photo
+              =f.file_field :photo
+          .form-group
+            %label.col-sm-3.control-label Community Name
+            .col-sm-6
+              =f.text_field(:name, class: 'form-control')
+          .form-group
+            %label.col-sm-3.control-label City
+            .col-sm-6
+              =f.text_field(:location, autocomplete: 'off', id: 'location', class: 'form-control')
+              =f.hidden_field :latitude
+              =f.hidden_field :longitude
+              =f.hidden_field :location_id
+          .form-group
+            %label.col-sm-3.control-label Age
+            .col-sm-6
+              =f.number_field(:age, class: 'form-control')
+          .form-group
+            %label.col-sm-3.control-label Sex
+            .col-sm-6
+              =f.select(:sex, ["Male", "Female", "Other"], {}, class: 'form-control')
+
+          -#.form-group
+          -#  .col-sm-3.control-label
+          -#    .checkbox.pull-right
+          -#      %label
+          -#        =f.check_box :show_karma, id: 'checkbox'
+          -#  .col-sm-6
+          -#    %h4 Show me in the top karma earners list if I qualify.
+
+
+          =f.submit("Save", class: 'btn btn-primary pull-right')
+
+
+
+
+.row
+  .col-md-12
+    = form_for @social_profile, html: {role: "form", class: 'form-horizontal'}, url: update_social_profile_path do |f|
+      .panel.panel-default
+        .panel-heading
+          %h4 Show me to other members?
+
+          .row
+            .col-md-9
+              .radio
+                %label
+                  = f.radio_button :visible_to_community, true, id: 'visible_to_community_true' #, #optionsRadios2'
+                  %strong
+                    Social On:
+                  %span.small Let other members see my above profile.
+              .radio
+                %label
+                  = f.radio_button :visible_to_community, false, id: 'visible_to_community_false' #, #optionsRadios1'
+                  %strong
+                    Social Off:
+                  %span.small Don't let other members see any info about me (such as my above profile).
+
+
+            .col-md-3
+              %br/
+              =f.submit("Save", class: 'btn btn-primary pull-right')
+
 
 .row
   .col-md-6
     .panel.panel-default
       .panel-heading
-        %h4.panel-title User Information
+        %h4.panel-title Your Email
       .panel-body
-        - if @user.errors.any? and @update_for == :user_info
-          = render partial: "shared/form_errors", locals: {resource: @user, message: "Your account settings could not be saved."}
-        = form_for @user, url: update_account_path do |f|
-          .form-group
-            %strong Your Email:
-            %em= current_user.email
-          .form-group
-            = f.label :first_name, class: 'sr-only'
-            = f.text_field :first_name, class: 'form-control input-lg', placeholder: User.human_attribute_name(:first_name), autocomplete: :off
-          .form-group
-            = f.label :last_name, class: 'sr-only'
-            = f.text_field :last_name, class: 'form-control input-lg', placeholder: User.human_attribute_name(:last_name), autocomplete: :off
-          -#.form-group
-          -#  = f.label :email, class: 'sr-only'
-          -#  = f.email_field :email, class: 'form-control input-lg', placeholder: User.human_attribute_name(:email), autocomplete: :off
-          .form-group
-            = f.label :zip_code, class: 'sr-only'
-            = f.text_field :zip_code, class: 'form-control input-lg', placeholder: User.human_attribute_name(:zip_code), autocomplete: :off
-          .form-group
-            = f.label :year_of_birth, class: 'sr-only'
-            = f.text_field :year_of_birth, class: 'form-control input-lg', placeholder: User.human_attribute_name(:year_of_birth), autocomplete: :off
-          = f.submit "Save Changes", class: 'btn btn-primary pull-right'
+        %em= current_user.email
     .panel.panel-default
       .panel-heading
-        %h4.panel-title Password
+        %h4.panel-title Change Password
       .panel-body
         - if @user.errors.any? and @update_for == :password
           = render partial: "shared/form_errors", locals: {resource: @user, message: "Your new password could not be saved."}

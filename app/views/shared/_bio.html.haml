@@ -1,15 +1,24 @@
 -# Bio Spot
 
 - if current_user
-  %a{href: social_profile_path}
-    .panel.panel-primary
-      %ul.list-group
-        %li.list-group-item
-          .media
-            .pull-left
-              = image_tag current_user.community_photo_url, :class => " media-item-object img-circle user-avatar"
-            .media-body.small
-              %h4= current_user.community_name
-              -#.badge.badge-primary
-              -#  = pprn_number_to_human(current_user.points)
-              -#  Karma
+  .panel.panel-primary
+    .panel-body
+      .media
+        .pull-left
+          = image_tag current_user.private_photo_url, :class => " media-item-object img-circle user-avatar"
+        .media-body.small
+          %h4
+            %a{href: social_profile_path}
+              = current_user.private_name
+          .badge.badge-primary
+            = pprn_number_to_human(current_user.points)
+            Karma
+    .panel-footer.small.center
+      - if current_user.social_profile.visible_to_community?
+        Social is On: This bio is shared with others.
+      - else
+        Social is Off: You are hidden to other users.
+      %a{href: social_profile_path}
+        Change this.
+
+

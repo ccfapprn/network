@@ -35,12 +35,8 @@
             %ul.dropdown-menu.dropdown-menu-right{role: "menu"}
 
               %li
-                %a{href: main_app.social_profile_path}
-                  %i.fa.fa-user &nbsp; Social Profile
-
-              %li
                 %a{href: main_app.account_path}
-                  %i.fa.fa-wrench &nbsp; Account Details
+                  %i.fa.fa-user &nbsp; My Profile & Login
 
               - if current_user.can?(:view_admin_dashboard)
                 %li.divider{role:"presentation"}
