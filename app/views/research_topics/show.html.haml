@@ -74,7 +74,7 @@
                         .label.label-default= "Research Team"
                     = comment.body
                     %br/
-                    %small= comment.created_at
+                    %small= time_ago_in_words(comment.created_at) . " ago"
               %hr/
             - else
               .alert.alert-info
