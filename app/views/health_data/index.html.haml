@@ -122,6 +122,7 @@
       var chart_one_name = "#{@chart_one[:name]}";
       var chart_two_name = "#{@chart_two[:name]}";
       var chart_start = "#{@chart_start}";
-    = javascript_include_tag 'my_trends'
+      my_trend_render();
+    -#= javascript_include_tag 'my_trends'
 - else
   .alert.alert-info= "Please sign in or sign up to see your Trends"

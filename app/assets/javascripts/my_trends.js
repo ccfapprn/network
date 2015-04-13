@@ -1,4 +1,5 @@
-$(function () {
+//$(function () {
+function my_trend_render() {
 
   //var chart_start = $('#trend_data').data('chart-start');
   //var chart_one_json = $('#trend_data').data('chart-one');
@@ -91,4 +92,4 @@ $(function () {
 	          //	]
 	    }]
 	});
-});
+};
