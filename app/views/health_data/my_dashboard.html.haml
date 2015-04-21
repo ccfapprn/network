@@ -86,7 +86,9 @@
           .col-sm-6
             #gauge-sleep-coming-soon{:style => "width: 300px; height: 200px"}
 
-      = javascript_include_tag 'my_dashboard'
+      -#= javascript_include_tag 'my_dashboard'
+      :javascript
+        my_dashboard_render();
     - else
       %p Complete a health check in to see your data
     .clearfix

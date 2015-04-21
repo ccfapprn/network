@@ -1,4 +1,5 @@
-$(function () {
+//$(function () {
+function my_dashboard_render() {
 
   var health_today = $('#dashboard_data').data('health-today');
   var disease_type = $('#dashboard_data').data('disease-type');
@@ -392,4 +393,4 @@ $(function () {
 
   }));
 
-});
+};
