@@ -170,6 +170,12 @@ module OODT
     return external_account
   end
 
+  def store_next_survey_info(body)
+    self.external_account.next_survey_date = body['openingDate']
+    self.external_account.next_survey_url = body['url']
+
+    self.external_account.save
+  end
 
 
 
@@ -203,7 +209,9 @@ module OODT
   ###############
   # SURVEYS
   ###############
-  def get_survey_scorecard(options) #11
+  def get_survey_scorecard(options = {}) #11
+    options[:return_url] = Rails.application.routes.url_helpers.research_my_contributions_url if options[:return_url].nil?
+
     response = oodt.post "users/@@surveys", user_hash.merge(:return_url => options[:return_url])
     body = parse_body(response)
 
@@ -211,8 +219,11 @@ module OODT
       num_surveys_completed = body['completed'].count
       update_survey_badges(num_surveys_completed)
 
+      # cache survey data
+      store_next_survey_info(body)
+
       # The API:
-      # surveyOpenDate = body['surveyDate']
+      # surveyOpenDate = body['openingDate']
       # surveyURL = body['url']
       # num_incompleted = body['incomplete'].count
       # num_surveys = num_completed + num_incompleted

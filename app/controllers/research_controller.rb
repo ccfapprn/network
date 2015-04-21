@@ -18,7 +18,7 @@ class ResearchController < ApplicationController
 
   def my_contributions
     @research_access_events = current_user && OODT_ENABLED ? current_user.get_research_access_events : []
-    @survey_scorecard = current_user && OODT_ENABLED ? current_user.get_survey_scorecard(return_url: Rails.application.routes.url_helpers.research_my_contributions_url) : []
+    @survey_scorecard = current_user && OODT_ENABLED ? current_user.get_survey_scorecard : []
   end
 
 end

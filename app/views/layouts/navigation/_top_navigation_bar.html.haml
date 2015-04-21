@@ -69,7 +69,7 @@
 
 .row
   .col-md-12.pprn-nav
-    %ul.nav.nav-pills.top-nav
+    %ul.nav.nav-pills.top-nav.pull-left
       %li{:class => "#{"active" if @active_top_nav_link == :home}"}
         %a{href: main_app.home_path} Home
       %li{:class => "#{"active" if @active_top_nav_link == :research}"}
@@ -78,3 +78,24 @@
         %a{href: main_app.health_data_path} My Health Data
       %li{class: "#{"active" if @active_top_nav_link == :members}"}
         %a{href: main_app.members_path} Members
+
+
+    -# NEXT SURVEY LINK AND NOTIFICATION
+
+    - if current_user && current_user.external_account && current_user.external_account.next_survey_date
+
+      - if current_user.external_account.next_survey_date.future?
+        .pull-right
+          .alert{:style => "padding: 5px 20px 5px 20px; margin-top: 15px;"}
+            Your next survey opens in
+            = distance_of_time_in_words(current_user.external_account.next_survey_date, Time.now)
+            = "(#{current_user.external_account.next_survey_date.strftime("%B %e, %Y")})"
+
+      - else
+        .pull-right
+          .alert.alert-success{:style => "padding: 5px 20px 5px 20px; margin-top: 15px;"}
+            %strong You have a new survey to do!
+            %a{href: current_user.external_account.next_survey_url} Click here to do it.
+
+
+
