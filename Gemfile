@@ -106,6 +106,9 @@ gem 'faraday'
 # HighCharts
 gem "highcharts-rails"
 
+# Enables detection and linking of links in string/texts. Use auto_link(my_string)
+gem "rails_autolink"
+
 # Development
 group :development do
   gem "better_errors"

@@ -1,3 +1,5 @@
+- require 'rails_autolink'
+
 - title("Research Questions")
 .row.research-topic
   .col-md-12
@@ -32,7 +34,7 @@
 
 
       .col-md-9
-        %p= @research_topic.description
+        %p= auto_link(@research_topic.description, :html => { :target => '_blank' })
 
         %br/
 
@@ -74,7 +76,7 @@
                         .label.label-default= "Research Team"
                       - elsif comment.user.has_role?(:researcher)
                         .label.label-default= "Researcher"
-                    = comment.body
+                    = auto_link(comment.body, :html => { :target => '_blank' })
                     %br/
                     %small= time_ago_in_words(comment.created_at) + " ago"
               %hr/
