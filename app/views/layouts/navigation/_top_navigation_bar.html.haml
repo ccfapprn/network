@@ -72,14 +72,14 @@
 .row
   .col-md-12.pprn-nav
     %ul.nav.nav-pills.top-nav.pull-left
-      %li{:class => "#{"active" if @active_top_nav_link == :home}"}
-        %a{href: main_app.home_path} Home
-      %li{:class => "#{"active" if @active_top_nav_link == :research}"}
-        %a{href: main_app.research_path} Research
       %li{:class => "#{"active" if @active_top_nav_link == :health_data}"}
         %a{href: main_app.health_data_path} My Health Data
+      %li{:class => "#{"active" if @active_top_nav_link == :research}"}
+        %a{href: main_app.research_path} Research
       %li{class: "#{"active" if @active_top_nav_link == :members}"}
         %a{href: main_app.members_path} Members
+      %li{:class => "#{"active" if @active_top_nav_link == :blog}"}
+        %a{href: main_app.blog_path} Blog
 
 
     -# NEXT SURVEY LINK AND NOTIFICATION

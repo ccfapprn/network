@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # Static Pages
   root 'static#splash'
-  get 'home' => "home#index"
+  get 'home' => "health_data#index"
   get 'about' => 'static#about'
   get 'resources' => 'static#resources'
   get 'badge_list' => 'home#badge_list'
@@ -85,8 +85,8 @@ Rails.application.routes.draw do
 
 
   # Blog Section
-  get 'blog' => 'blog#blog'
-  get 'blog_findings' => 'blog#blog_findings'
+  get 'blog' => 'blog#index'
+  #get 'blog_findings' => 'blog#blog_findings'
 
 
   # Account Section

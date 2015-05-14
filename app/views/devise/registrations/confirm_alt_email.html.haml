@@ -2,7 +2,7 @@
 -if @confirmed
   %p Thank you for confirming your alternative email address.
   -if current_user
-    %a.btn.btn-primary{href: home_path} Continue
+    %a.btn.btn-primary{href: health_data_path} Continue
   -else
     =link_to "Log In", main_app.new_user_session_path
     to continue
