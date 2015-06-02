@@ -25,10 +25,14 @@
             %small
               ="Vote".pluralize @research_topic.rating
           %hr/
-          - unless @research_topic.has_vote?(current_user, 1)
-            %a.vote.btn.btn-primary{data: {research_topic_id: @research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(@research_topic), type: "cast"}} Cast Vote
+          - if @research_topic.votable?
+            - unless @research_topic.has_vote?(current_user, 1)
+              %a.vote.btn.btn-primary{data: {research_topic_id: @research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(@research_topic), type: "cast"}} Cast Vote
+            - else
+              %a.vote.btn.btn-default{data: {research_topic_id: @research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(@research_topic), type: "retract"}} Retract Vote
           - else
-            %a.vote.btn.btn-default{data: {research_topic_id: @research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(@research_topic), type: "retract"}} Retract Vote
+            %a.btn.btn-success.btn-sm
+              = @research_topic.state.titleize
           %br/
           %br/
 
@@ -62,7 +66,7 @@
       .col-md-12
         .panel.panel-default
           .panel-heading
-            %h3.panel-title Comments
+            %h3.panel-title#comments Comments
           .panel-body
             - if @research_topic.comments.any?
               - @research_topic.comments.each do |comment|

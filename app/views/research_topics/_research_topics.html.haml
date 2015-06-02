@@ -8,9 +8,12 @@
         Posted On
       - elsif kind == :most_discussed
         Last Activity On
+      - elsif kind == :archived
+        Last Activity On
 
     %th.col-sm-8.small Question
-    %th.col-sm-2.small Vote
+    -#%th.col-sm-2.small Vote
+    %th.col-sm-2.small
 
 
   - i = 0
@@ -23,16 +26,30 @@
         - elsif kind == :newest
           = my_strftime(research_topic.created_at)
         - elsif kind == :most_discussed
+          -#= research_topic.comments_last_30
+          = my_strftime(research_topic.updated_at)
+        - elsif kind == :archived
           = my_strftime(research_topic.updated_at)
       %td
         = link_to research_topic.text, research_topic_path(research_topic)
+        %br
+        %small 
+          = link_to "view #{research_topic.comments.count} #{'comment'.pluralize(research_topic.comments.count)}", research_topic_path(research_topic,anchor: "comments")
+          \- #{research_topic.category.titleize} - #{time_ago_in_words(research_topic.created_at)} ago
 
       %td
         - if current_user
-          - unless research_topic.has_vote?(current_user, 1)
-            %a.btn.btn-primary.btn-sm.vote{href: vote_path, data: {research_topic_id: research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(research_topic), type: "cast"}} Cast Vote
+          - if research_topic.votable?
+            - unless research_topic.has_vote?(current_user, 1)
+              %a.btn.btn-primary.btn-sm.vote{href: vote_path, data: {research_topic_id: research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(research_topic), type: "cast"}} Cast Vote
+            - else
+              %a.btn.btn-default.btn-sm.vote{href: vote_path, data: {research_topic_id: research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(research_topic), type: "retract"}} Retract Vote
           - else
-            %a.btn.btn-default.btn-sm.vote{href: vote_path, data: {research_topic_id: research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(research_topic), type: "retract"}} Retract Vote
+            %a.btn.btn-success.btn-sm{href: research_topic_path(research_topic,anchor: "comments")}
+              = research_topic.state.titleize
+              -#= link_to research_topic.state.titleize, research_topic_path(research_topic,anchor: "comments")
+
+
 
 
 .panel-footer.text-center

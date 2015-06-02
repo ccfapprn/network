@@ -99,7 +99,7 @@ class ResearchTopicsController < ApplicationController
   private
 
   def research_topic_params
-    params.require(:research_topic).permit(:text, :description)
+    params.require(:research_topic).permit(:text, :description, :category)
   end
 
   def research_topic_moderator_params

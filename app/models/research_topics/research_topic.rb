@@ -1,6 +1,7 @@
 class ResearchTopic < ActiveRecord::Base
   include Votable
   has_many :votes, dependent: :destroy
+  has_many :research_topics
 
   acts_as_commentable
 
@@ -10,26 +11,66 @@ class ResearchTopic < ActiveRecord::Base
 
   belongs_to :user
 
-  STATES = [:proposed, :under_study, :study_completed, :rejected]
+  STATES = [:proposed, :top_priority, :in_progress, :being_researched, :completed, :better_answered_elsewhere, :answered_by_others, :rejected]
+  #not as OLD iimplementation STATES = [:proposed, :under_study, :study_completed, :rejected]
   #Old Implementation: STATES = [:under_review, :proposed, :accepted, :rejected, :complete, :hidden]
+  CATEGORIES = [:diet, :medications, :procedures_and_testing, :alternative_therapies, :exercise, :lifestyle, :environment, :genetics, :other]
 
   #default_scope { where("state != 'rejected'") }
 
   scope :proposed, -> { where(state: 'proposed') }
-  scope :under_study, -> { where(state: 'under_study') }
-  scope :study_completed, -> { where(state: 'study_completed') }
+  #scope :under_study, -> { where(state: 'under_study') }
+  #scope :study_completed, -> { where(state: 'study_completed') }
   scope :rejected, ->  { where(state: 'rejected') }
-  scope :accepted, -> { where("state != 'rejected'") }
+  scope :accepted, -> { where("state != 'rejected'").where("archive_date > ? or archive_date is ?",2.weeks.ago.to_date,nil) }
 
+    
   #scope :sorted, -> { order(:votes_count)}
 
   scope :popular, -> { accepted.order(votes_count: :desc) }
   scope :most_discussed, -> { accepted.order(updated_at: :desc) } #make sure commenting touches the model
   scope :newest, -> { accepted.order(created_at: :desc) }
+  scope :archived, -> { where("state != 'proposed'").where("state != 'rejected'").where("archive_date <= ?",2.weeks.ago.to_date).order(updated_at: :desc) }
 
   # intentionally returns all now, to allow for future filtering (no filters needed at the moment):
   scope :viewable_by, lambda { |user_id| self.all}
 
+  # trying to get something like this:
+  # select r.id,count(commentable_id)  as comment_count from research_topics r
+  # left outer join comments c on c.commentable_id = r.id and c.updated_at > (SYSDATE - 30)
+  # group by r.id
+  # order by comment_count desc, r.id;
+
+  def self.most_commented
+    most_discussed.sort {|a,b| a.comments_last_30 <=> b.comments_last_30}
+  end
+
+  def update(params)
+    params = set_archive(params)
+    super
+  end
+
+  # set or unset archive date if state changes from votable?
+  def set_archive(params)
+    if params["state"]
+      if votable? && !votable?(params["state"])
+        params.merge!({"archive_date"=>Date.today})
+      end
+      if !votable? && votable?(params["state"])
+        params.merge!({"archive_date"=>nil})
+      end
+    end
+    params
+  end
+
+  def votable?(in_state=nil)
+    in_state = state if in_state == nil
+    if in_state == "proposed"
+      true
+    else
+      false
+    end
+  end
 
   def self.popular_old(user_id = nil)
 
@@ -38,8 +79,15 @@ class ResearchTopic < ActiveRecord::Base
     end
   end
 
+  #def self.voted_by(user)
+  #  self.joins(:votes).where(votes: {user_id: user.id, rating: 1} ).sort do |rt1, rt2|
+  #    sort_topics(rt1, rt2)
+  #  end
+  #end
+
+  # now counted votes only for non-archived (archive date + 2 weeks == archived)
   def self.voted_by(user)
-    self.joins(:votes).where(votes: {user_id: user.id, rating: 1} ).sort do |rt1, rt2|
+    self.joins(:votes).where(votes: {user_id: user.id, rating: 1} ).where("archive_date > ? or archive_date is ?",2.weeks.ago.to_date,nil).sort do |rt1, rt2|
       sort_topics(rt1, rt2)
     end
   end
@@ -133,6 +181,12 @@ class ResearchTopic < ActiveRecord::Base
   # As per Sean's specs
   def rank
     1 + (self.class.ranks.index { |rank_hash| rank_hash['research_topic_id'].to_i == self.id } || 0)
+  end
+
+  def comments_last_30
+    count = 0
+    comments.each {|c| count +=1 if c.updated_at > 30.days.ago}
+    count
   end
 
 

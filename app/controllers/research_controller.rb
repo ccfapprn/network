@@ -14,6 +14,7 @@ class ResearchController < ApplicationController
     @research_topics_popular = ResearchTopic.popular.page params[:popular_page]
     @research_topics_most_discussed = ResearchTopic.most_discussed.page params[:most_discussed_page]
     @research_topics_newest = ResearchTopic.newest.page params[:newest_page]
+    @research_topics_archived = ResearchTopic.archived.page params[:archived_page]
   end
 
   def my_contributions

@@ -1,7 +1,7 @@
 -##############
 -### COMMUNITY CONTRIBUTIONS
 -##############
-- scores = { "Proposed Questions" => ResearchTopic.count, "Votes Cast" => Vote.count, "Being Researched" => ResearchTopic.under_study.count}
+- scores = { "Proposed Questions" => ResearchTopic.count, "Votes Cast" => Vote.count}
 - content_for :community_contributions do
   = render partial: "check_in" if current_user
 

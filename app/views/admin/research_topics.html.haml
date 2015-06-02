@@ -16,7 +16,7 @@
           %td= research_topic.rating
           %td= research_topic.text
           %td= research_topic.user
-          %td= research_topic.state
+          %td= research_topic.state.titleize
           %td= research_topic.created_at.strftime("%d-%m-%Y %H:%M")
           %td
             = link_to "Edit", admin_research_topic_path(research_topic), class: "btn btn-success btn-xs"
