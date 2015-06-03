@@ -31,7 +31,7 @@
             - else
               %a.vote.btn.btn-default{data: {research_topic_id: @research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(@research_topic), type: "retract"}} Retract Vote
           - else
-            %a.btn.btn-success.btn-sm
+            %a.btn.btn-success.btn-sm.research_priority{"data-category" => "#{@research_topic.state}" }
               = @research_topic.state.titleize
           %br/
           %br/
