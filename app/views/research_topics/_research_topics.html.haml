@@ -45,9 +45,8 @@
             - else
               %a.btn.btn-default.btn-sm.vote{href: vote_path, data: {research_topic_id: research_topic.id, submit_path: vote_path, research_topic_path: research_topic_path(research_topic), type: "retract"}} Retract Vote
           - else
-            %a.btn.btn-success.btn-sm{href: research_topic_path(research_topic,anchor: "comments")}
+            %a.btn.btn-success.btn-sm.research_priority{"data-category" => "#{research_topic.state}" }
               = research_topic.state.titleize
-              -#= link_to research_topic.state.titleize, research_topic_path(research_topic,anchor: "comments")
 
 
 
