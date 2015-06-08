@@ -44,9 +44,9 @@
     .col-sm-4
       = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Fatsecret'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      -#= render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Garmin Fit'}, locals: { marketplace_synced: @marketplace_synced}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Garmin Fit'}, locals: { marketplace_synced: @marketplace_synced}
     .col-sm-4
-      -#= render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Misfit Wearables'}, locals: { marketplace_synced: @marketplace_synced}
+      = render partial: "marketplace_app", object: @marketplace.find {|app| app['name'] == 'Misfit Wearables'}, locals: { marketplace_synced: @marketplace_synced}
 
   = javascript_include_tag 'my_dashboard'
   
@@ -81,14 +81,14 @@
       %i.fa.fa-times
     %td
       %i.fa.fa-times
-  -#%tr
-  -#  %td Garmin Fit
-  -#  %td
-  -#    %i.fa.fa-times
-  -#  %td
-  -#    %i.fa.fa-times
-  -#  %td
-  -#    %i.fa.fa-times
+  %tr
+    %td Garmin Fit
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
   %tr
     %td JawboneUP
     %td
@@ -102,14 +102,14 @@
     %td
     %td
     %td
-  -#%tr
-  -#  %td Misfit Wearables
-  -#  %td
-  -#    %i.fa.fa-times
-  -#  %td
-  -#    %i.fa.fa-times
-  -#  %td
-  -#    %i.fa.fa-times
+  %tr
+    %td Misfit Wearables
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
+    %td
+      %i.fa.fa-times
   %tr
     %td Moves
     %td
