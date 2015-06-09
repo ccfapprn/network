@@ -89,7 +89,7 @@
       -if Figaro.env.survey_maintenance == "true"
         .pull-right
           .alert{:style => "padding: 5px 20px 5px 20px; margin-top: 15px;"}
-            The survey system is currently undergoing maintenance, please check back later
+            
       - elsif current_user.external_account.next_survey_date.future?
         .pull-right
           .alert{:style => "padding: 5px 20px 5px 20px; margin-top: 15px;"}
