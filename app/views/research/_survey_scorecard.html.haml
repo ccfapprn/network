@@ -4,7 +4,10 @@
     %h3.panel-title Your Survey Scorecard
 
 
-  - if @survey_scorecard.empty?
+  - if Figaro.env.survey_maintenance == "true"
+    .panel-body
+      .alert.alert-info The survey system is currently undergoing maintenance, please check back later
+  - elsif @survey_scorecard.empty?
     .panel-body
       .alert.alert-info We have no data on your survey taking history...yet.
   - else

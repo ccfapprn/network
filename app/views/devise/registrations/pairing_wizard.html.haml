@@ -1,7 +1,11 @@
 -### pairing wizard
 
 -# Pair with Legacy CCFA Partners
-- if !current_user.paired_with_lcp
+- if Figaro.env.survey_maintenance
+  .panel.panel-default
+    .panel-heading
+      The survey system is currently undergoing maintenance, please check back later
+- elsif !current_user.paired_with_lcp
   .panel.panel-default
     .panel-heading
       Were you previously a CCFA Partners member?
