@@ -11,7 +11,7 @@ class ResearchTopic < ActiveRecord::Base
 
   belongs_to :user
 
-  STATES = [:proposed, :top_priority, :in_progress, :being_researched, :completed, :better_answered_elsewhere, :answered_by_others, :rejected]
+  STATES = [:proposed, :top_priority, :under_development, :being_researched, :completed, :better_answered_elsewhere, :answered_by_others, :rejected]
   #not as OLD iimplementation STATES = [:proposed, :under_study, :study_completed, :rejected]
   #Old Implementation: STATES = [:under_review, :proposed, :accepted, :rejected, :complete, :hidden]
   CATEGORIES = [:diet, :medications, :procedures_and_testing, :alternative_therapies, :exercise, :lifestyle, :environment, :genetics, :other]
