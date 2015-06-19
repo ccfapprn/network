@@ -6,10 +6,12 @@
         Votes
       - elsif kind == :newest
         Posted On
-      - elsif kind == :most_discussed
+      - elsif kind == :most_active
         Last Activity On
       - elsif kind == :archived
         Last Activity On
+      - elsif kind == :category
+        Posted On
 
     %th.col-sm-8.small Question
     -#%th.col-sm-2.small Vote
@@ -25,11 +27,13 @@
           = research_topic.rating #rank
         - elsif kind == :newest
           = my_strftime(research_topic.created_at)
-        - elsif kind == :most_discussed
+        - elsif kind == :most_active
           -#= research_topic.comments_last_30
           = my_strftime(research_topic.updated_at)
         - elsif kind == :archived
           = my_strftime(research_topic.updated_at)
+        - elsif kind == :category
+          = my_strftime(research_topic.created_at)
       %td
         = link_to research_topic.text, research_topic_path(research_topic)
         %br

@@ -12,9 +12,12 @@ class ResearchController < ApplicationController
 
   def index
     @research_topics_popular = ResearchTopic.popular.page params[:popular_page]
-    @research_topics_most_discussed = ResearchTopic.most_discussed.page params[:most_discussed_page]
+    @research_topics_most_active = ResearchTopic.most_active.page params[:most_active_page]
     @research_topics_newest = ResearchTopic.newest.page params[:newest_page]
     @research_topics_archived = ResearchTopic.archived.page params[:archived_page]
+    @research_topics_category = ResearchTopic.category(params[:category]).page params[:category_page]
+
+    @research_category = params[:category].to_sym if params[:category]
   end
 
   def my_contributions

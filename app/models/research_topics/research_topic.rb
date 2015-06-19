@@ -28,9 +28,10 @@ class ResearchTopic < ActiveRecord::Base
   #scope :sorted, -> { order(:votes_count)}
 
   scope :popular, -> { accepted.order(votes_count: :desc) }
-  scope :most_discussed, -> { accepted.order(updated_at: :desc) } #make sure commenting touches the model
+  scope :most_active, -> { accepted.order(updated_at: :desc) } #make sure commenting touches the model
   scope :newest, -> { accepted.order(created_at: :desc) }
   scope :archived, -> { where("state != 'proposed'").where("state != 'rejected'").where("archive_date <= ?",2.weeks.ago.to_date).order(updated_at: :desc) }
+  scope :category, ->(category) { accepted.where("category = ?",category).order(created_at: :desc) }
 
   # intentionally returns all now, to allow for future filtering (no filters needed at the moment):
   scope :viewable_by, lambda { |user_id| self.all}
@@ -42,7 +43,7 @@ class ResearchTopic < ActiveRecord::Base
   # order by comment_count desc, r.id;
 
   def self.most_commented
-    most_discussed.sort {|a,b| a.comments_last_30 <=> b.comments_last_30}
+    most_active.sort {|a,b| a.comments_last_30 <=> b.comments_last_30}
   end
 
   def update(params)
