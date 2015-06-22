@@ -13,8 +13,6 @@
             %a{href: "?active_tab=most_active"} Most Active
           %li{class: ("active" if params[:active_tab] == "popular")}
             %a{href: "?active_tab=popular"} Current Standings
-          %li{class: ("active" if params[:active_tab] == "archived")}
-            %a{href: "?active_tab=archived"} Archived
 
           %li.dropdown{class: ("active" if params[:category]), "role"=>"presentation"}
             %a.dropdown-toggle{"data-toggle"=>"dropdown", "href"=>"#", "role"=>"button", "aria-haspopup"=>"true", "aria-expanded"=>"false"}
@@ -26,8 +24,8 @@
                   %a{"href" => "?category=#{c}"}
                     = c.to_s.titleize
 
-        -# = form_tag(:action => 'index') do
-        -#   = select_tag(:filter, options_for_select( ResearchTopic::CATEGORIES.map {|c| [c.to_s.titleize, c.to_s]}))
+          %li.pull-right{class: ("active" if params[:active_tab] == "archived")}
+            %a{href: "?active_tab=archived"} Archived
 
       .tab-content
         -if (params[:category].nil? && params[:active_tab].nil?) || (params[:active_tab] == "newest")
