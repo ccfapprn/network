@@ -19,4 +19,29 @@ namespace :badges do
 
   end
 
+
+  desc "fix baseline badge count issue"
+  task fix_baseline: :environment do
+    # baseline badge dupes
+    barr = Merit::BadgesSash.group(:sash_id).where("badge_id=1").having("count(*) > 1").count
+
+    barr.each do |sash_id,count|
+      puts sash_id.to_s + " " + count.to_s
+
+      bs = Merit::BadgesSash.where("sash_id = ?",sash_id).where("badge_id=1")
+      puts "BS count = " + bs.count.to_s
+      first = true
+      bs.each do |b|
+        if first
+          puts "Keep BadgesSash: " + b.id.to_s
+        else
+          puts "Destroy BadgesSash: " + b.id.to_s
+          #b.destroy
+        end
+        first = false
+      end
+    end
+  end
+
+
 end
