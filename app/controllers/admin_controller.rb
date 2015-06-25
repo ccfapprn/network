@@ -45,7 +45,7 @@ class AdminController < ApplicationController
   end
 
   def profiles
-    @user_profiles = User.all.select{|u| u.social_profile.photo?}
+    @user_profiles = User.all.select{|u| u.social_profile && u.social_profile.photo?}
   end
 
   def blog
