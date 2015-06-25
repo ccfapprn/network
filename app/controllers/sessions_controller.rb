@@ -1,8 +1,8 @@
 class SessionsController < Devise::SessionsController
 
+  before_action :record_user_action, only: [:create]
   skip_before_action :redirect_to_pairing_if_user_not_paired
   after_action :sync_oodt_status, only: [:create]
-  after_action :record_user_action, only: [:create]
 
 
   private

@@ -44,6 +44,10 @@ class AdminController < ApplicationController
     end
   end
 
+  def profiles
+    @user_profiles = User.all.select{|u| u.social_profile.photo?}
+  end
+
   def blog
     @posts = Post.blog_posts
     @new_post = Post.new(post_type: :blog)

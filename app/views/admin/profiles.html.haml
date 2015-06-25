@@ -1,0 +1,18 @@
+
+%h3 User Profile Photos
+-# view for :owner role
+-if current_user && current_user.has_role?(:owner)
+  .table-responsive
+    %table.table
+      %thead
+        %tr
+          %th
+            User
+          %th
+            Photo
+
+      %tbody
+        - @user_profiles.each do |user|
+          %tr
+            %td= user.email
+            %td= image_tag user.social_profile.community_photo_url
