@@ -18,10 +18,10 @@ class BlogController < ApplicationController
     @research_posts = Post.blog_posts.where("user_id IN (?)", @research_team.collect(&:id))
     @tech_team = User.with_role(:tech_team).shuffle.first(6)
     @tech_posts = Post.blog_posts.where("user_id IN (?)", @tech_team.collect(&:id))
-    @all_team = (@patient_team+@research_team+@tech_team).shuffle.first(6)
-    @all_posts = Post.blog_posts.where("user_id IN (?)", @all_team.collect(&:id))
     @help_center_team = User.with_role(:help_center).shuffle.first(6)
     @help_center_posts = Post.blog_posts.where("user_id IN (?)", @help_center_team.collect(&:id))
+    @all_team = (@patient_team+@research_team+@tech_team+@help_center_team).shuffle.first(6)
+    @all_posts = Post.blog_posts.where("user_id IN (?)", @all_team.collect(&:id))
 
 
     render layout: "community"
