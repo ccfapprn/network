@@ -1,7 +1,6 @@
 module ExternalAccounts
   extend ActiveSupport::Concern
 
-
   included do
     #after_create :provision_external_accounts
 

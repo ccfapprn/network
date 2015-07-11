@@ -29,6 +29,12 @@ Rails.application.routes.draw do
     get 'registrations/confirm/:token' => 'registrations#confirm_alt_email', as: 'registrations_confirm_alt_email'
   end
 
+  #API Data Exchange Routes
+  get 'exchange/receive_auth_code' => 'exchange#receive_auth_code'
+  get 'exchange/request_auth_code' => 'exchange#request_auth_code'
+  get 'exchange/imported' => 'exchange#imported'
+
+
   # Research Topics
   #match 'research_topic/:id', to: "research_topics#show", as: :research_topic, via: :get
   #match 'research_questions', to: 'research_topics#index', via: :get, as: :research_topics
