@@ -128,7 +128,7 @@ end
 
 
 
-      #   {name: 'check-iner', description: 'You\'ve done 40 frequent surveys', custom_fields: { title: 'Frequent Check-iner', icon: 'fa-clock-o', category: 'health_data' }},
+      #   {name: 'health-reporter', description: 'You\'ve done 40 frequent surveys', custom_fields: { title: 'Frequent Health Reporter', icon: 'fa-clock-o', category: 'health_data' }},
           # NEED FREQUENT SURVEY ENGINE UP FOR THIS
 
       #   {name: 'connector', description: 'You\'ve connected 3 Data Sources', custom_fields: { title: 'Connector', icon: 'fa-link', category: 'health_data' }},

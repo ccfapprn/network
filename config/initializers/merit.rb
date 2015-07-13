@@ -25,7 +25,7 @@ end
 # Multi-Level Badges
 # 1) Survey Responder, 2) Checkiner, 3) Research Proposer (title??), 4) Voter 5) Discusser 6) Community Face
 survey_responder_attr = {name: 'survey_responder', custom_fields: { title: 'Survey Responder', icon: 'fa-list-ul', category: 'research', category_description: 'Complete biannual surveys when they are available', display_order: 1 }}
-checkin_attr =  {name: 'checkin', custom_fields: { title: 'Check-iner', icon: 'fa-clock-o', category: 'health_data', category_description: 'Complete health check-ins to keep us up to date!', display_order: 2 }}
+checkin_attr =  {name: 'checkin', custom_fields: { title: 'Health Reporter', icon: 'fa-clock-o', category: 'health_data', category_description: 'Complete health check-ins to keep us up to date!', display_order: 2 }}
 research_designer_attr = {name: 'research_designer', custom_fields: { title: 'Research Proposer', icon: 'fa-bar-chart', category: 'research', category_description: 'Design research questions that people like', display_order: 3 } }
 voter_attr = {name: 'voter', custom_fields: { title: 'Voter', icon: 'fa-check-circle-o', category: 'research', category_description: 'Vote for research questions you find most valuable', display_order: 4 } }
 discusser_attr =   {name: 'discusser', custom_fields: { title: 'Discusser', icon: 'fa-comments-o', category: 'research', category_description: 'Spark discussions about research questions!', display_order: 5 }}
